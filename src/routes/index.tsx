@@ -2,6 +2,7 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/audio";
 import { Confetti } from "@/components/Confetti";
+import { Emoji } from "@/components/Emoji";
 import { SoundToggle } from "@/components/SoundToggle";
 
 export const Route = createFileRoute("/")({
@@ -129,7 +130,11 @@ function DoorFrame({ open }: { open: boolean }) {
   return (
     <div className="relative mx-auto aspect-[3/4] w-56 overflow-hidden rounded-t-[5rem] bg-muted shadow-soft">
       <div className="absolute inset-0 grid place-items-center bg-lemon">
-        <span className="font-display text-3xl font-extrabold text-foreground">🎒 ✏️ 📚</span>
+        <span className="font-display text-3xl font-extrabold text-foreground">
+          <Emoji emoji="🎒" className="inline-block" />{" "}
+          <Emoji emoji="✏️" className="inline-block" />{" "}
+          <Emoji emoji="📚" className="inline-block" />
+        </span>
       </div>
       {["left", "right"].map((side) => (
         <div
@@ -150,18 +155,20 @@ function DoorFrame({ open }: { open: boolean }) {
       ))}
       {open && (
         <>
-          <span className="animate-sparkle absolute left-6 top-10 text-2xl">✨</span>
+          <span className="animate-sparkle absolute left-6 top-10 text-2xl">
+            <Emoji emoji="✨" className="inline-block" />
+          </span>
           <span
             className="animate-sparkle absolute right-8 top-24 text-xl"
             style={{ animationDelay: "0.3s" }}
           >
-            ✨
+            <Emoji emoji="✨" className="inline-block" />
           </span>
           <span
             className="animate-sparkle absolute bottom-12 left-1/2 text-2xl"
             style={{ animationDelay: "0.6s" }}
           >
-            ✨
+            <Emoji emoji="✨" className="inline-block" />
           </span>
         </>
       )}

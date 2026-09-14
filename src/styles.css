@@ -103,6 +103,13 @@
   .font-display {
     font-family: var(--font-display);
   }
+
+  .emoji {
+    width: 1em;
+    height: 1em;
+    display: inline-block;
+    vertical-align: -0.15em;
+  }
 }
 
 @utility card-soft {

@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { Emoji } from "@/components/Emoji";
 import { PageHeader } from "@/components/PageHeader";
 import { subjectById, years } from "@/data/curriculum";
 import { sfx } from "@/lib/audio";
@@ -22,7 +23,15 @@ function YearPage() {
 
   return (
     <main className="mx-auto w-full max-w-md px-5 py-6">
-      <PageHeader title="Pilih Tahun" subtitle={`${info.icon} ${info.name}`} backTo="/subjek" />
+      <PageHeader
+        title="Pilih Tahun"
+        subtitle={
+          <>
+            <Emoji emoji={info.icon} className="inline-block" /> {info.name}
+          </>
+        }
+        backTo="/subjek"
+      />
       <div className="grid gap-4">
         {years.map((year) => (
           <Link

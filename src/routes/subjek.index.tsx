@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Emoji } from "@/components/Emoji";
 import { PageHeader } from "@/components/PageHeader";
 import { subjects, slugify, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
 import { listUnfinished, type Unfinished } from "@/lib/progress";
@@ -50,7 +51,9 @@ function SubjectsPage() {
                   onClick={() => sfx.click()}
                   className="tap-pop flex items-center gap-3 rounded-3xl bg-card p-4 shadow-soft"
                 >
-                  <span className="text-2xl">{subject.icon}</span>
+                  <span className="text-2xl">
+                    <Emoji emoji={subject.icon} className="inline-block" />
+                  </span>
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-display font-bold">{topic}</span>
                     <span className="block truncate text-xs text-muted-foreground">
@@ -75,7 +78,7 @@ function SubjectsPage() {
             className={`tap-pop animate-pop-in flex items-center gap-4 rounded-3xl ${subject.color} p-6 shadow-soft`}
           >
             <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-card text-3xl">
-              {subject.icon}
+              <Emoji emoji={subject.icon} className="inline-block" />
             </span>
             <span className="min-w-0">
               <span className="block truncate font-display text-xl font-extrabold">

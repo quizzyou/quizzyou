@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Emoji } from "@/components/Emoji";
 import { isSoundOn, setSoundOn, sfx } from "@/lib/audio";
 
 export function SoundToggle() {
@@ -20,7 +21,7 @@ export function SoundToggle() {
       aria-label={on ? "Matikan bunyi" : "Hidupkan bunyi"}
       className="tap-pop grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-xl shadow-soft"
     >
-      {on ? "🔊" : "🔇"}
+      <Emoji emoji={on ? "🔊" : "🔇"} className="inline-block" />
     </button>
   );
 }
