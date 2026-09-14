@@ -127,11 +127,13 @@ function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Questi
     }
   }
 
+  const revise = lang === "bm" ? "Ulang kaji" : "Revision";
+  const startsWith = lang === "bm" ? "jawapan bermula dengan" : "the answer starts with";
   for (const pair of pairs) {
     const built = buildChoices(pair.a, pool, rand);
     out.push({
       id: 0,
-      prompt: `${pair.q} (${label.hint}: ${maskAnswer(pair.a)})`,
+      prompt: `${revise}: ${pair.q} (${startsWith} '${pair.a.charAt(0)}')`,
       ...built,
     });
   }
