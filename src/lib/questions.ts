@@ -169,7 +169,7 @@ function moneyLabel(cents: number) {
   return `RM${(cents / 100).toFixed(2)}`;
 }
 
-function year2ProblemSolvingQuestions(): Question[] {
+function year2ProblemSolvingQuestions(seed: number): Question[] {
   const items: { prompt: string; choices: string[]; answer: string }[] = [
     { prompt: "Ali ada 145 biji guli. Raju ada 230 biji guli. Berapakah jumlah guli mereka?", choices: ["375", "385", "365", "400"], answer: "375" },
     { prompt: "Sebuah kedai ada 500 buah buku latihan. 125 buah buku telah dijual. Berapakah baki buku yang tinggal?", choices: ["375", "425", "385", "475"], answer: "375" },
@@ -212,9 +212,11 @@ function year2ProblemSolvingQuestions(): Question[] {
     { prompt: "Apakah bentuk 3D yang mempunyai 1 permukaan melengkung dan 2 permukaan rata berbentuk bulatan?", choices: ["Silinder", "Kon", "Sfera", "Kubus"], answer: "Silinder" },
     { prompt: "Sebuah kotak kasut mempunyai bentuk yang serupa dengan pepejal geometri yang mempunyai 6 permukaan rata (bukan semua sama saiz), 8 bucu dan 12 tepi. Apakah pepejal geometri ini?", choices: ["Kuboid", "Kubus", "Piramid", "Kon"], answer: "Kuboid" },
   ];
+  const rand = rng(seed);
   return items.map((item, i) => {
-    const answer = item.choices.indexOf(item.answer);
-    return { id: i + 1, prompt: item.prompt, choices: item.choices, answer };
+    const choices = shuffle(item.choices, rand);
+    const answer = choices.indexOf(item.answer);
+    return { id: i + 1, prompt: item.prompt, choices, answer };
   });
 }
 
@@ -429,7 +431,7 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
     }
 
     if (year === "2" && t === "penyelesaian masalah") {
-      return year2ProblemSolvingQuestions();
+      return year2ProblemSolvingQuestions(seed);
     }
 
     // Penyelesaian Masalah
