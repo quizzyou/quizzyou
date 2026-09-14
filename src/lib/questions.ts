@@ -169,7 +169,7 @@ function moneyLabel(cents: number) {
   return `RM${(cents / 100).toFixed(2)}`;
 }
 
-function year2ProblemSolvingQuestions(): Question[] {
+function year2ProblemSolvingQuestions(seed: number): Question[] {
   const items: { prompt: string; choices: string[]; answer: string }[] = [
     { prompt: "Ali ada 145 biji guli. Raju ada 230 biji guli. Berapakah jumlah guli mereka?", choices: ["375", "385", "365", "400"], answer: "375" },
     { prompt: "Sebuah kedai ada 500 buah buku latihan. 125 buah buku telah dijual. Berapakah baki buku yang tinggal?", choices: ["375", "425", "385", "475"], answer: "375" },
