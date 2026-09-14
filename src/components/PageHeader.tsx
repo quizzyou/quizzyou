@@ -26,7 +26,7 @@ export function PageHeader({ title, subtitle, backTo, backParams }: Props) {
           to={backTo}
           params={backParams ?? {}}
           onClick={() => sfx.tap()}
-          className="tap-pop grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-xl shadow-soft"
+          className="tap-pop flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-card text-xl leading-none shadow-soft"
           aria-label="Kembali"
         >
           ←
