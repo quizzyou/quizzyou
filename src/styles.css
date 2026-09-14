@@ -37,8 +37,8 @@
   --color-mint: var(--mint);
   --color-wood: var(--wood);
   --color-wood-dark: var(--wood-dark);
-  --font-display: "Baloo 2", ui-rounded, system-ui, sans-serif;
-  --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Poppins", ui-rounded, system-ui, sans-serif;
+  --font-sans: "Poppins", ui-sans-serif, system-ui, sans-serif;
   --shadow-soft: 0 10px 24px -12px oklch(0.55 0.08 265 / 0.35);
   --shadow-pop: 0 14px 0 -6px oklch(0.85 0.05 265 / 0.55);
 }
@@ -87,6 +87,7 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
+    font-weight: 700;
     background-image: radial-gradient(
         circle at 12% 8%,
         oklch(0.93 0.05 240 / 0.7),
