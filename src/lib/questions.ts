@@ -311,7 +311,7 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
     if (t.startsWith("masa")) {
       const kind = i % 3;
       const h = pickInt(rand, 1, 12);
-      const m = [0, 15, 30, 45][pickInt(rand, 0, 3)];
+      const m = [0, 15, 30, 45][pickInt(rand, 0, 3)]!;
       if (kind === 0) {
         const correct = `${h}.${String(m).padStart(2, "0")}`;
         const pool = [`${h + 1}.${String(m).padStart(2, "0")}`, `${h}.${String((m + 15) % 60).padStart(2, "0")}`, `${h - 1 || 12}.${String(m).padStart(2, "0")}`, `${h}.05`];
