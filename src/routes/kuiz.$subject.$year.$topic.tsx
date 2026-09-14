@@ -204,7 +204,6 @@ function QuizPage() {
       </div>
 
       <section
-        key={question.id}
         className="card-soft animate-pop-in mt-5 px-5 py-6 text-center"
       >
         <p className="font-display text-xl font-extrabold leading-snug">{question.prompt}</p>
