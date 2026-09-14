@@ -9,6 +9,7 @@ export type Question = {
   id: number;
   prompt: string;
   vertical?: Vertical;
+  answerMode?: "column-input";
   choices: string[];
   answer: number;
 };
@@ -169,6 +170,67 @@ function moneyLabel(cents: number) {
   return `RM${(cents / 100).toFixed(2)}`;
 }
 
+function year2ColumnAdditionQuestions(): Question[] {
+  const exercises: { a: number; b: number; prompt?: string }[] = [
+    // Tanpa mengumpul semula
+    { a: 123, b: 245 },
+    { a: 214, b: 352 },
+    { a: 341, b: 128 },
+    { a: 432, b: 156 },
+    { a: 205, b: 374 },
+    { a: 513, b: 264 },
+    { a: 620, b: 179 },
+    { a: 142, b: 637 },
+    { a: 303, b: 486 },
+    { a: 251, b: 438 },
+    // Satu pengumpulan semula
+    { a: 247, b: 132 },
+    { a: 326, b: 153 },
+    { a: 451, b: 238 },
+    { a: 164, b: 425 },
+    { a: 273, b: 516 },
+    { a: 342, b: 547 },
+    { a: 618, b: 271 },
+    { a: 235, b: 654 },
+    { a: 472, b: 317 },
+    { a: 561, b: 328 },
+    // Lebih daripada satu pengumpulan semula
+    { a: 287, b: 159 },
+    { a: 468, b: 275 },
+    { a: 596, b: 187 },
+    { a: 378, b: 465 },
+    { a: 649, b: 286 },
+    { a: 457, b: 368 },
+    { a: 785, b: 196 },
+    { a: 667, b: 278 },
+    { a: 584, b: 397 },
+    { a: 675, b: 325 },
+    // Situasi harian Malaysia
+    { a: 145, b: 230, prompt: "Ali ada 145 biji guli. Raju ada 230 biji guli. Berapakah jumlah guli mereka?" },
+    { a: 268, b: 157, prompt: "Perpustakaan sekolah mempunyai 268 buah buku cerita dan menerima 157 buah lagi. Berapakah jumlah buku cerita sekarang?" },
+    { a: 186, b: 249, prompt: "Cikgu Aina menyediakan 186 batang pensel. Cikgu Kumar membawa 249 batang lagi. Berapakah jumlah pensel semuanya?" },
+    { a: 327, b: 186, prompt: "Siti mengumpul 327 biji rambutan dan Mei Ling mengumpul 186 biji. Berapakah jumlah rambutan mereka?" },
+    { a: 475, b: 248, prompt: "Sebuah kantin menjual 475 kuih pada waktu pagi dan 248 kuih pada waktu rehat. Berapakah jumlah kuih yang dijual?" },
+    { a: 189, b: 376, prompt: "Kedai sekolah mempunyai 189 batang pembaris dan menerima 376 batang lagi. Berapakah jumlah pembaris itu?" },
+    { a: 295, b: 408, prompt: "Ravi mengutip 295 biji mangga dan ayahnya mengutip 408 biji lagi. Berapakah jumlah mangga mereka?" },
+    { a: 456, b: 329, prompt: "Tabung kelas mengandungi RM456. Murid-murid menambah RM329. Berapakah jumlah wang di dalam tabung?" },
+    { a: 638, b: 247, prompt: "Sekolah membeli 638 buah buku latihan dan 247 buah buku nota. Berapakah jumlah buku yang dibeli?" },
+    { a: 574, b: 426, prompt: "Sebuah koperasi menerima 574 batang pen biru dan 426 batang pen hitam. Berapakah jumlah pen semuanya?" },
+  ];
+
+  return exercises.map(({ a, b, prompt }, i) => {
+    const correct = String(a + b);
+    return {
+      id: i + 1,
+      prompt: prompt ?? "Tambah nombor berikut dalam bentuk lazim.",
+      vertical: { a: String(a), b: String(b), op: "+" },
+      answerMode: "column-input",
+      choices: [correct],
+      answer: 0,
+    };
+  });
+}
+
 function year2ProblemSolvingQuestions(seed: number): Question[] {
   const items: { prompt: string; choices: string[]; answer: string }[] = [
     { prompt: "Ali ada 145 biji guli. Raju ada 230 biji guli. Berapakah jumlah guli mereka?", choices: ["375", "385", "365", "400"], answer: "375" },
@@ -225,6 +287,8 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
   const t = topic.toLowerCase();
   const out: Question[] = [];
   const max = year === "1" ? 100 : year === "2" ? 1000 : 10000;
+
+  if (year === "2" && t === "tambah") return year2ColumnAdditionQuestions();
 
   const addQ = (q: Question) => out.push(q);
 

@@ -53,15 +53,14 @@ function QuizPage() {
 
   const question = questions[index];
 
-  const choose = (choiceIndex: number) => {
+  const completeAnswer = (submittedAnswer: number, correct: boolean) => {
     if (picked !== null || !question) return;
-    const correct = choiceIndex === question.answer;
-    setPicked(choiceIndex);
+    setPicked(submittedAnswer);
     if (correct) sfx.correct();
     else sfx.wrong();
 
     const nextAnswers = [...answers];
-    nextAnswers[index] = choiceIndex;
+    nextAnswers[index] = submittedAnswer;
     const nextScore = score + (correct ? 1 : 0);
     setAnswers(nextAnswers);
     setScore(nextScore);
@@ -87,6 +86,10 @@ function QuizPage() {
         });
       }
     }, 900);
+  };
+
+  const choose = (choiceIndex: number) => {
+    completeAnswer(choiceIndex, choiceIndex === question.answer);
   };
 
   const restart = () => {
@@ -204,36 +207,49 @@ function QuizPage() {
         className="card-soft animate-pop-in mt-5 px-5 py-6 text-center"
       >
         <p className="font-display text-xl font-extrabold leading-snug">{question.prompt}</p>
-        {question.vertical && <VerticalSum vertical={question.vertical} />}
+        {question.vertical && question.answerMode !== "column-input" && (
+          <VerticalSum vertical={question.vertical} />
+        )}
       </section>
 
-      <div className="mt-5 grid gap-3">
-        {question.choices.map((choice, i) => {
-          const isPicked = picked === i;
-          const isCorrect = i === question.answer;
-          const bg =
-            picked === null
-              ? ["bg-sky", "bg-peach", "bg-lavender", "bg-lemon"][i % 4]
-              : isCorrect
-                ? "bg-mint"
-                : isPicked
-                  ? "bg-destructive"
-                  : "bg-card";
-          return (
-            <button
-              key={`${question.id}-${i}`}
-              type="button"
-              disabled={picked !== null}
-              onClick={() => choose(i)}
-              className={`tap-pop rounded-3xl ${bg} px-4 py-4 font-display text-lg font-extrabold shadow-soft ${
-                isPicked && !isCorrect ? "animate-shake" : ""
-              }`}
-            >
-              {choice}
-            </button>
-          );
-        })}
-      </div>
+      {question.answerMode === "column-input" && question.vertical ? (
+        <ColumnAddition
+          key={question.id}
+          vertical={question.vertical}
+          correctAnswer={question.choices[question.answer] ?? ""}
+          disabled={picked !== null}
+          result={picked === null ? null : picked === Number(question.choices[question.answer])}
+          onComplete={(value) => completeAnswer(value, value === Number(question.choices[question.answer]))}
+        />
+      ) : (
+        <div className="mt-5 grid gap-3">
+          {question.choices.map((choice, i) => {
+            const isPicked = picked === i;
+            const isCorrect = i === question.answer;
+            const bg =
+              picked === null
+                ? ["bg-sky", "bg-peach", "bg-lavender", "bg-lemon"][i % 4]
+                : isCorrect
+                  ? "bg-mint"
+                  : isPicked
+                    ? "bg-destructive"
+                    : "bg-card";
+            return (
+              <button
+                key={`${question.id}-${i}`}
+                type="button"
+                disabled={picked !== null}
+                onClick={() => choose(i)}
+                className={`tap-pop rounded-3xl ${bg} px-4 py-4 font-display text-lg font-extrabold shadow-soft ${
+                  isPicked && !isCorrect ? "animate-shake" : ""
+                }`}
+              >
+                {choice}
+              </button>
+            );
+          })}
+        </div>
+      )}
 
       {picked !== null && picked === question.answer && <Confetti count={26} seed={question.id} />}
 
@@ -248,6 +264,146 @@ function QuizPage() {
         Simpan &amp; keluar
       </button>
     </main>
+  );
+}
+
+const PLACE_NAMES = ["Sa", "Puluh", "Ratus", "Ribu"];
+
+function ColumnAddition({
+  vertical,
+  correctAnswer,
+  disabled,
+  result,
+  onComplete,
+}: {
+  vertical: Vertical;
+  correctAnswer: string;
+  disabled: boolean;
+  result: boolean | null;
+  onComplete: (value: number) => void;
+}) {
+  const columnCount = Math.max(3, vertical.a.length, vertical.b.length, correctAnswer.length);
+  const [digits, setDigits] = useState<string[]>(Array(columnCount).fill(""));
+  const [active, setActive] = useState<number | null>(null);
+  const [revealedCarries, setRevealedCarries] = useState<boolean[]>(Array(columnCount).fill(false));
+  const aDigits = vertical.a.padStart(columnCount, " ").split("");
+  const bDigits = vertical.b.padStart(columnCount, " ").split("");
+  const names = Array.from({ length: columnCount }, (_, i) => PLACE_NAMES[columnCount - i - 1] ?? "");
+
+  const carries = Array(columnCount).fill(0) as number[];
+  let incoming = 0;
+  for (let i = columnCount - 1; i > 0; i--) {
+    const total = Number(aDigits[i] || 0) + Number(bDigits[i] || 0) + incoming;
+    carries[i - 1] = Math.floor(total / 10);
+    incoming = carries[i - 1] ?? 0;
+  }
+
+  const enterDigit = (digit: string) => {
+    if (disabled || active === null) return;
+    sfx.tap();
+    const next = [...digits];
+    next[active] = digit;
+    setDigits(next);
+
+    const carryTarget = active - 1;
+    if (carryTarget >= 0 && (carries[carryTarget] ?? 0) > 0) {
+      setRevealedCarries((current) => current.map((shown, i) => shown || i === carryTarget));
+    }
+
+    const nextEmptyToLeft = next.slice(0, active).lastIndexOf("");
+    const nextEmptyToRight = next.findIndex((value, i) => i > active && value === "");
+    const nextActive = nextEmptyToLeft >= 0 ? nextEmptyToLeft : nextEmptyToRight;
+    setActive(nextActive >= 0 ? nextActive : null);
+
+    if (next.every(Boolean)) onComplete(Number(next.join("")));
+  };
+
+  const removeDigit = () => {
+    if (disabled) return;
+    sfx.tap();
+    const target = active ?? digits.findIndex(Boolean);
+    if (target < 0) return;
+    const next = [...digits];
+    if (next[target]) {
+      next[target] = "";
+      setDigits(next);
+      setActive(target);
+      return;
+    }
+    const filledToRight = next.findIndex((value, i) => i > target && Boolean(value));
+    if (filledToRight >= 0) {
+      next[filledToRight] = "";
+      setDigits(next);
+      setActive(filledToRight);
+    }
+  };
+
+  const gridStyle = { gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` };
+  const feedbackClass = result === null ? "" : result ? "bg-mint" : "bg-destructive animate-shake";
+
+  return (
+    <div className="mt-5">
+      <section className={`card-soft px-3 py-5 transition-colors ${feedbackClass}`} aria-label="Bentuk lazim tambah">
+        <div className="ml-7 grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
+          {names.map((name) => <span key={name}>{name}</span>)}
+        </div>
+        <div className="ml-7 grid h-6 text-center text-sm text-primary" style={gridStyle} aria-label="Nombor simpan">
+          {carries.map((carry, i) => (
+            <span key={i} className={revealedCarries[i] && carry ? "animate-carry-in" : "opacity-0"}>
+              {carry || ""}
+            </span>
+          ))}
+        </div>
+        <div className="grid grid-cols-[1.75rem_1fr] items-center text-center font-display text-3xl font-extrabold">
+          <span aria-hidden="true" />
+          <div className="grid" style={gridStyle}>{aDigits.map((digit, i) => <span key={i}>{digit}</span>)}</div>
+          <span aria-hidden="true">+</span>
+          <div className="grid" style={gridStyle}>{bDigits.map((digit, i) => <span key={i}>{digit}</span>)}</div>
+        </div>
+        <div className="mt-2 border-t-4 border-foreground/60 pt-3">
+          <div className="ml-7 grid gap-2" style={gridStyle}>
+            {digits.map((digit, i) => (
+              <button
+                key={i}
+                type="button"
+                disabled={disabled}
+                onClick={() => { sfx.tap(); setActive(i); }}
+                className={`tap-pop aspect-square min-w-0 rounded-xl border-2 bg-card font-display text-2xl font-extrabold shadow-soft ${active === i ? "border-primary ring-2 ring-primary/30" : "border-border"}`}
+                aria-label={`Jawapan rumah ${names[i]}`}
+              >
+                {digit}
+              </button>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <p className="mt-3 text-center text-sm text-muted-foreground">
+        {result === null ? "Tekan kotak jawapan, kemudian masukkan nombor." : result ? "Betul!" : "Cuba soalan seterusnya."}
+      </p>
+      <div className="mx-auto mt-3 grid max-w-xs grid-cols-3 gap-2" aria-label="Papan kekunci nombor">
+        {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map((digit, i) => (
+          <button
+            key={digit}
+            type="button"
+            disabled={disabled}
+            onClick={() => enterDigit(digit)}
+            className={`tap-pop h-12 rounded-2xl font-display text-xl font-extrabold shadow-soft ${["bg-sky", "bg-peach", "bg-lavender", "bg-lemon"][i % 4]}`}
+          >
+            {digit}
+          </button>
+        ))}
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={removeDigit}
+          className="tap-pop col-span-2 h-12 rounded-2xl bg-card font-display text-xl font-extrabold shadow-soft"
+          aria-label="Padam nombor"
+        >
+          ⌫
+        </button>
+      </div>
+    </div>
   );
 }
 
