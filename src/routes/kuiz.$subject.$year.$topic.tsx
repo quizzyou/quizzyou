@@ -349,26 +349,26 @@ function ColumnAddition({
     <div className="mt-5">
       <section className={`card-soft px-3 py-5 transition-colors ${feedbackClass}`} aria-label="Bentuk lazim tambah">
         <div className="ml-7 grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
-          {names.map((name) => <span key={name}>{name}</span>)}
+          {names.map((name, i) => <span key={`place-${i}-${name}`}>{name}</span>)}
         </div>
         <div className="ml-7 grid h-6 text-center text-sm text-primary" style={gridStyle} aria-label="Nombor simpan">
           {carries.map((carry, i) => (
-            <span key={i} className={revealedCarries[i] && carry ? "animate-carry-in" : "opacity-0"}>
+            <span key={`carry-${i}`} className={revealedCarries[i] && carry ? "animate-carry-in" : "opacity-0"}>
               {carry || ""}
             </span>
           ))}
         </div>
         <div className="grid grid-cols-[1.75rem_1fr] items-center text-center font-display text-3xl font-extrabold">
           <span aria-hidden="true" />
-          <div className="grid" style={gridStyle}>{aDigits.map((digit, i) => <span key={i}>{digit}</span>)}</div>
+          <div className="grid" style={gridStyle}>{aDigits.map((digit, i) => <span key={`top-${i}`}>{digit}</span>)}</div>
           <span aria-hidden="true">+</span>
-          <div className="grid" style={gridStyle}>{bDigits.map((digit, i) => <span key={i}>{digit}</span>)}</div>
+          <div className="grid" style={gridStyle}>{bDigits.map((digit, i) => <span key={`bottom-${i}`}>{digit}</span>)}</div>
         </div>
         <div className="mt-2 border-t-4 border-foreground/60 pt-3">
           <div className="ml-7 grid gap-2" style={gridStyle}>
             {digits.map((digit, i) => (
               <button
-                key={i}
+                key={`answer-${i}`}
                 type="button"
                 disabled={disabled}
                 onClick={() => { sfx.tap(); setActive(i); }}
