@@ -44,7 +44,7 @@ function shuffle<T>(items: T[], rand: () => number): T[] {
   const arr = [...items];
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(rand() * (i + 1));
-    [arr[i], arr[j]] = [arr[j], arr[i]];
+    [arr[i], arr[j]] = [arr[j]!, arr[i]!];
   }
   return arr;
 }
@@ -69,7 +69,7 @@ function misspell(word: string, rand: () => number, variantIndex: number): strin
   if (chars.length < 4) return `${word}e`;
   if (variantIndex === 0) {
     const i = 1 + Math.floor(rand() * (chars.length - 2));
-    [chars[i], chars[i + 1]] = [chars[i + 1], chars[i]];
+    [chars[i], chars[i + 1]] = [chars[i + 1]!, chars[i]!];
     return chars.join("");
   }
   if (variantIndex === 1) {
@@ -78,7 +78,7 @@ function misspell(word: string, rand: () => number, variantIndex: number): strin
     return chars.join("");
   }
   const i = 1 + Math.floor(rand() * (chars.length - 2));
-  chars.splice(i, 0, chars[i]);
+  chars.splice(i, 0, chars[i]!);
   return chars.join("");
 }
 
@@ -92,7 +92,7 @@ function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Questi
   const rand = rng(seed);
   const pairs = facts.map((line) => {
     const [q, a] = line.split("|");
-    return { q: q.trim(), a: (a ?? "").trim() };
+    return { q: (q ?? "").trim(), a: (a ?? "").trim() };
   });
   const pool = pairs.map((p) => p.a);
   const out: Question[] = [];
@@ -277,7 +277,7 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
         );
         out.push({
           id: 0,
-          prompt: `${names[i % names.length]} membeli buku ${moneyLabel(a)} dan pen ${moneyLabel(b)}. Berapakah jumlahnya?`,
+          prompt: `${names[i % names.length]!} membeli buku ${moneyLabel(a)} dan pen ${moneyLabel(b)}. Berapakah jumlahnya?`,
           ...built,
         });
       } else if (kind === 1) {
@@ -322,7 +322,7 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
           ...built,
         });
       } else if (kind === 1) {
-        addQ(numQ(`Berapakah minit dalam ${pickInt(rand, 2, 5)} jam? (1 jam = 60 minit)`, 60 * 3, rand, " minit"));
+        addQ(numQ(`Berapakah minit dalam 3 jam? (1 jam = 60 minit)`, 180, rand, " minit"));
       } else {
         const mins = pickInt(rand, 20, 90);
         addQ(numQ(`Kelas bermula pukul 8.00 pagi dan tamat selepas ${mins} minit. Berapakah jumlah minit kelas itu?`, mins, rand, " minit"));
@@ -378,8 +378,8 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
     }
 
     // Penyelesaian Masalah
-    const name = names[i % names.length];
-    const item = things[i % things.length];
+    const name = names[i % names.length]!;
+    const item = things[i % things.length]!;
     const kind = i % 4;
     const a = year === "1" ? pickInt(rand, 12, 60) : year === "2" ? pickInt(rand, 45, 400) : pickInt(rand, 120, 2500);
     const b = year === "1" ? pickInt(rand, 5, 30) : year === "2" ? pickInt(rand, 25, 300) : pickInt(rand, 60, 1200);

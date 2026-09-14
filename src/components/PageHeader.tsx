@@ -14,8 +14,7 @@ export function PageHeader({ title, subtitle, backTo, backParams }: Props) {
     <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 pb-4">
       {backTo ? (
         <Link
-          to={backTo}
-          params={backParams}
+          {...({ to: backTo, params: backParams ?? {} } as never)}
           onClick={() => sfx.tap()}
           className="tap-pop grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-xl shadow-soft"
           aria-label="Kembali"

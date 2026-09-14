@@ -113,6 +113,8 @@ function QuizPage() {
     );
   }
 
+  if (!question) return null;
+
   if (finished) {
     const percent = Math.round((score / QUESTIONS_PER_TOPIC) * 100);
     const stars = percent >= 90 ? 5 : percent >= 75 ? 4 : percent >= 60 ? 3 : percent >= 40 ? 2 : 1;
