@@ -134,16 +134,17 @@ function DoorFrame({ open }: { open: boolean }) {
       {["left", "right"].map((side) => (
         <div
           key={side}
-          className="absolute top-0 h-full w-1/2 rounded-t-[4rem] border-4 border-wood-dark bg-wood transition-transform duration-[1600ms] ease-in-out"
+          className="absolute top-0 h-full w-1/2 rounded-t-[4rem] border-4 border-wood-dark bg-gradient-to-b from-wood via-wood to-wood-dark/80 shadow-[inset_0_-8px_16px_rgba(0,0,0,0.12)] transition-transform duration-[1800ms] will-change-transform transform-gpu"
           style={{
             [side]: 0,
             transformOrigin: side === "left" ? "left center" : "right center",
-            transform: open ? `perspective(600px) rotateY(${side === "left" ? "-" : ""}78deg)` : "none",
+            transform: open ? `perspective(700px) rotateY(${side === "left" ? "-" : ""}82deg)` : "perspective(700px) rotateY(0deg)",
+            transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
           }}
         >
-          <div className="absolute inset-3 rounded-t-[3rem] border-2 border-wood-dark/40" />
+          <div className="absolute inset-3 rounded-t-[3rem] border-2 border-wood-dark/30" />
           <div
-            className={`absolute top-1/2 h-3 w-3 rounded-full bg-lemon ${side === "left" ? "right-2" : "left-2"}`}
+            className={`absolute top-1/2 h-3 w-3 rounded-full bg-lemon shadow-sm ${side === "left" ? "right-2" : "left-2"}`}
           />
         </div>
       ))}
