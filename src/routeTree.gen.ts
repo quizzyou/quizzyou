@@ -11,8 +11,9 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as SubjekIndexRouteImport } from './routes/subjek.index'
-import { Route as SubjekSubjectRouteImport } from './routes/subjek.$subject'
+import { Route as SubjekSubjectIndexRouteImport } from './routes/subjek.$subject.index'
 import { Route as SubjekSubjectYearRouteImport } from './routes/subjek.$subject.$year'
+import { Route as KuizSubjectYearTopicRouteImport } from './routes/kuiz.$subject.$year.$topic'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -24,53 +25,74 @@ const SubjekIndexRoute = SubjekIndexRouteImport.update({
   path: '/subjek/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const SubjekSubjectRoute = SubjekSubjectRouteImport.update({
-  id: '/subjek/$subject',
-  path: '/subjek/$subject',
+const SubjekSubjectIndexRoute = SubjekSubjectIndexRouteImport.update({
+  id: '/subjek/$subject/',
+  path: '/subjek/$subject/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const SubjekSubjectYearRoute = SubjekSubjectYearRouteImport.update({
-  id: '/$year',
-  path: '/$year',
-  getParentRoute: () => SubjekSubjectRoute,
+  id: '/subjek/$subject/$year',
+  path: '/subjek/$subject/$year',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KuizSubjectYearTopicRoute = KuizSubjectYearTopicRouteImport.update({
+  id: '/kuiz/$subject/$year/$topic',
+  path: '/kuiz/$subject/$year/$topic',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/subjek/$subject': typeof SubjekSubjectRouteWithChildren
   '/subjek/': typeof SubjekIndexRoute
   '/subjek/$subject/$year': typeof SubjekSubjectYearRoute
+  '/subjek/$subject/': typeof SubjekSubjectIndexRoute
+  '/kuiz/$subject/$year/$topic': typeof KuizSubjectYearTopicRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/subjek/$subject': typeof SubjekSubjectRouteWithChildren
   '/subjek': typeof SubjekIndexRoute
   '/subjek/$subject/$year': typeof SubjekSubjectYearRoute
+  '/subjek/$subject': typeof SubjekSubjectIndexRoute
+  '/kuiz/$subject/$year/$topic': typeof KuizSubjectYearTopicRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/subjek/$subject': typeof SubjekSubjectRouteWithChildren
   '/subjek/': typeof SubjekIndexRoute
   '/subjek/$subject/$year': typeof SubjekSubjectYearRoute
+  '/subjek/$subject/': typeof SubjekSubjectIndexRoute
+  '/kuiz/$subject/$year/$topic': typeof KuizSubjectYearTopicRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/subjek/$subject' | '/subjek/' | '/subjek/$subject/$year'
+  fullPaths:
+    | '/'
+    | '/subjek/'
+    | '/subjek/$subject/$year'
+    | '/subjek/$subject/'
+    | '/kuiz/$subject/$year/$topic'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/subjek/$subject' | '/subjek' | '/subjek/$subject/$year'
+  to:
+    | '/'
+    | '/subjek'
+    | '/subjek/$subject/$year'
+    | '/subjek/$subject'
+    | '/kuiz/$subject/$year/$topic'
   id:
     | '__root__'
     | '/'
-    | '/subjek/$subject'
     | '/subjek/'
     | '/subjek/$subject/$year'
+    | '/subjek/$subject/'
+    | '/kuiz/$subject/$year/$topic'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  SubjekSubjectRoute: typeof SubjekSubjectRouteWithChildren
   SubjekIndexRoute: typeof SubjekIndexRoute
+  SubjekSubjectYearRoute: typeof SubjekSubjectYearRoute
+  SubjekSubjectIndexRoute: typeof SubjekSubjectIndexRoute
+  KuizSubjectYearTopicRoute: typeof KuizSubjectYearTopicRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -89,39 +111,36 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SubjekIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/subjek/$subject': {
-      id: '/subjek/$subject'
+    '/subjek/$subject/': {
+      id: '/subjek/$subject/'
       path: '/subjek/$subject'
-      fullPath: '/subjek/$subject'
-      preLoaderRoute: typeof SubjekSubjectRouteImport
+      fullPath: '/subjek/$subject/'
+      preLoaderRoute: typeof SubjekSubjectIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/subjek/$subject/$year': {
       id: '/subjek/$subject/$year'
-      path: '/$year'
+      path: '/subjek/$subject/$year'
       fullPath: '/subjek/$subject/$year'
       preLoaderRoute: typeof SubjekSubjectYearRouteImport
-      parentRoute: typeof SubjekSubjectRoute
+      parentRoute: typeof rootRouteImport
+    }
+    '/kuiz/$subject/$year/$topic': {
+      id: '/kuiz/$subject/$year/$topic'
+      path: '/kuiz/$subject/$year/$topic'
+      fullPath: '/kuiz/$subject/$year/$topic'
+      preLoaderRoute: typeof KuizSubjectYearTopicRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface SubjekSubjectRouteChildren {
-  SubjekSubjectYearRoute: typeof SubjekSubjectYearRoute
-}
-
-const SubjekSubjectRouteChildren: SubjekSubjectRouteChildren = {
-  SubjekSubjectYearRoute: SubjekSubjectYearRoute,
-}
-
-const SubjekSubjectRouteWithChildren = SubjekSubjectRoute._addFileChildren(
-  SubjekSubjectRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  SubjekSubjectRoute: SubjekSubjectRouteWithChildren,
   SubjekIndexRoute: SubjekIndexRoute,
+  SubjekSubjectYearRoute: SubjekSubjectYearRoute,
+  SubjekSubjectIndexRoute: SubjekSubjectIndexRoute,
+  KuizSubjectYearTopicRoute: KuizSubjectYearTopicRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
