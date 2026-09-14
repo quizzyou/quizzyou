@@ -41,24 +41,21 @@ function AccessCodePage() {
     if (state === "opening") return;
     if (key === "clear") {
       sfx.tap();
+      digitsRef.current = "";
       setDigits("");
       return;
     }
     if (key === "del") {
       sfx.tap();
-      setDigits((d) => d.slice(0, -1));
+      digitsRef.current = digitsRef.current.slice(0, -1);
+      setDigits(digitsRef.current);
       return;
     }
+    if (digitsRef.current.length >= 6) return;
     sfx.click();
-    let next = "";
-    setDigits((prev) => {
-      if (prev.length >= 6) {
-        next = prev;
-        return prev;
-      }
-      next = prev + key;
-      return next;
-    });
+    const next = digitsRef.current + key;
+    digitsRef.current = next;
+    setDigits(next);
     if (next.length === 6) {
       if (next === CODE) {
         sfx.unlock();
