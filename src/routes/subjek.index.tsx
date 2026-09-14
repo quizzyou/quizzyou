@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { Emoji } from "@/components/Emoji";
 import { PageHeader } from "@/components/PageHeader";
 import { subjects, slugify, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
 import { listUnfinished, type Unfinished } from "@/lib/progress";

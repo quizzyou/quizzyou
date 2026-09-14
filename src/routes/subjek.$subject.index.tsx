@@ -1,4 +1,5 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
+import { Emoji } from "@/components/Emoji";
 import { PageHeader } from "@/components/PageHeader";
 import { subjectById, years } from "@/data/curriculum";
 import { sfx } from "@/lib/audio";

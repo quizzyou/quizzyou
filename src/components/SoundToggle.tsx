@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Emoji } from "@/components/Emoji";
 import { isSoundOn, setSoundOn, sfx } from "@/lib/audio";
 
 export function SoundToggle() {
