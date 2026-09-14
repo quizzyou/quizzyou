@@ -22,7 +22,7 @@ function YearPage() {
   if (!info) throw notFound();
 
   return (
-    <main className="mx-auto w-full max-w-md px-5 py-6">
+    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-5 py-6">
       <PageHeader
         title="Pilih Tahun"
         subtitle={
@@ -32,18 +32,20 @@ function YearPage() {
         }
         backTo="/subjek"
       />
-      <div className="grid gap-4">
-        {years.map((year) => (
-          <Link
-            key={year.id}
-            to="/subjek/$subject/$year"
-            params={{ subject, year: year.id }}
-            onClick={() => sfx.click()}
-            className={`tap-pop animate-pop-in grid h-24 place-items-center rounded-3xl ${year.color} font-display text-2xl font-extrabold shadow-soft`}
-          >
-            {year.name}
-          </Link>
-        ))}
+      <div className="flex flex-1 flex-col justify-center">
+        <div className="grid gap-4">
+          {years.map((year) => (
+            <Link
+              key={year.id}
+              to="/subjek/$subject/$year"
+              params={{ subject, year: year.id }}
+              onClick={() => sfx.click()}
+              className={`tap-pop animate-pop-in grid h-24 place-items-center rounded-3xl ${year.color} font-display text-2xl font-extrabold shadow-soft`}
+            >
+              {year.name}
+            </Link>
+          ))}
+        </div>
       </div>
     </main>
   );
