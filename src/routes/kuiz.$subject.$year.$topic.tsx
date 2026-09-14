@@ -89,6 +89,7 @@ function QuizPage() {
   };
 
   const choose = (choiceIndex: number) => {
+    if (!question) return;
     completeAnswer(choiceIndex, choiceIndex === question.answer);
   };
 
@@ -251,7 +252,10 @@ function QuizPage() {
         </div>
       )}
 
-      {picked !== null && picked === question.answer && <Confetti count={26} seed={question.id} />}
+      {picked !== null &&
+        (question.answerMode === "column-input"
+          ? picked === Number(question.choices[question.answer])
+          : picked === question.answer) && <Confetti count={26} seed={question.id} />}
 
       <button
         type="button"
