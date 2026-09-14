@@ -169,6 +169,55 @@ function moneyLabel(cents: number) {
   return `RM${(cents / 100).toFixed(2)}`;
 }
 
+function year2ProblemSolvingQuestions(): Question[] {
+  const items: { prompt: string; choices: string[]; answer: string }[] = [
+    { prompt: "Ali ada 145 biji guli. Raju ada 230 biji guli. Berapakah jumlah guli mereka?", choices: ["375", "385", "365", "400"], answer: "375" },
+    { prompt: "Sebuah kedai ada 500 buah buku latihan. 125 buah buku telah dijual. Berapakah baki buku yang tinggal?", choices: ["375", "425", "385", "475"], answer: "375" },
+    { prompt: "Siti mengumpul 342 keping poskad. Hana mengumpul 158 keping poskad lebih daripada Siti. Berapakah bilangan poskad Hana?", choices: ["500", "490", "480", "510"], answer: "500" },
+    { prompt: "Di dalam sebuah bakul ada 670 biji rambutan. 45 biji rambutan telah busuk. Berapakah rambutan yang elok?", choices: ["625", "635", "615", "645"], answer: "625" },
+    { prompt: "Pak Mat memetik 215 biji mangga pada hari Isnin dan 189 biji pada hari Selasa. Berapakah jumlah mangga yang dipetik?", choices: ["404", "394", "414", "304"], answer: "404" },
+    { prompt: "Sebuah kilang menghasilkan 890 buah kerusi. 320 buah kerusi dihantar ke Sekolah A dan 250 buah ke Sekolah B. Berapakah baki kerusi?", choices: ["320", "420", "570", "300"], answer: "320" },
+    { prompt: "Klinik Kesihatan menerima 412 orang pesakit pada bulan Januari dan 398 orang pesakit pada bulan Februari. Berapakah jumlah pesakit untuk dua bulan itu?", choices: ["810", "800", "820", "790"], answer: "810" },
+    { prompt: "Sebuah album boleh memuatkan 400 keping gambar. Muaz telah memasukkan 267 keping gambar. Berapakah ruang gambar yang tinggal?", choices: ["133", "233", "143", "123"], answer: "133" },
+    { prompt: "Ada 5 buah meja di dalam sebuah bilik. Setiap meja ada 4 buah kerusi. Berapakah jumlah kerusi semuanya?", choices: ["20", "25", "15", "16"], answer: "20" },
+    { prompt: "Ibu membeli 6 kotak kek cawan. Setiap kotak mengandungi 3 biji kek cawan. Berapakah jumlah kek cawan yang dibeli ibu?", choices: ["18", "15", "21", "24"], answer: "18" },
+    { prompt: "Sebuah basikal mempunyai 2 roda. Berapakah jumlah roda bagi 9 buah basikal yang sama?", choices: ["18", "16", "20", "14"], answer: "18" },
+    { prompt: "Di dalam sebuah kedai ada 7 buah rak baju. Setiap rak digantung dengan 5 helai baju. Berapakah jumlah baju di kedai itu?", choices: ["35", "30", "40", "45"], answer: "35" },
+    { prompt: "Sani menyusun guli ke dalam 8 buah bekas. Setiap bekas dimasukkan 10 biji guli. Berapakah jumlah guli Sani?", choices: ["80", "70", "90", "85"], answer: "80" },
+    { prompt: "Cikgu Aminah ada 20 batang pensel. Dia membahagikan pensel itu sama banyak kepada 4 orang murid. Berapakah pensel yang diterima oleh setiap murid?", choices: ["5", "4", "6", "10"], answer: "5" },
+    { prompt: "Bapa memetik 24 biji manggis. Manggis itu dikongsi sama banyak antara 3 orang anaknya. Berapakah biji manggis seorang anak dapat?", choices: ["8", "6", "7", "9"], answer: "8" },
+    { prompt: "Sebuah kotak mengandungi 30 biji pemadam. Pemadam itu dibahagikan kepada kumpulan yang terdiri daripada 5 biji. Berapakah jumlah kumpulan pemadam yang ada?", choices: ["6", "5", "7", "8"], answer: "6" },
+    { prompt: "Kamal ada 45 biji biskut. Dia memasukkan biskut itu secara sama rata ke dalam 9 buah balang. Berapakah biji biskut di dalam setiap balang?", choices: ["5", "6", "4", "7"], answer: "5" },
+    { prompt: "Ada 18 biji bola. Bola-bola itu disimpan ke dalam 2 buah bakul secara sama banyak. Berapakah bilangan bola di dalam setiap bakul?", choices: ["9", "8", "10", "7"], answer: "9" },
+    { prompt: "Sebuah kek dipotong kepada 4 bahagian yang sama besar. Abang makan 1 bahagian. Berapakah pecahan kek yang telah dimakan oleh abang?", choices: ["Satu perdua", "Satu perempat", "Tiga perempat", "Dua perempat"], answer: "Satu perempat" },
+    { prompt: "Ibu membahagikan sebiji tembikai kepada 10 bahagian yang sama besar. Kakak makan 3 bahagian. Nyatakan bahagian yang dimakan oleh kakak dalam perpuluhan.", choices: ["0.3", "0.1", "0.4", "0.2"], answer: "0.3" },
+    { prompt: "Sebuah rajah dibahagikan kepada 5 bahagian yang sama. 2 bahagian telah diwarnakan. Berapakah pecahan rajah yang belum diwarnakan?", choices: ["Tiga perlima", "Dua perlima", "Satu perlima", "Empat perlima"], answer: "Tiga perlima" },
+    { prompt: "Zaki menulis perpuluhan sifar perpuluhan enam pada papan hitam. Bagaimanakah angka bagi perpuluhan tersebut?", choices: ["0.6", "0.06", "6.0", "0.5"], answer: "0.6" },
+    { prompt: "Aimi ada RM45. Ayah memberinya lagi RM20. Berapakah jumlah wang Aimi sekarang?", choices: ["RM65", "RM55", "RM75", "RM60"], answer: "RM65" },
+    { prompt: "Haziq membeli sebuah buku cerita berharga RM18. Dia membayar dengan sekeping wang RM50. Berapakah baki wang yang diterimanya?", choices: ["RM32", "RM42", "RM22", "RM38"], answer: "RM32" },
+    { prompt: "Harga sebatang pensel ialah 80 sen. Sarah membeli 3 batang pensel yang sama. Berapakah jumlah wang yang perlu dibayar oleh Sarah?", choices: ["RM2.40", "RM1.80", "RM2.00", "RM2.60"], answer: "RM2.40" },
+    { prompt: "Simpanan Mei Ling ialah RM85. Dia menderma RM15 kepada tabung kebajikan. Berapakah baki wang simpanan Mei Ling?", choices: ["RM70", "RM60", "RM75", "RM80"], answer: "RM70" },
+    { prompt: "Amir ada RM30. Dia mahu membeli sebuah beg sukan berharga RM48. Berapakah lagi wang yang diperlukan oleh Amir?", choices: ["RM18", "RM28", "RM8", "RM20"], answer: "RM18" },
+    { prompt: "Sebuah jam menunjukkan jarum pendek di antara nombor 2 dan 3, manakala jarum panjang menunjuk tepat pada nombor 6. Pukul berapakah itu?", choices: ["Pukul 2:30", "Pukul 3:30", "Pukul 6:15", "Pukul 2:06"], answer: "Pukul 2:30" },
+    { prompt: "Majlis hari jadi Danial bermula pada pukul 3:00 petang dan tamat selepas 2 jam. Pukul berapakah majlis itu tamat?", choices: ["Pukul 5:00 petang", "Pukul 4:00 petang", "Pukul 6:00 petang", "Pukul 1:00 petang"], answer: "Pukul 5:00 petang" },
+    { prompt: "Fatin mengambil masa 45 minit untuk mengulang kaji pelajaran Matematik dan 15 minit untuk subjek Sains. Berapakah jumlah masa (dalam jam) yang digunakan oleh Fatin?", choices: ["1 jam", "2 jam", "30 minit", "1 jam 30 minit"], answer: "1 jam" },
+    { prompt: "Panjang seutas tali A ialah 45 cm. Tali B pula panjangnya 35 cm. Berapakah jumlah panjang kedua-dua tali itu?", choices: ["80 cm", "70 cm", "90 cm", "75 cm"], answer: "80 cm" },
+    { prompt: "Jisim sebuah tembikai ialah 3 kg. Jisim sebuah betik ialah 1 kg kurang daripada tembikai itu. Berapakah jisim betik?", choices: ["2 kg", "4 kg", "1 kg", "1.5 kg"], answer: "2 kg" },
+    { prompt: "Sebuah botol mengandungi 500 mL air mineral. Ibu menuang lagi 450 mL air ke dalam botol itu. Berapakah jumlah isi padu air di dalam botol sekarang?", choices: ["950 mL", "850 mL", "1000 mL", "900 mL"], answer: "950 mL" },
+    { prompt: "Tinggi sebuah kotak A ialah 60 cm. Kotak B adalah 15 cm lebih rendah daripada kotak A. Berapakah tinggi kotak B?", choices: ["45 cm", "55 cm", "75 cm", "50 cm"], answer: "45 cm" },
+    { prompt: "Sebuah lori membawa 250 kg beras. Selepas menurunkan sebahagian beras di Kedai Runcit X, baki beras ialah 120 kg. Berapakah jisim beras yang diturunkan?", choices: ["130 kg", "120 kg", "140 kg", "370 kg"], answer: "130 kg" },
+    { prompt: "Sebuah baldi ada 8 L air. Ayah menggunakan 3 L air untuk menyiram pokok bunga. Berapakah baki air di dalam baldi?", choices: ["5 L", "4 L", "6 L", "11 L"], answer: "5 L" },
+    { prompt: "Raju sedang memegang satu bentuk 3D yang mempunyai 6 permukaan rata yang sama saiz, 8 bucu dan 12 sisi. Apakah bentuk itu?", choices: ["Kubus", "Kuboid", "Piramid", "Silinder"], answer: "Kubus" },
+    { prompt: "Siti melukis satu bentuk 2D yang mempunyai 3 sisi lurus dan 3 bucu. Apakah nama bentuk 2D tersebut?", choices: ["Segi tiga", "Segi empat tepat", "Segi empat sama", "Bulatan"], answer: "Segi tiga" },
+    { prompt: "Apakah bentuk 3D yang mempunyai 1 permukaan melengkung dan 2 permukaan rata berbentuk bulatan?", choices: ["Silinder", "Kon", "Sfera", "Kubus"], answer: "Silinder" },
+    { prompt: "Sebuah kotak kasut mempunyai bentuk yang serupa dengan pepejal geometri yang mempunyai 6 permukaan rata (bukan semua sama saiz), 8 bucu dan 12 tepi. Apakah pepejal geometri ini?", choices: ["Kuboid", "Kubus", "Piramid", "Kon"], answer: "Kuboid" },
+  ];
+  return items.map((item, i) => {
+    const answer = item.choices.indexOf(item.answer);
+    return { id: i + 1, prompt: item.prompt, choices: item.choices, answer };
+  });
+}
+
 function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
   const rand = rng(seed);
   const t = topic.toLowerCase();
