@@ -49,10 +49,16 @@ function AccessCodePage() {
       setDigits((d) => d.slice(0, -1));
       return;
     }
-    if (digits.length >= 6) return;
     sfx.click();
-    const next = digits + key;
-    setDigits(next);
+    let next = "";
+    setDigits((prev) => {
+      if (prev.length >= 6) {
+        next = prev;
+        return prev;
+      }
+      next = prev + key;
+      return next;
+    });
     if (next.length === 6) {
       if (next === CODE) {
         sfx.unlock();
