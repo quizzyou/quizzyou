@@ -428,6 +428,10 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
       continue;
     }
 
+    if (year === "2" && t === "penyelesaian masalah") {
+      return year2ProblemSolvingQuestions();
+    }
+
     // Penyelesaian Masalah
     const name = names[i % names.length]!;
     const item = things[i % things.length]!;
