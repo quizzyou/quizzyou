@@ -212,9 +212,11 @@ function year2ProblemSolvingQuestions(seed: number): Question[] {
     { prompt: "Apakah bentuk 3D yang mempunyai 1 permukaan melengkung dan 2 permukaan rata berbentuk bulatan?", choices: ["Silinder", "Kon", "Sfera", "Kubus"], answer: "Silinder" },
     { prompt: "Sebuah kotak kasut mempunyai bentuk yang serupa dengan pepejal geometri yang mempunyai 6 permukaan rata (bukan semua sama saiz), 8 bucu dan 12 tepi. Apakah pepejal geometri ini?", choices: ["Kuboid", "Kubus", "Piramid", "Kon"], answer: "Kuboid" },
   ];
+  const rand = rng(seed);
   return items.map((item, i) => {
-    const answer = item.choices.indexOf(item.answer);
-    return { id: i + 1, prompt: item.prompt, choices: item.choices, answer };
+    const choices = shuffle(item.choices, rand);
+    const answer = choices.indexOf(item.answer);
+    return { id: i + 1, prompt: item.prompt, choices, answer };
   });
 }
 
