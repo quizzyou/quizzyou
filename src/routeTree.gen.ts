@@ -10,33 +10,67 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SubjekIndexRouteImport } from './routes/subjek.index'
+import { Route as SubjekSubjectRouteImport } from './routes/subjek.$subject'
+import { Route as SubjekSubjectYearRouteImport } from './routes/subjek.$subject.$year'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SubjekIndexRoute = SubjekIndexRouteImport.update({
+  id: '/subjek/',
+  path: '/subjek/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubjekSubjectRoute = SubjekSubjectRouteImport.update({
+  id: '/subjek/$subject',
+  path: '/subjek/$subject',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SubjekSubjectYearRoute = SubjekSubjectYearRouteImport.update({
+  id: '/$year',
+  path: '/$year',
+  getParentRoute: () => SubjekSubjectRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/subjek/$subject': typeof SubjekSubjectRouteWithChildren
+  '/subjek/': typeof SubjekIndexRoute
+  '/subjek/$subject/$year': typeof SubjekSubjectYearRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/subjek/$subject': typeof SubjekSubjectRouteWithChildren
+  '/subjek': typeof SubjekIndexRoute
+  '/subjek/$subject/$year': typeof SubjekSubjectYearRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/subjek/$subject': typeof SubjekSubjectRouteWithChildren
+  '/subjek/': typeof SubjekIndexRoute
+  '/subjek/$subject/$year': typeof SubjekSubjectYearRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/subjek/$subject' | '/subjek/' | '/subjek/$subject/$year'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/subjek/$subject' | '/subjek' | '/subjek/$subject/$year'
+  id:
+    | '__root__'
+    | '/'
+    | '/subjek/$subject'
+    | '/subjek/'
+    | '/subjek/$subject/$year'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SubjekSubjectRoute: typeof SubjekSubjectRouteWithChildren
+  SubjekIndexRoute: typeof SubjekIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +82,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/subjek/': {
+      id: '/subjek/'
+      path: '/subjek'
+      fullPath: '/subjek/'
+      preLoaderRoute: typeof SubjekIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subjek/$subject': {
+      id: '/subjek/$subject'
+      path: '/subjek/$subject'
+      fullPath: '/subjek/$subject'
+      preLoaderRoute: typeof SubjekSubjectRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/subjek/$subject/$year': {
+      id: '/subjek/$subject/$year'
+      path: '/$year'
+      fullPath: '/subjek/$subject/$year'
+      preLoaderRoute: typeof SubjekSubjectYearRouteImport
+      parentRoute: typeof SubjekSubjectRoute
+    }
   }
 }
 
+interface SubjekSubjectRouteChildren {
+  SubjekSubjectYearRoute: typeof SubjekSubjectYearRoute
+}
+
+const SubjekSubjectRouteChildren: SubjekSubjectRouteChildren = {
+  SubjekSubjectYearRoute: SubjekSubjectYearRoute,
+}
+
+const SubjekSubjectRouteWithChildren = SubjekSubjectRoute._addFileChildren(
+  SubjekSubjectRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SubjekSubjectRoute: SubjekSubjectRouteWithChildren,
+  SubjekIndexRoute: SubjekIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

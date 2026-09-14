@@ -3,7 +3,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { subjectById, years } from "@/data/curriculum";
 import { sfx } from "@/lib/audio";
 
-export const Route = createFileRoute("/subjek/$subject")({
+export const Route = createFileRoute("/subjek/$subject/")({
   head: () => ({
     meta: [
       { title: "Pilih Tahun — QUIZZY" },
