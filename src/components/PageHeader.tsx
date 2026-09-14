@@ -4,7 +4,7 @@ import { sfx } from "@/lib/audio";
 
 type Props = {
   title: string;
-  subtitle?: string;
+  subtitle?: React.ReactNode;
   backTo?: string;
   backParams?: Record<string, string>;
 };
