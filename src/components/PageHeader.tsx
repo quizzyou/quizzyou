@@ -30,7 +30,7 @@ export function PageHeader({ title, subtitle, backTo, backParams }: Props) {
           aria-label="Kembali"
         >
           ←
-        </Link>
+        </BackLink>
       ) : (
         <span className="h-11 w-11" />
       )}
