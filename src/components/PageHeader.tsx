@@ -9,12 +9,22 @@ type Props = {
   backParams?: Record<string, string>;
 };
 
+const BackLink = Link as unknown as React.ComponentType<{
+  to: string;
+  params: Record<string, string>;
+  onClick: () => void;
+  className: string;
+  "aria-label": string;
+  children: React.ReactNode;
+}>;
+
 export function PageHeader({ title, subtitle, backTo, backParams }: Props) {
   return (
     <header className="grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 pb-4">
       {backTo ? (
-        <Link
-          {...({ to: backTo, params: backParams ?? {} } as never)}
+        <BackLink
+          to={backTo}
+          params={backParams ?? {}}
           onClick={() => sfx.tap()}
           className="tap-pop grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-xl shadow-soft"
           aria-label="Kembali"
