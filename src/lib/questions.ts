@@ -431,7 +431,7 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
     }
 
     if (year === "2" && t === "penyelesaian masalah") {
-      return year2ProblemSolvingQuestions();
+      return year2ProblemSolvingQuestions(seed);
     }
 
     // Penyelesaian Masalah
