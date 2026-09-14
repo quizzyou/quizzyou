@@ -1,5 +1,5 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/audio";
 import { Confetti } from "@/components/Confetti";
 import { SoundToggle } from "@/components/SoundToggle";
@@ -29,6 +29,7 @@ const KEYS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "clear", "0", "del"];
 function AccessCodePage() {
   const navigate = useNavigate();
   const [digits, setDigits] = useState("");
+  const digitsRef = useRef("");
   const [state, setState] = useState<"idle" | "wrong" | "opening">("idle");
 
   useEffect(() => {
@@ -66,6 +67,7 @@ function AccessCodePage() {
         sfx.wrong();
         setState("wrong");
         window.setTimeout(() => {
+          digitsRef.current = "";
           setDigits("");
           setState("idle");
         }, 600);
