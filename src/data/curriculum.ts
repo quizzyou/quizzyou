@@ -86,7 +86,6 @@ export const topics: Record<SubjectId, Record<YearId, string[]>> = {
       "Nombor hingga 100",
       "Tambah",
       "Tolak",
-      "Darab",
       "Wang",
       "Masa dan Waktu",
       "Bentuk Asas",
@@ -105,6 +104,7 @@ export const topics: Record<SubjectId, Record<YearId, string[]>> = {
     "3": [
       "Nombor hingga 10,000",
       "Tambah",
+      "Tolak",
       "Darab",
       "Bahagi",
       "Pecahan",

@@ -40,7 +40,7 @@ function QuizRoute() {
       />
     );
   }
-  if (subject === "mt" && year === "2" && topic === "tolak") {
+  if (subject === "mt" && topic === "tolak") {
     return (
       <TolakLazim
         subject={subject}
