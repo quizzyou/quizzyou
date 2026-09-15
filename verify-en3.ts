@@ -12,8 +12,8 @@ for (const [slug, topic, want] of topics) {
   if (qs.length !== want) issues.push(`count ${qs.length} != ${want}`);
   qs.forEach((q, i) => {
     if (new Set(q.choices).size !== q.choices.length) issues.push(`q${i + 1} dup choices`);
-    if (q.answerIndex < 0 || q.answerIndex >= q.choices.length) issues.push(`q${i + 1} bad index`);
-    if (!q.choices[q.answerIndex]) issues.push(`q${i + 1} missing answer`);
+    if (q.answer < 0 || q.answer >= q.choices.length) issues.push(`q${i + 1} bad index`);
+    if (!q.choices[q.answer]) issues.push(`q${i + 1} missing answer`);
   });
   console.log(topic, qs.length, issues.length ? "BAD: " + issues.join("; ") : "ok");
   if (issues.length) bad++;
