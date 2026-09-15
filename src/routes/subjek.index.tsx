@@ -6,7 +6,15 @@ import { subjects, topicFromSlug, isYear, type SubjectId } from "@/data/curricul
 import { listUnfinished, type Unfinished } from "@/lib/progress";
 import { getQuestions } from "@/lib/questions";
 import { sfx } from "@/lib/audio";
-import { loadBadges, loadProfile, loadStreak, type Profile } from "@/lib/profile";
+import {
+  avatarOptions,
+  loadBadges,
+  loadProfile,
+  loadStreak,
+  saveProfile,
+  type Profile,
+} from "@/lib/profile";
+import { Pencil } from "lucide-react";
 
 export const Route = createFileRoute("/subjek/")({
   head: () => ({
@@ -28,6 +36,9 @@ function SubjectsPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [streak, setStreak] = useState(0);
   const [badgeCount, setBadgeCount] = useState(0);
+  const [editing, setEditing] = useState(false);
+  const [draftName, setDraftName] = useState("");
+  const [draftAvatar, setDraftAvatar] = useState("");
 
   useEffect(() => {
     setResume(listUnfinished());
@@ -35,6 +46,23 @@ function SubjectsPage() {
     setStreak(loadStreak());
     setBadgeCount(loadBadges().length);
   }, []);
+
+  function startEdit() {
+    sfx.click();
+    setDraftName(profile?.name ?? "");
+    setDraftAvatar(profile?.avatar ?? "");
+    setEditing(true);
+  }
+
+  function saveEdit() {
+    const name = draftName.trim();
+    if (!name || !draftAvatar) return;
+    sfx.click();
+    const next = { name, avatar: draftAvatar };
+    saveProfile(next);
+    setProfile(next);
+    setEditing(false);
+  }
 
   return (
     <main className="mx-auto w-full max-w-md px-5 py-6">
@@ -54,7 +82,72 @@ function SubjectsPage() {
             </p>
             <p className="truncate text-xs text-foreground/70">Jom sambung belajar hari ini!</p>
           </div>
+          <button
+            type="button"
+            onClick={startEdit}
+            aria-label="Edit nama dan avatar"
+            className="tap-pop grid h-10 w-10 shrink-0 place-items-center rounded-full bg-card"
+          >
+            <Pencil className="h-4 w-4" />
+          </button>
         </div>
+
+        {editing && (
+          <div className="animate-pop-in mt-3 rounded-2xl bg-card p-3">
+            <label className="block text-center text-xs font-bold text-foreground/70" htmlFor="editName">
+              Nama anda
+            </label>
+            <input
+              id="editName"
+              value={draftName}
+              maxLength={15}
+              onChange={(e) => setDraftName(e.target.value)}
+              placeholder="Masukkan nama anda"
+              className="mt-1 w-full rounded-2xl bg-sky px-4 py-3 text-center font-display font-bold outline-none"
+            />
+            <p className="mt-1 text-center text-[10px] text-muted-foreground">
+              {draftName.length}/15
+            </p>
+            <p className="mt-2 text-center text-xs font-bold text-foreground/70">Pilih avatar</p>
+            <div className="mt-2 grid grid-cols-4 gap-2">
+              {avatarOptions.map((emoji) => (
+                <button
+                  key={emoji}
+                  type="button"
+                  onClick={() => {
+                    sfx.click();
+                    setDraftAvatar(emoji);
+                  }}
+                  className={`tap-pop grid aspect-square place-items-center rounded-2xl text-2xl ${
+                    draftAvatar === emoji
+                      ? "animate-pop-in scale-105 bg-lemon ring-4 ring-lavender"
+                      : "bg-sky"
+                  }`}
+                >
+                  <Emoji emoji={emoji} className="inline-block" />
+                </button>
+              ))}
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => setEditing(false)}
+                className="tap-pop rounded-2xl bg-sky px-4 py-3 font-display font-bold"
+              >
+                Batal
+              </button>
+              <button
+                type="button"
+                onClick={saveEdit}
+                disabled={!draftName.trim() || !draftAvatar}
+                className="tap-pop rounded-2xl bg-lavender px-4 py-3 font-display font-bold disabled:opacity-50"
+              >
+                Simpan
+              </button>
+            </div>
+          </div>
+        )}
+
         <div className="mt-3 grid grid-cols-2 gap-2">
           <p className="flex items-center justify-center gap-1 rounded-2xl bg-card px-3 py-2 font-display text-sm font-bold">
             <Emoji emoji="🔥" className="inline-block" /> {streak} hari
