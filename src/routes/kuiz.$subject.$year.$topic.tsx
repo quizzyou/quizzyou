@@ -293,7 +293,6 @@ function ColumnAddition({
   const aDigits = vertical.a.padStart(columnCount, " ").split("");
   const bDigits = vertical.b.padStart(columnCount, " ").split("");
   const names = Array.from({ length: columnCount }, (_, i) => PLACE_NAMES[columnCount - i - 1] ?? "");
-  const firstAnswerColumn = columnCount - correctAnswer.length;
 
   const carries = Array(columnCount).fill(0) as number[];
   let incoming = 0;
@@ -316,12 +315,12 @@ function ColumnAddition({
       setRevealedCarries((current) => current.map((shown, i) => shown || i === carryTarget));
     }
 
-    const nextEmptyToLeft = next.slice(firstAnswerColumn, active).lastIndexOf("");
+    const nextEmptyToLeft = next.slice(0, active).lastIndexOf("");
     const nextEmptyToRight = next.findIndex((value, i) => i > active && value === "");
     const nextActive = nextEmptyToLeft >= 0 ? nextEmptyToLeft : nextEmptyToRight;
     setActive(nextActive >= 0 ? nextActive : null);
 
-    if (next.slice(firstAnswerColumn).every(Boolean)) onComplete(Number(next.join("")));
+    if (next.every(Boolean)) onComplete(Number(next.join("")));
   };
 
   const removeDigit = () => {
@@ -369,9 +368,9 @@ function ColumnAddition({
               <button
                 key={`answer-${i}`}
                 type="button"
-                disabled={disabled || i < firstAnswerColumn}
+                disabled={disabled}
                 onClick={() => { sfx.tap(); setActive(i); }}
-                className={`tap-pop aspect-square min-w-0 rounded-xl border-2 bg-card font-display text-2xl font-extrabold shadow-soft ${i < firstAnswerColumn ? "opacity-40" : active === i ? "border-answer-active ring-2 ring-answer-active/30" : "border-border"}`}
+                className={`tap-pop aspect-square min-w-0 rounded-xl border-2 bg-card font-display text-2xl font-extrabold shadow-soft ${active === i ? "border-answer-active ring-2 ring-answer-active/30" : "border-border"}`}
                 aria-label={`Jawapan rumah ${names[i]}`}
               >
                 {digit}
