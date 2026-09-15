@@ -127,7 +127,7 @@ export function TambahLazim({
     }
   }, [subject, year, topic]);
 
-  const soalan = useMemo(() => buildSoalan(index), [index]);
+  const soalan = useMemo(() => buildSoalan(index, year), [index, year]);
   const order = useMemo(() => boxOrder(soalan), [soalan]);
 
   const startBox = order[0] ? boxKey(order[0]) : null;
@@ -233,7 +233,7 @@ export function TambahLazim({
   );
 
   if (phase === "intro") {
-    const contoh = buildSoalan(0);
+    const contoh = buildSoalan(0, year);
     return (
       <main className="mx-auto w-full max-w-md px-5 py-6">
         {header}
