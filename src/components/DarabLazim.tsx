@@ -50,7 +50,7 @@ const YEAR_2_BANK: { a: number; b: number; prompt?: string }[] = [
   { a: 12, b: 3, prompt: "Siti menyusun 3 bakul. Setiap bakul mempunyai 12 biji epal. Berapakah jumlah epal?" },
   { a: 15, b: 4, prompt: "Ali mempunyai 4 rak. Setiap rak mengandungi 15 buah buku. Berapakah jumlah buku?" },
   { a: 18, b: 2, prompt: "Cikgu Aina menyediakan 2 kotak. Setiap kotak ada 18 batang pensel. Berapakah jumlah pensel?" },
-  { a: 21, b: 3, prompt: "Mei Ling membeli 3 pek minuman. Setiap pek mempunyai 21 kotak minuman. Berapakah jumlahnya?" },
+  { a: 26, b: 3, prompt: "Mei Ling membeli 3 pek minuman. Setiap pek mempunyai 26 kotak minuman. Berapakah jumlahnya?" },
   { a: 24, b: 4, prompt: "Harga sebuah buku ialah RM24. Berapakah harga 4 buah buku?" },
   { a: 27, b: 5, prompt: "Kumar mengisi 5 bakul dengan 27 biji epal dalam setiap bakul. Berapakah jumlah epal?" },
   { a: 31, b: 2, prompt: "Dua kelas menerima 31 buah buku setiap kelas. Berapakah jumlah buku?" },
