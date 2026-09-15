@@ -516,7 +516,7 @@ function DarabPapan({
   demo?: boolean;
 }) {
   const cols = soalan.cols;
-  const gridStyle = { gridTemplateColumns: `repeat(${cols}, minmax(2.5rem, 4rem))` };
+  const gridStyle = { gridTemplateColumns: `repeat(${cols}, 3.5rem)` };
   const leftToRight = Array.from({ length: cols }, (_, i) => cols - 1 - i);
   const needsCarry = (col: number) => order.some((b) => b.kind === "carry" && b.col === col);
 
@@ -533,8 +533,9 @@ function DarabPapan({
 
   return (
     <section className="card-soft mt-4 px-3 py-5" aria-label="Bentuk lazim darab">
+      <div className="mx-auto w-fit">
       <div
-        className="grid justify-center gap-1 text-center text-[11px] text-muted-foreground sm:text-xs"
+        className="grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs"
         style={gridStyle}
       >
         {leftToRight.map((col) => (
@@ -543,7 +544,7 @@ function DarabPapan({
       </div>
 
       {soalan.showCarry && (
-        <div className="grid justify-center gap-2 py-2" style={gridStyle} aria-label="Kotak simpan">
+        <div className="grid gap-1 py-2" style={gridStyle} aria-label="Kotak simpan">
           {leftToRight.map((col) => {
             const key = `carry-${col}`;
             const required = needsCarry(col);
@@ -574,8 +575,7 @@ function DarabPapan({
         </div>
       )}
 
-      <div className="mx-auto w-fit grid grid-cols-[1.75rem_1fr] items-center justify-items-center text-center font-display text-3xl font-extrabold">
-        <span aria-hidden="true" />
+      <div className="relative text-center font-display text-3xl font-extrabold">
         <div className="grid" style={gridStyle}>
           {leftToRight.map((col) => (
             <span key={`top-${col}`} className="flex min-h-12 items-center justify-center">
@@ -583,7 +583,7 @@ function DarabPapan({
             </span>
           ))}
         </div>
-        <span aria-hidden="true" className="flex min-h-12 items-center justify-center">
+        <span aria-hidden="true" className="absolute -left-7 bottom-0 flex min-h-12 items-center justify-center">
           ×
         </span>
         <div className="grid" style={gridStyle}>
@@ -596,7 +596,7 @@ function DarabPapan({
       </div>
 
       <div className="mt-2 border-t-4 border-foreground/60 pt-3">
-        <div className="grid justify-center gap-2" style={gridStyle}>
+        <div className="grid gap-1" style={gridStyle}>
           {leftToRight.map((col) => {
             const key = `answer-${col}`;
             if (col >= String(soalan.product).length) {
@@ -620,6 +620,7 @@ function DarabPapan({
             );
           })}
         </div>
+      </div>
       </div>
     </section>
   );
