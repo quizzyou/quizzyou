@@ -160,14 +160,14 @@ export function DarabLazim({
 
   const resetBoxes = () => {
     setValues({});
-    setActive(startBox);
+    setActive(null);
     setChecked(false);
     setAllCorrect(false);
   };
 
   const begin = () => {
     sfx.click();
-    setActive(startBox);
+    setActive(null);
     setPhase("play");
   };
 
@@ -197,13 +197,6 @@ export function DarabLazim({
     if (!prev) return;
     setActive(boxKey(prev));
     setValues((current) => ({ ...current, [boxKey(prev)]: "" }));
-  };
-
-  const clearAll = () => {
-    if (checked) return;
-    sfx.tap();
-    setValues({});
-    setActive(startBox);
   };
 
   const check = () => {
@@ -356,7 +349,7 @@ export function DarabLazim({
 
       <div className="mb-1 flex items-center justify-between text-sm font-bold text-muted-foreground">
         <span>
-          {index + 1} / {TOTAL}
+          Soalan {index + 1} / {TOTAL}
         </span>
         <span aria-label={`${lives} nyawa`}>
           {Array.from({ length: LIVES }, (_, i) => (
@@ -434,7 +427,7 @@ export function DarabLazim({
             </button>
             <button
               type="button"
-              onClick={clearAll}
+              onClick={backspace}
               className="tap-pop h-12 rounded-2xl bg-lavender px-2 font-display text-sm font-extrabold shadow-soft"
             >
               Padam
