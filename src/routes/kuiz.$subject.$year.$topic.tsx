@@ -18,7 +18,7 @@ export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
       { title: "Kuiz — QUIZZY" },
       { name: "description", content: "Jawab 40 soalan kuiz KSSR dan kumpul bintang." },
       { property: "og:title", content: "Kuiz — QUIZZY" },
-      { property: "og:description", content: "40 soalan setiap topik, dengan skor dan bintang." },
+      { property: "og:description", content: "Kuiz interaktif topik KSSR dengan skor dan bintang." },
     ],
   }),
   component: QuizRoute,

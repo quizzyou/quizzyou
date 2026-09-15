@@ -7,9 +7,9 @@ export const Route = createFileRoute("/subjek/$subject/$year")({
   head: () => ({
     meta: [
       { title: "Pilih Topik — QUIZZY" },
-      { name: "description", content: "Pilih topik KSSR Semakan dan jawab 40 soalan kuiz." },
+      { name: "description", content: "Pilih topik KSSR Semakan dan mula jawab kuiz." },
       { property: "og:title", content: "Pilih Topik — QUIZZY" },
-      { property: "og:description", content: "Topik mengikut subjek dan tahun, 40 soalan setiap topik." },
+      { property: "og:description", content: "Topik mengikut subjek dan tahun untuk murid Tahap 1." },
     ],
   }),
   component: TopicPage,

@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Emoji } from "@/components/Emoji";
 import { SoundToggle } from "@/components/SoundToggle";
-import { subjects, slugify, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
+import { subjects, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
 import { listUnfinished, type Unfinished } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
 import { loadBadges, loadProfile, loadStreak, type Profile } from "@/lib/profile";
@@ -110,18 +110,13 @@ function SubjectsPage() {
             to="/subjek/$subject"
             params={{ subject: subject.id }}
             onClick={() => sfx.click()}
-            className={`tap-pop animate-pop-in flex items-center gap-4 rounded-3xl ${subject.color} p-6 shadow-soft`}
+            className={`tap-pop animate-pop-in flex flex-col items-center justify-center gap-2 rounded-3xl ${subject.color} p-6 text-center shadow-soft`}
           >
             <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-card text-3xl">
               <Emoji emoji={subject.icon} className="inline-block" />
             </span>
-            <span className="min-w-0">
-              <span className="block truncate font-display text-xl font-extrabold">
-                {subject.name}
-              </span>
-              <span className="block text-xs text-foreground/70">
-                {slugify(subject.name).length > 0 ? "40 soalan setiap topik" : ""}
-              </span>
+            <span className="block truncate font-display text-xl font-extrabold">
+              {subject.name}
             </span>
           </Link>
         ))}
