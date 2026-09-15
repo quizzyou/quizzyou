@@ -528,7 +528,7 @@ function SoalanPapan({
         })}
       </div>
 
-      <div className="grid grid-cols-[1.75rem_1fr] items-center justify-items-center text-center font-display text-3xl font-extrabold">
+      <div className="mx-auto w-fit grid grid-cols-[1.75rem_1fr] items-center justify-items-center text-center font-display text-3xl font-extrabold">
         <span aria-hidden="true" />
         <div className="grid" style={gridStyle}>
           {leftToRight.map((col) => (
