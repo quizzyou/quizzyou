@@ -416,6 +416,9 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
   if (year === "1" && t === "penyelesaian masalah") {
     return fixedMCQQuestions(mtYear1ProblemSolving, seed);
   }
+  if (year === "3" && t === "penyelesaian masalah") {
+    return fixedMCQQuestions(mtYear3ProblemSolving, seed);
+  }
   if (year === "2" && t === "tambah") return year2ColumnAdditionQuestions();
 
   const addQ = (q: Question) => out.push(q);
