@@ -316,3 +316,70 @@ export const enYear3Adjectives: FixedMCQ[] = [
   { prompt: "I cannot drink this tea because it is too ______.", choices: ["cold", "hot", "dry", "sour"], answer: "hot" },
   { prompt: "The classroom is very ______ after the students cleaned it.", choices: ["messy", "tidy", "noisy", "dark"], answer: "tidy" },
 ];
+
+export const enYear3Weather: FixedMCQ[] = [
+  { prompt: "It is a ______ day. The sun is shining brightly in the sky.", choices: ["sunny", "rainy", "snowy", "cloudy"], answer: "sunny" },
+  { prompt: "Take an umbrella with you because it is ______ outside.", choices: ["hot", "windy", "rainy", "sunny"], answer: "rainy" },
+  { prompt: "The wind is blowing hard and the kites are flying high. It is a ______ afternoon.", choices: ["windy", "sunny", "foggy", "dry"], answer: "windy" },
+  { prompt: "We cannot see the blue sky today because it is very ______.", choices: ["sunny", "cloudy", "hot", "dry"], answer: "cloudy" },
+  { prompt: "The children are wearing heavy coats and making a snowman. The weather is ______.", choices: ["hot", "sunny", "snowy", "rainy"], answer: "snowy" },
+  { prompt: "It is very ______ today. I want to drink a glass of cold water.", choices: ["cold", "hot", "snowy", "wet"], answer: "hot" },
+  { prompt: "During winter, the temperature drops and the weather becomes very ______.", choices: ["hot", "warm", "cold", "sunny"], answer: "cold" },
+  { prompt: "We heard a loud sound of ______ before the heavy rain started.", choices: ["thunder", "wind", "snow", "sun"], answer: "thunder" },
+  { prompt: "Look at that beautiful ______ in the sky! It has seven bright colours.", choices: ["cloud", "rainbow", "lightning", "storm"], answer: "rainbow" },
+  { prompt: "The drivers must drive slowly because the road is ______ after the rain.", choices: ["dry", "hot", "wet", "dusty"], answer: "wet" },
+  { prompt: "A very bad ______ with strong winds and heavy rain broke many tree branches.", choices: ["breeze", "storm", "sunshine", "shower"], answer: "storm" },
+  { prompt: "We wear our sunglasses on a ______ day.", choices: ["sunny", "rainy", "snowy", "cloudy"], answer: "sunny" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Wether", "Weather", "Weader", "Waether"], answer: "Weather" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Cloudy", "Clowdy", "Claudy", "Clody"], answer: "Cloudy" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Lightening", "Lightning", "Litning", "Lightnyng"], answer: "Lightning" },
+];
+
+export const enYear3Hobbies: FixedMCQ[] = [
+  { prompt: "Mei Ling loves books. Her favourite hobby is ______.", choices: ["reading", "swimming", "dancing", "cooking"], answer: "reading" },
+  { prompt: "Raju goes to the pool every Saturday. He loves ______.", choices: ["running", "swimming", "painting", "singing"], answer: "swimming" },
+  { prompt: "Adam uses colours and a brush to make beautiful pictures. His hobby is ______.", choices: ["painting", "gardening", "fishing", "skating"], answer: "painting" },
+  { prompt: "My brother loves football and badminton. He likes playing ______.", choices: ["sports", "music", "chess", "video games"], answer: "sports" },
+  { prompt: "Siti likes to collect beautiful ______ from different countries in her album.", choices: ["stamps", "shells", "rocks", "leaves"], answer: "stamps" },
+  { prompt: "Every evening, Johan ______ his bicycle at the park.", choices: ["rides", "drives", "flies", "runs"], answer: "rides" },
+  { prompt: "Hana takes beautiful photos with her new camera. Her hobby is ______.", choices: ["photography", "cooking", "dancing", "sewing"], answer: "photography" },
+  { prompt: "My grandfather plants lovely flowers in the backyard. He loves ______.", choices: ["gardening", "fishing", "camping", "hiking"], answer: "gardening" },
+  { prompt: "Rani listens to music and sings sweet songs. Her hobby is ______.", choices: ["singing", "reading", "drawing", "swimming"], answer: "singing" },
+  { prompt: "We go to the river with our rods to catch fish. We like ______.", choices: ["fishing", "swimming", "boating", "diving"], answer: "fishing" },
+  { prompt: "I like to ______ delicious chocolate cupcakes during my free time.", choices: ["bake", "read", "paint", "sing"], answer: "bake" },
+  { prompt: "Aiman likes to play ______ on his computer after finishing his school work.", choices: ["games", "books", "stamps", "gardens"], answer: "games" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Hobbie", "Hobby", "Hobbi", "Hobbye"], answer: "Hobby" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Colegting", "Collecting", "Colecting", "Callecting"], answer: "Collecting" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Swimeng", "Swimming", "Swiming", "Swimmeng"], answer: "Swimming" },
+];
+
+export const enYear3Health: FixedMCQ[] = [
+  { prompt: "We must wash our hands with ______ and water before we eat.", choices: ["soap", "shampoo", "oil", "salt"], answer: "soap" },
+  { prompt: "To keep our teeth healthy, we should brush them twice a ______.", choices: ["day", "week", "month", "year"], answer: "day" },
+  { prompt: "Eating ______ and vegetables every day keeps our body strong.", choices: ["fruits", "sweets", "cakes", "burgers"], answer: "fruits" },
+  { prompt: "Drinking plenty of ______ keeps us hydrated and healthy.", choices: ["soda", "water", "coffee", "tea"], answer: "water" },
+  { prompt: "When you cough or sneeze, you should cover your ______.", choices: ["eyes", "ears", "mouth", "hair"], answer: "mouth" },
+  { prompt: "We should go to sleep early to get enough ______.", choices: ["exercise", "rest", "food", "homework"], answer: "rest" },
+  { prompt: "Raju has a terrible toothache. He needs to visit the ______.", choices: ["dentist", "teacher", "postman", "zookeeper"], answer: "dentist" },
+  { prompt: "Running, cycling, and playing football are good forms of ______.", choices: ["sleeping", "exercise", "eating", "reading"], answer: "exercise" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Helth", "Health", "Healty", "Halth"], answer: "Health" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Doctor", "Docter", "Doktor", "Doctur"], answer: "Doctor" },
+];
+
+export const enYear3Comprehension: FixedMCQ[] = [
+  { prompt: "Text: Every Saturday morning, Aiman and his father go to the local market. They buy fresh fish and red apples.\n\nQuestion: When do Aiman and his father go to the market?", choices: ["Every Friday morning", "Every Saturday morning", "Every Sunday afternoon", "Every Saturday evening"], answer: "Every Saturday morning" },
+  { prompt: "Text: Every Saturday morning, Aiman and his father go to the local market. They buy fresh fish and red apples.\n\nQuestion: What colour are the apples that they buy?", choices: ["Green", "Yellow", "Red", "Brown"], answer: "Red" },
+  { prompt: "Text: Mei Ling has a pet rabbit named Fluffy. Fluffy has long white fur and loves eating crunchy carrots.\n\nQuestion: What color is Fluffy's fur?", choices: ["Brown", "Grey", "Black", "White"], answer: "White" },
+  { prompt: "Text: Mei Ling has a pet rabbit named Fluffy. Fluffy has long white fur and loves eating crunchy carrots.\n\nQuestion: What does Fluffy love to eat?", choices: ["Crunchy carrots", "Green grass", "Fresh fish", "Sweet biscuits"], answer: "Crunchy carrots" },
+  { prompt: "Text: Last week, Sarah's family went to the beach. The weather was sunny. Sarah built a big sandcastle.\n\nQuestion: Where did Sarah's family go last week?", choices: ["To the zoo", "To the museum", "To the beach", "To the park"], answer: "To the beach" },
+  { prompt: "Text: Last week, Sarah's family went to the beach. The weather was sunny. Sarah built a big sandcastle.\n\nQuestion: How was the weather at the beach?", choices: ["Rainy", "Sunny", "Cloudy", "Cold"], answer: "Sunny" },
+  { prompt: "Text: Raju is nine years old. He lives in a big house in Kuala Lumpur. His father is a brave firefighter.\n\nQuestion: How old is Raju?", choices: ["Seven years old", "Eight years old", "Nine years old", "Ten years old"], answer: "Nine years old" },
+  { prompt: "Text: Raju is nine years old. He lives in a big house in Kuala Lumpur. His father is a brave firefighter.\n\nQuestion: What is Raju's father's job?", choices: ["A school teacher", "A brave firefighter", "A doctor", "A police officer"], answer: "A brave firefighter" },
+  { prompt: "Text: Siti feels very sick today. She has a high fever. Her mother takes her to the clinic to get some medicine.\n\nQuestion: Why does Siti go to the clinic?", choices: ["To play games", "Because she feels very sick", "To buy new clothes", "To see her teacher"], answer: "Because she feels very sick" },
+  { prompt: "Text: Siti feels very sick today. She has a high fever. Her mother takes her to the clinic to get some medicine.\n\nQuestion: What symptom does Siti have?", choices: ["A stomachache", "A toothache", "A high fever", "An earache"], answer: "A high fever" },
+  { prompt: "Text: The school library is a quiet place. Students go there to read and borrow many interesting books.\n\nQuestion: What kind of place is the school library?", choices: ["A noisy place", "A quiet place", "A big playground", "A dirty room"], answer: "A quiet place" },
+  { prompt: "Text: The school library is a quiet place. Students go there to read and borrow many interesting books.\n\nQuestion: Why do students go to the library?", choices: ["To eat food", "To play football", "To read and borrow books", "To sleep"], answer: "To read and borrow books" },
+  { prompt: "Text: Johan loves sports. Every evening, he rides his new bicycle around the beautiful park.\n\nQuestion: What does Johan do every evening?", choices: ["He reads a book", "He rides his bicycle", "He watches television", "He cooks dinner"], answer: "He rides his bicycle" },
+  { prompt: "Text: Encik Zaki works in a big bakery. He wakes up early to bake sweet bread and cakes.\n\nQuestion: Where does Encik Zaki work?", choices: ["In a hospital", "In a school", "In a big bakery", "In a bank"], answer: "In a big bakery" },
+  { prompt: "Text: The brave firefighter quickly put out the big fire.\n\nQuestion: What is the meaning of the word 'brave'?", choices: ["Afraid", "Scared", "Not afraid of danger", "Funny"], answer: "Not afraid of danger" },
+];

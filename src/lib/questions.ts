@@ -39,6 +39,10 @@ import {
   enYear3Grammar,
   enYear3Verbs,
   enYear3Adjectives,
+  enYear3Weather,
+  enYear3Hobbies,
+  enYear3Health,
+  enYear3Comprehension,
 } from "@/data/mcqs-en";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
@@ -813,6 +817,18 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   }
   if (subject === "en" && year === "3" && topic === "Adjectives") {
     return fixedMCQQuestions(enYear3Adjectives, seed);
+  }
+  if (subject === "en" && year === "3" && topic === "Weather") {
+    return fixedMCQQuestions(enYear3Weather, seed);
+  }
+  if (subject === "en" && year === "3" && topic === "Hobbies") {
+    return fixedMCQQuestions(enYear3Hobbies, seed);
+  }
+  if (subject === "en" && year === "3" && topic === "Health") {
+    return fixedMCQQuestions(enYear3Health, seed);
+  }
+  if (subject === "en" && year === "3" && topic === "Comprehension") {
+    return fixedMCQQuestions(enYear3Comprehension, seed);
   }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
