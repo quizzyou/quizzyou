@@ -288,6 +288,7 @@ function ColumnAddition({
   const columnCount = Math.max(3, vertical.a.length, vertical.b.length, correctAnswer.length);
   const [digits, setDigits] = useState<string[]>(Array(columnCount).fill(""));
   const [active, setActive] = useState<number | null>(null);
+  const [inputOrder, setInputOrder] = useState<number[]>([]);
   const [revealedCarries, setRevealedCarries] = useState<boolean[]>(Array(columnCount).fill(false));
   const aDigits = vertical.a.padStart(columnCount, " ").split("");
   const bDigits = vertical.b.padStart(columnCount, " ").split("");
@@ -307,6 +308,7 @@ function ColumnAddition({
     const next = [...digits];
     next[active] = digit;
     setDigits(next);
+    setInputOrder((current) => [...current.filter((index) => index !== active), active]);
 
     const carryTarget = active - 1;
     if (carryTarget >= 0 && (carries[carryTarget] ?? 0) > 0) {
@@ -324,21 +326,13 @@ function ColumnAddition({
   const removeDigit = () => {
     if (disabled) return;
     sfx.tap();
-    const target = active ?? digits.findIndex(Boolean);
-    if (target < 0) return;
+    const target = inputOrder.at(-1);
+    if (target === undefined) return;
     const next = [...digits];
-    if (next[target]) {
-      next[target] = "";
-      setDigits(next);
-      setActive(target);
-      return;
-    }
-    const filledToRight = next.findIndex((value, i) => i > target && Boolean(value));
-    if (filledToRight >= 0) {
-      next[filledToRight] = "";
-      setDigits(next);
-      setActive(filledToRight);
-    }
+    next[target] = "";
+    setDigits(next);
+    setInputOrder((current) => current.slice(0, -1));
+    setActive(target);
   };
 
   const gridStyle = { gridTemplateColumns: `repeat(${columnCount}, minmax(0, 1fr))` };
@@ -350,10 +344,15 @@ function ColumnAddition({
         <div className="ml-7 grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
           {names.map((name, i) => <span key={`place-${i}-${name}`}>{name}</span>)}
         </div>
-        <div className="ml-7 grid h-6 text-center text-sm text-primary" style={gridStyle} aria-label="Nombor simpan">
+        <div className="ml-7 grid gap-2 py-2 text-center text-sm text-foreground" style={gridStyle} aria-label="Nombor simpan">
           {carries.map((carry, i) => (
-            <span key={`carry-${i}`} className={revealedCarries[i] && carry ? "animate-carry-in" : "opacity-0"}>
-              {carry || ""}
+            <span
+              key={`carry-${i}`}
+              className="mx-auto grid h-8 w-8 place-items-center rounded-md border-2 border-carry-border bg-carry font-display font-extrabold"
+            >
+              <span className={revealedCarries[i] && carry ? "animate-carry-in" : "opacity-0"}>
+                {carry || ""}
+              </span>
             </span>
           ))}
         </div>
@@ -371,7 +370,7 @@ function ColumnAddition({
                 type="button"
                 disabled={disabled}
                 onClick={() => { sfx.tap(); setActive(i); }}
-                className={`tap-pop aspect-square min-w-0 rounded-xl border-2 bg-card font-display text-2xl font-extrabold shadow-soft ${active === i ? "border-primary ring-2 ring-primary/30" : "border-border"}`}
+                className={`tap-pop aspect-square min-w-0 rounded-xl border-2 bg-card font-display text-2xl font-extrabold shadow-soft ${active === i ? "border-answer-active ring-2 ring-answer-active/30" : "border-border"}`}
                 aria-label={`Jawapan rumah ${names[i]}`}
               >
                 {digit}
@@ -385,7 +384,7 @@ function ColumnAddition({
         {result === null ? "Tekan kotak jawapan, kemudian masukkan nombor." : result ? "Betul!" : "Cuba soalan seterusnya."}
       </p>
       <div className="mx-auto mt-3 grid max-w-xs grid-cols-3 gap-2" aria-label="Papan kekunci nombor">
-        {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map((digit, i) => (
+        {["1", "2", "3", "4", "5", "6", "7", "8", "9"].map((digit, i) => (
           <button
             key={digit}
             type="button"
@@ -400,10 +399,26 @@ function ColumnAddition({
           type="button"
           disabled={disabled}
           onClick={removeDigit}
-          className="tap-pop col-span-2 h-12 rounded-2xl bg-card font-display text-xl font-extrabold shadow-soft"
-          aria-label="Padam nombor"
+          className="tap-pop h-12 rounded-2xl bg-peach font-display text-xl font-extrabold shadow-soft"
+          aria-label="Padam digit terakhir"
         >
           ⌫
+        </button>
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={() => enterDigit("0")}
+          className="tap-pop h-12 rounded-2xl bg-sky font-display text-xl font-extrabold shadow-soft"
+        >
+          0
+        </button>
+        <button
+          type="button"
+          disabled={disabled}
+          onClick={removeDigit}
+          className="tap-pop h-12 rounded-2xl bg-lavender px-2 font-display text-sm font-extrabold shadow-soft"
+        >
+          Padam
         </button>
       </div>
     </div>

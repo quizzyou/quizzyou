@@ -35,6 +35,9 @@
   --color-lavender: var(--lavender);
   --color-lemon: var(--lemon);
   --color-mint: var(--mint);
+  --color-carry: var(--carry);
+  --color-carry-border: var(--carry-border);
+  --color-answer-active: var(--answer-active);
   --color-wood: var(--wood);
   --color-wood-dark: var(--wood-dark);
   --font-display: "Poppins", ui-rounded, system-ui, sans-serif;
@@ -69,6 +72,9 @@
   --lavender: oklch(0.9 0.06 300);
   --lemon: oklch(0.95 0.07 100);
   --mint: oklch(0.92 0.06 165);
+  --carry: oklch(0.9 0.07 55);
+  --carry-border: oklch(0.79 0.1 48);
+  --answer-active: oklch(0.68 0.13 155);
   --wood: oklch(0.65 0.09 60);
   --wood-dark: oklch(0.5 0.08 55);
 }
