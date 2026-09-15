@@ -465,7 +465,7 @@ function SoalanPapan({
   demo?: boolean;
 }) {
   const cols = soalan.cols;
-  const gridStyle = { gridTemplateColumns: `repeat(${cols}, minmax(0, 1fr))` };
+  const gridStyle = { gridTemplateColumns: `repeat(${cols}, minmax(2.5rem, 4rem))` };
   const leftToRight = Array.from({ length: cols }, (_, i) => cols - 1 - i); // index lajur (0 = Sa)
   const needsCarry = (col: number) => order.some((b) => b.kind === "carry" && b.col === col);
 

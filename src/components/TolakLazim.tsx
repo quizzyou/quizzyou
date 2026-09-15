@@ -353,7 +353,7 @@ function TolakBoard({
   onSelect: (col: number) => void;
   demo?: boolean;
 }) {
-  const gridStyle = { gridTemplateColumns: `repeat(${soalan.cols}, minmax(0, 1fr))` };
+  const gridStyle = { gridTemplateColumns: `repeat(${soalan.cols}, minmax(2.5rem, 4rem))` };
   const leftToRight = Array.from({ length: soalan.cols }, (_, index) => soalan.cols - 1 - index);
   const visibleChange = (col: number) => {
     const steps = soalan.borrowSteps.filter((step) => revealedBorrows.includes(step.targetCol));
