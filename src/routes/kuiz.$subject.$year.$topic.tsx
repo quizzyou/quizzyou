@@ -6,6 +6,7 @@ import { isYear, subjectById, topicFromSlug } from "@/data/curriculum";
 import { getQuestions, QUESTIONS_PER_TOPIC, type Vertical } from "@/lib/questions";
 import { clearProgress, loadProgress, saveProgress } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
+import { TambahLazim } from "@/components/TambahLazim";
 
 export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
   head: () => ({
@@ -16,8 +17,29 @@ export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
       { property: "og:description", content: "40 soalan setiap topik, dengan skor dan bintang." },
     ],
   }),
-  component: QuizPage,
+  component: QuizRoute,
 });
+
+function QuizRoute() {
+  const { subject, year, topic } = Route.useParams();
+  const info = subjectById(subject);
+  if (!info || !isYear(year)) throw notFound();
+  const topicName = topicFromSlug(info.id, year, topic);
+  if (!topicName) throw notFound();
+
+  if (subject === "mt" && year === "2" && topic === "tambah") {
+    return (
+      <TambahLazim
+        subject={subject}
+        year={year}
+        topic={topic}
+        topicName={topicName}
+        subjectName={info.name}
+      />
+    );
+  }
+  return <QuizPage />;
+}
 
 function QuizPage() {
   const { subject, year, topic } = Route.useParams();
@@ -26,6 +48,7 @@ function QuizPage() {
   if (!info || !isYear(year)) throw notFound();
   const topicName = topicFromSlug(info.id, year, topic);
   if (!topicName) throw notFound();
+
 
   const questions = useMemo(
     () => getQuestions(info.id, year, topicName),
