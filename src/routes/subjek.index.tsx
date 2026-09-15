@@ -80,7 +80,7 @@ function SubjectsPage() {
               Hai, {profile?.name ?? "Murid"}!
               <Emoji emoji="👋" className="inline-block" />
             </p>
-            <p className="truncate text-xs text-foreground/70">Jom sambung belajar hari ini!</p>
+            <p className="truncate text-xs text-foreground/70">Jom belajar hari ini!</p>
           </div>
           <button
             type="button"
