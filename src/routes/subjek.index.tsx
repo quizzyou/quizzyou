@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Emoji } from "@/components/Emoji";
-import { PageHeader } from "@/components/PageHeader";
+import { SoundToggle } from "@/components/SoundToggle";
 import { subjects, slugify, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
 import { listUnfinished, type Unfinished } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
+import { loadBadges, loadProfile, loadStreak, type Profile } from "@/lib/profile";
 
 export const Route = createFileRoute("/subjek/")({
   head: () => ({
@@ -62,7 +63,7 @@ function SubjectsPage() {
 
 
       {resume.length > 0 && (
-        <section className="mb-5">
+        <section className="mt-5">
           <h2 className="mb-2 font-display text-lg font-bold">Sambung Kuiz</h2>
           <div className="space-y-2">
             {resume.map((r) => {
@@ -96,6 +97,8 @@ function SubjectsPage() {
           </div>
         </section>
       )}
+
+      <h2 className="mb-3 mt-6 text-center font-display text-2xl font-extrabold">Pilih Subjek</h2>
 
       <div className="grid gap-4">
         {subjects.map((subject) => (
