@@ -233,7 +233,7 @@ export const snFacts: Record<YearId, Record<string, string[]>> = {
     Gigi: [
       "Gigi untuk mengoyak makanan ialah?|gigi taring",
       "Gigi untuk memotong makanan ialah?|gigi kacip",
-      "Gigi untuk mengunyah makanan ialah?|gigi molar",
+      "Gigi untuk mengunyah makanan ialah?|gigi geraham",
       "Gigi kanak-kanak dipanggil gigi?|susu",
       "Berapa kali sehari perlu berus gigi?|dua",
       "Lapisan luar gigi yang keras ialah?|enamel",
