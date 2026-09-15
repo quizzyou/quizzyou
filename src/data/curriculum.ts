@@ -26,7 +26,6 @@ export const topics: Record<SubjectId, Record<YearId, string[]>> = {
     "1": [
       "Huruf",
       "Suku Kata",
-      "Perkataan",
       "Frasa dan Ayat Mudah",
       "Kata Nama Am",
       "Kata Kerja",
@@ -59,7 +58,6 @@ export const topics: Record<SubjectId, Record<YearId, string[]>> = {
       "Family",
       "My Classroom",
       "Reading",
-      "Writing",
     ],
     "2": [
       "Grammar in Context",
@@ -68,7 +66,6 @@ export const topics: Record<SubjectId, Record<YearId, string[]>> = {
       "Daily Activities",
       "Places",
       "Reading",
-      "Writing",
     ],
     "3": [
       "Grammar in Context",
@@ -77,7 +74,6 @@ export const topics: Record<SubjectId, Record<YearId, string[]>> = {
       "Weather",
       "Hobbies",
       "Health",
-      "Stories",
       "Comprehension",
     ],
   },
