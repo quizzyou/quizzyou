@@ -19,6 +19,9 @@ import {
   snYear3Pernafasan,
   snYear3Gigi,
   snYear3TumbuhanMembiak,
+  snYear3Bahan,
+  snYear3Cuaca,
+  snYear3KitaranAir,
 } from "@/data/mcqs-sn";
 import {
   bmYear1Huruf,
