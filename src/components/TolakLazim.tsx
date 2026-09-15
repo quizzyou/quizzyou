@@ -50,9 +50,31 @@ function digitsOf(value: number, cols: number, padWithZero: boolean) {
   });
 }
 
-export function buildSoalanTolak(index: number): SoalanTolak {
-  const item = BANK[index % BANK.length] ?? BANK[0];
-  const [a, b, context] = item ?? [694, 228];
+function rng(seed: number) {
+  let s = seed % 2147483647;
+  if (s <= 0) s += 2147483646;
+  return () => (s = (s * 16807) % 2147483647) / 2147483647;
+}
+
+export function buildSoalanTolak(index: number, year = "2"): SoalanTolak {
+  let a: number;
+  let b: number;
+  let context: string | undefined;
+  if (year === "1") {
+    const rand = rng(4409 + index * 3571);
+    a = 20 + Math.floor(rand() * 80); // 20–99
+    b = 2 + Math.floor(rand() * (a - 3)); // 2 .. a-1
+    if (b >= a) b = a - 1;
+  } else if (year === "3") {
+    const rand = rng(6617 + index * 4933);
+    a = 105 + Math.floor(rand() * 8895); // 105–8999
+    if (a > 8999) a = 8999;
+    b = 34 + Math.floor(rand() * (a - 35));
+    if (b >= a) b = a - 1;
+  } else {
+    const item = BANK[index % BANK.length] ?? BANK[0];
+    [a, b, context] = item ?? [694, 228];
+  }
   const difference = a - b;
   const cols = Math.max(String(a).length, String(b).length);
   const aDigits = digitsOf(a, cols, true) as number[];
@@ -131,7 +153,7 @@ export function TolakLazim({
     }
   }, [subject, year, topic]);
 
-  const soalan = useMemo(() => buildSoalanTolak(index), [index]);
+  const soalan = useMemo(() => buildSoalanTolak(index, year), [index, year]);
   const order = useMemo(() => Array.from({ length: soalan.cols }, (_, col) => col), [soalan.cols]);
   const filled = order.every((col) => values[col] !== undefined && values[col] !== "");
 
@@ -225,7 +247,7 @@ export function TolakLazim({
   );
 
   if (phase === "intro") {
-    const example = buildSoalanTolak(0);
+    const example = buildSoalanTolak(0, year);
     return (
       <main className="mx-auto w-full max-w-md px-5 py-6">
         {header}
