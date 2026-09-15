@@ -177,7 +177,7 @@ export const enYear2FoodDrinks: FixedMCQ[] = [
   { prompt: "We squeeze lemons to make a sour drink called ______.", choices: ["lemonade", "milkshake", "hot chocolate", "tea"], answer: "lemonade" },
   { prompt: "Spelling check: Choose the correct word.", choices: ["Chicken", "Chiken", "Chikkin", "Cheken"], answer: "Chicken" },
   { prompt: "Spelling check: Choose the correct word.", choices: ["Vegtables", "Vegetables", "Vegitables", "Vegetabels"], answer: "Vegetables" },
-  { prompt: "Spelling check: Choose the correct word.", choices: ["Strawbery", "Strawberry", "Strowberry", "Strawbery"], answer: "Strawberry" },
+  { prompt: "Spelling check: Choose the correct word.", choices: ["Strawbery", "Strawberry", "Stawberry", "Strowberry"], answer: "Strawberry" },
   { prompt: "Read the context: 'Do we have ______ apples in the basket?'", choices: ["any", "some", "a", "an"], answer: "any" },
   { prompt: "Read the context: 'Yes, we have ______ bananas on the table.'", choices: ["some", "any", "an", "much"], answer: "some" },
   { prompt: "Which item is a sweet treat that we eat on birthdays?", choices: ["Cake", "Bread", "Rice", "Egg"], answer: "Cake" },
