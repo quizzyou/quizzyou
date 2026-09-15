@@ -83,7 +83,9 @@ function AccessCodePage() {
       </div>
 
       <div className="mt-2 text-center">
-        <h1 className="font-display text-5xl font-extrabold tracking-tight">QUIZZY</h1>
+        <h1 className="font-title text-5xl font-bold tracking-tight text-title drop-shadow-sm">
+          QUIZZY
+        </h1>
         <p className="mt-2 text-base text-muted-foreground">Masukkan Kod Akses</p>
       </div>
 
