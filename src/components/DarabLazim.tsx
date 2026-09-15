@@ -91,7 +91,7 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
     prompt = item.prompt;
   }
   const product = a * b;
-  const cols = Math.max(String(product).length, String(a).length);
+  const cols = year === "3" ? Math.max(3, String(product).length, String(a).length) : Math.max(String(product).length, String(a).length);
   const aDigits = digitsOf(a, cols);
   const bDigits = digitsOf(b, cols);
   const answerDigits: number[] = [];
@@ -110,7 +110,8 @@ type Box = { kind: "answer" | "carry"; col: number };
 
 function boxOrder(s: Soalan): Box[] {
   const order: Box[] = [];
-  for (let i = 0; i < s.cols; i++) {
+  const answerColumns = String(s.product).length;
+  for (let i = 0; i < answerColumns; i++) {
     order.push({ kind: "answer", col: i });
     if (s.showCarry && i + 1 < s.cols && (s.carries[i + 1] ?? 0) > 0) {
       order.push({ kind: "carry", col: i + 1 });
@@ -155,8 +156,6 @@ export function DarabLazim({
 
   const soalan = useMemo(() => buildSoalanDarab(index, year), [index, year]);
   const order = useMemo(() => boxOrder(soalan), [soalan]);
-
-  const startBox = order[0] ? boxKey(order[0]) : null;
 
   const resetBoxes = () => {
     setValues({});
@@ -568,6 +567,9 @@ function DarabPapan({
         <div className="ml-7 grid gap-2" style={gridStyle}>
           {leftToRight.map((col) => {
             const key = `answer-${col}`;
+            if (col >= String(soalan.product).length) {
+              return <span key={key} className="aspect-square min-w-0" aria-hidden="true" />;
+            }
             const value = values[key] ?? "";
             return (
               <button
