@@ -410,6 +410,12 @@ function BahagiPapan({
 }) {
   const columnCount = soalan.dividendDigits.length;
   const gridStyle = { gridTemplateColumns: `repeat(${columnCount}, 2.75rem)` };
+  // Selepas semakan, tunjukkan semua langkah; sebelum itu ikut digit betul sahaja.
+  const visibleSteps = checked ? soalan.steps.length : revealedSteps;
+  const currentStep = soalan.steps[Math.min(visibleSteps, soalan.steps.length - 1)];
+  const chunkStart = currentStep
+    ? currentStep.endColumn - String(currentStep.chunk).length + 1
+    : -1;
   const boardCorrect = soalan.quotientDigits.every(
     (digit, i) => values[`quotient-${i}`] === String(digit),
   ) && (soalan.remainder === 0 || values["remainder-0"] === String(soalan.remainder));
@@ -449,7 +455,7 @@ function BahagiPapan({
           <div className="rounded-tl-xl border-l-4 border-t-4 border-foreground/70 px-1 pt-2">
             <div className="grid" style={gridStyle}>
               {soalan.dividendDigits.map((digit, i) => (
-                <span key={`dividend-${i}`} className={`flex h-11 items-center justify-center rounded-lg ${i === (soalan.steps[Math.min(revealedSteps, soalan.steps.length - 1)]?.endColumn ?? -1) && !checked ? "bg-lemon" : ""}`}>
+                <span key={`dividend-${i}`} className={`flex h-11 items-center justify-center rounded-lg ${currentStep && i >= chunkStart && i <= currentStep.endColumn && !checked ? "bg-lemon" : ""}`}>
                   {digit}
                 </span>
               ))}
@@ -459,7 +465,7 @@ function BahagiPapan({
 
         <div className="ml-12 mt-1 space-y-1" aria-label="Ruang kerja bahagi">
           {soalan.steps.map((step, stepIndex) => {
-            if (stepIndex >= revealedSteps) return null;
+            if (stepIndex >= visibleSteps) return null;
             const productDigits = String(step.product).split("");
             const productStart = step.endColumn - productDigits.length + 1;
             const result = step.nextDigit === null ? String(step.remainder) : `${step.remainder || ""}${step.nextDigit}`;
