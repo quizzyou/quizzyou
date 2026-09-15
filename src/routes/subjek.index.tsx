@@ -6,7 +6,15 @@ import { subjects, topicFromSlug, isYear, type SubjectId } from "@/data/curricul
 import { listUnfinished, type Unfinished } from "@/lib/progress";
 import { getQuestions } from "@/lib/questions";
 import { sfx } from "@/lib/audio";
-import { loadBadges, loadProfile, loadStreak, type Profile } from "@/lib/profile";
+import {
+  avatarOptions,
+  loadBadges,
+  loadProfile,
+  loadStreak,
+  saveProfile,
+  type Profile,
+} from "@/lib/profile";
+import { Pencil } from "lucide-react";
 
 export const Route = createFileRoute("/subjek/")({
   head: () => ({
