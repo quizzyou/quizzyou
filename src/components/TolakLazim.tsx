@@ -68,8 +68,7 @@ export function buildSoalanTolak(index: number, year = "2"): SoalanTolak {
     const saB = Math.floor(rand() * (saA + 1)); // 0..saA
     a = puluhA * 10 + saA;
     b = puluhB * 10 + saB;
-    if (b === 0) b = Math.max(1, saA);
-    if (b > a) b = a;
+    if (b === 0) b = 10; // sentiasa tanpa pinjam kerana puluhA >= 1
   } else if (year === "3") {
     const rand = rng(6617 + index * 4933);
     a = 105 + Math.floor(rand() * 8895); // 105–8999
