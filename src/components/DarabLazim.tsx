@@ -34,7 +34,30 @@ type Soalan = {
   carries: number[];
   /** Tahun 1 tiada kotak simpan */
   showCarry: boolean;
+  prompt: string | undefined;
 };
+
+const YEAR_3_BANK: { a: number; b: number; prompt?: string }[] = [
+  { a: 11, b: 2 }, { a: 12, b: 2 }, { a: 21, b: 3 }, { a: 22, b: 3 },
+  { a: 31, b: 2 }, { a: 32, b: 2 }, { a: 101, b: 2 }, { a: 111, b: 3 },
+  { a: 121, b: 3 }, { a: 212, b: 2 },
+  { a: 26, b: 2 }, { a: 52, b: 4 }, { a: 91, b: 7 }, { a: 104, b: 8 },
+  { a: 106, b: 5 }, { a: 149, b: 2 }, { a: 162, b: 3 }, { a: 216, b: 4 },
+  { a: 272, b: 2 }, { a: 401, b: 6 },
+  { a: 22, b: 8 }, { a: 24, b: 5 }, { a: 35, b: 9 }, { a: 63, b: 8 },
+  { a: 76, b: 9 }, { a: 117, b: 9 }, { a: 132, b: 7 }, { a: 247, b: 6 },
+  { a: 346, b: 7 }, { a: 589, b: 8 },
+  { a: 24, b: 3, prompt: "Siti membeli 3 kotak pensel. Setiap kotak ada 24 batang pensel. Berapakah jumlah pensel?" },
+  { a: 32, b: 4, prompt: "Ali menyusun 4 rak buku. Setiap rak mempunyai 32 buah buku. Berapakah jumlah buku?" },
+  { a: 45, b: 6, prompt: "Mei Ling memasukkan 45 biji oren ke dalam setiap 6 bakul. Berapakah jumlah oren?" },
+  { a: 58, b: 7, prompt: "Kumar membeli 7 pek pelekat. Setiap pek ada 58 keping. Berapakah jumlah pelekat?" },
+  { a: 105, b: 3, prompt: "Cikgu Aina menyediakan 3 kotak. Setiap kotak mengandungi 105 batang pensel. Berapakah jumlah pensel?" },
+  { a: 126, b: 4, prompt: "Sebuah sekolah membeli 4 set buku, setiap set mengandungi 126 buah buku. Berapakah jumlah buku?" },
+  { a: 215, b: 5, prompt: "Lima kelas mengumpul 215 biji penutup botol setiap kelas. Berapakah jumlah semuanya?" },
+  { a: 238, b: 6, prompt: "Harga sebuah kerusi belajar ialah RM238. Berapakah harga 6 buah kerusi?" },
+  { a: 347, b: 7, prompt: "Tujuh kedai menerima 347 kotak susu setiap satu. Berapakah jumlah kotak susu?" },
+  { a: 468, b: 8, prompt: "Lapan dusun masing-masing menghasilkan 468 biji mangga. Berapakah jumlah mangga?" },
+];
 
 function digitsOf(n: number, cols: number): (number | null)[] {
   const s = String(n);
@@ -50,6 +73,7 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
   let a: number;
   let b: number;
   const showCarry = year !== "1";
+  let prompt: string | undefined;
   if (year === "1") {
     // Tahun 1: sifir 2, 3, 4, 5 — satu digit darab satu digit
     const sifir = [2, 3, 4, 5];
@@ -59,12 +83,15 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
     a = pick(11, 99);
     b = pick(2, 5);
   } else {
-    // Tahun 3: 2-3 digit darab satu digit
-    a = rand() < 0.45 ? pick(12, 99) : pick(102, 899);
-    b = pick(2, 9);
+    // Tahun 3: bank tersusun daripada mudah kepada sukar, 1 digit pengganda sahaja.
+    const item = YEAR_3_BANK[index % YEAR_3_BANK.length] ?? YEAR_3_BANK[0];
+    if (!item) return buildSoalanDarab(0, "2");
+    a = item.a;
+    b = item.b;
+    prompt = item.prompt;
   }
   const product = a * b;
-  const cols = Math.max(String(product).length, String(a).length);
+  const cols = year === "3" ? Math.max(3, String(product).length, String(a).length) : Math.max(String(product).length, String(a).length);
   const aDigits = digitsOf(a, cols);
   const bDigits = digitsOf(b, cols);
   const answerDigits: number[] = [];
@@ -76,14 +103,15 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
     answerDigits[i] = total % 10;
     incoming = Math.floor(total / 10);
   }
-  return { a, b, product, cols, aDigits, bDigits, answerDigits, carries, showCarry };
+  return { a, b, product, cols, aDigits, bDigits, answerDigits, carries, showCarry, prompt };
 }
 
 type Box = { kind: "answer" | "carry"; col: number };
 
 function boxOrder(s: Soalan): Box[] {
   const order: Box[] = [];
-  for (let i = 0; i < s.cols; i++) {
+  const answerColumns = String(s.product).length;
+  for (let i = 0; i < answerColumns; i++) {
     order.push({ kind: "answer", col: i });
     if (s.showCarry && i + 1 < s.cols && (s.carries[i + 1] ?? 0) > 0) {
       order.push({ kind: "carry", col: i + 1 });
@@ -129,18 +157,16 @@ export function DarabLazim({
   const soalan = useMemo(() => buildSoalanDarab(index, year), [index, year]);
   const order = useMemo(() => boxOrder(soalan), [soalan]);
 
-  const startBox = order[0] ? boxKey(order[0]) : null;
-
   const resetBoxes = () => {
     setValues({});
-    setActive(startBox);
+    setActive(null);
     setChecked(false);
     setAllCorrect(false);
   };
 
   const begin = () => {
     sfx.click();
-    setActive(startBox);
+    setActive(null);
     setPhase("play");
   };
 
@@ -170,13 +196,6 @@ export function DarabLazim({
     if (!prev) return;
     setActive(boxKey(prev));
     setValues((current) => ({ ...current, [boxKey(prev)]: "" }));
-  };
-
-  const clearAll = () => {
-    if (checked) return;
-    sfx.tap();
-    setValues({});
-    setActive(startBox);
   };
 
   const check = () => {
@@ -329,7 +348,7 @@ export function DarabLazim({
 
       <div className="mb-1 flex items-center justify-between text-sm font-bold text-muted-foreground">
         <span>
-          {index + 1} / {TOTAL}
+          Soalan {index + 1} / {TOTAL}
         </span>
         <span aria-label={`${lives} nyawa`}>
           {Array.from({ length: LIVES }, (_, i) => (
@@ -347,7 +366,7 @@ export function DarabLazim({
       </div>
 
       <p className="mt-4 text-center font-display text-lg font-extrabold">
-        Darab dalam bentuk lazim
+        {soalan.prompt ?? "Darab dalam bentuk lazim"}
       </p>
 
       <DarabPapan
@@ -407,7 +426,7 @@ export function DarabLazim({
             </button>
             <button
               type="button"
-              onClick={clearAll}
+              onClick={backspace}
               className="tap-pop h-12 rounded-2xl bg-lavender px-2 font-display text-sm font-extrabold shadow-soft"
             >
               Padam
@@ -497,27 +516,21 @@ function DarabPapan({
             if (col === 0) {
               return <span key={key} className="mx-auto h-8 w-8" aria-hidden="true" />;
             }
-            if (!needsCarry(col)) {
-              return (
-                <span
-                  key={key}
-                  className="mx-auto h-8 w-8 rounded-md border-2 border-dashed border-border/60"
-                />
-              );
-            }
+            const required = needsCarry(col);
             const value = values[key] ?? "";
             return (
               <button
                 key={key}
                 type="button"
-                onClick={() => onSelect(key)}
+                onClick={() => required && onSelect(key)}
+                disabled={!required}
                 aria-label={`Kotak simpan ${PLACE_NAMES[col] ?? ""}`}
                 className={`tap-pop mx-auto flex h-8 w-8 items-center justify-center rounded-md border-2 border-carry-border bg-carry font-display text-base font-extrabold ${
-                  checked && !demo
+                  required && checked && !demo
                     ? values[key] === expected({ kind: "carry", col })
                       ? "border-answer-active"
                       : "border-destructive"
-                    : active === key
+                    : required && active === key
                       ? "ring-2 ring-answer-active/40"
                       : ""
                 }`}
@@ -554,6 +567,9 @@ function DarabPapan({
         <div className="ml-7 grid gap-2" style={gridStyle}>
           {leftToRight.map((col) => {
             const key = `answer-${col}`;
+            if (col >= String(soalan.product).length) {
+              return <span key={key} className="aspect-square min-w-0" aria-hidden="true" />;
+            }
             const value = values[key] ?? "";
             return (
               <button

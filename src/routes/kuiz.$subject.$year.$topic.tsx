@@ -51,7 +51,7 @@ function QuizRoute() {
       />
     );
   }
-  if (subject === "mt" && (year === "1" || year === "3") && topic === "darab") {
+  if (subject === "mt" && year === "3" && topic === "darab") {
     return (
       <DarabLazim
         subject={subject}
