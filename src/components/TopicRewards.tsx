@@ -25,7 +25,7 @@ export function TopicRewards({ subject }: { subject: string }) {
     <div className="fixed inset-0 z-50 grid place-items-center bg-foreground/30 px-6">
       <Confetti count={30} seed={3} />
       <div className="animate-pop-in w-full max-w-xs rounded-3xl bg-card p-6 text-center shadow-soft">
-        <span className="animate-bounce-slow inline-block text-5xl">
+        <span className="animate-pop-in inline-block text-5xl">
           <Emoji emoji={badge.emoji} className="inline-block" />
         </span>
         <h2 className="mt-3 font-display text-xl font-extrabold">
