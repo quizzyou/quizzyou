@@ -243,8 +243,9 @@ function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Questi
 
   const seen = new Set<string>();
   const unique = out.filter((q) => {
-    if (seen.has(q.prompt)) return false;
-    seen.add(q.prompt);
+    const key = `${q.prompt}|${q.choices[q.answer] ?? ""}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
     return true;
   });
 
