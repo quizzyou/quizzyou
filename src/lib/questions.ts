@@ -668,6 +668,9 @@ const factBanks: Record<string, Record<YearId, Record<string, string[]>>> = {
 export function getQuestions(subject: SubjectId, year: YearId, topic: string): Question[] {
   const seed = hash(`${subject}|${year}|${topic}`);
   if (subject === "mt") return mathQuestions(topic, year, seed);
+  if (subject === "sn" && year === "1" && topic === "Kemahiran Saintifik") {
+    return fixedMCQQuestions(snYear1KemahiranSaintifik, seed);
+  }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
   return factQuestions(facts, seed, subject === "en" ? "en" : "bm");
