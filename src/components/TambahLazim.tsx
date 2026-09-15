@@ -482,94 +482,102 @@ function SoalanPapan({
 
   return (
     <section className="card-soft mt-4 px-3 py-5" aria-label="Bentuk lazim tambah">
-      <div className="mx-auto w-fit">
-      <div
-        className="grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs"
-        style={gridStyle}
-      >
-        {leftToRight.map((col) => (
-          <span key={`place-${col}`}>{PLACE_NAMES[col] ?? ""}</span>
-        ))}
-      </div>
-
-      <div className="grid gap-1 py-2" style={gridStyle} aria-label="Kotak simpan">
-        {leftToRight.map((col) => {
-          const key = `carry-${col}`;
-          if (col === 0) {
-            return <span key={key} className="mx-auto h-8 w-8" aria-hidden="true" />;
-          }
-          if (!needsCarry(col)) {
-            return (
-              <span
-                key={key}
-                className="mx-auto h-8 w-8 rounded-md border-2 border-dashed border-border/60"
-              />
-            );
-          }
-          const value = values[key] ?? "";
-          return (
-            <button
-              key={key}
-              type="button"
-              onClick={() => onSelect(key)}
-              aria-label={`Kotak simpan ${PLACE_NAMES[col] ?? ""}`}
-              className={`tap-pop mx-auto flex h-8 w-8 items-center justify-center rounded-md border-2 border-carry-border bg-carry font-display text-base font-extrabold ${
-                checked && !demo
-                  ? values[key] === expected({ kind: "carry", col })
-                    ? "border-answer-active"
-                    : "border-destructive"
-                  : active === key
-                    ? "ring-2 ring-answer-active/40"
-                    : ""
-              }`}
-            >
-              <span className={value ? "animate-carry-in" : ""}>{value}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      <div className="relative text-center font-display text-3xl font-extrabold">
-        <div className="grid" style={gridStyle}>
+      <div className="mx-auto w-fit grid grid-cols-[1.75rem_auto] gap-y-1">
+        <span aria-hidden="true" />
+        <div
+          className="grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs"
+          style={gridStyle}
+        >
           {leftToRight.map((col) => (
-            <span key={`top-${col}`} className="flex min-h-12 items-center justify-center">
-              {soalan.aDigits[col] ?? ""}
-            </span>
+            <span key={`place-${col}`}>{PLACE_NAMES[col] ?? ""}</span>
           ))}
         </div>
-        <span aria-hidden="true" className="absolute -left-7 bottom-0 flex min-h-12 items-center justify-center">+</span>
-        <div className="grid" style={gridStyle}>
-          {leftToRight.map((col) => (
-            <span key={`bottom-${col}`} className="flex min-h-12 items-center justify-center">
-              {soalan.bDigits[col] ?? ""}
-            </span>
-          ))}
-        </div>
-      </div>
 
-      <div className="mt-2 border-t-4 border-foreground/60 pt-3">
-        <div className="grid gap-1" style={gridStyle}>
+        <span aria-hidden="true" />
+        <div className="grid gap-1 py-2" style={gridStyle} aria-label="Kotak simpan">
           {leftToRight.map((col) => {
-            const key = `answer-${col}`;
+            const key = `carry-${col}`;
+            if (col === 0) {
+              return <span key={key} className="mx-auto h-8 w-8" aria-hidden="true" />;
+            }
+            if (!needsCarry(col)) {
+              return (
+                <span
+                  key={key}
+                  className="mx-auto h-8 w-8 rounded-md border-2 border-dashed border-border/60"
+                />
+              );
+            }
             const value = values[key] ?? "";
             return (
               <button
                 key={key}
                 type="button"
                 onClick={() => onSelect(key)}
-                aria-label={`Jawapan ${PLACE_NAMES[col] ?? ""}`}
-                className={`tap-pop flex aspect-square min-w-0 items-center justify-center rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${stateClass(
-                  key,
-                  value,
-                  expected({ kind: "answer", col }),
-                )}`}
+                aria-label={`Kotak simpan ${PLACE_NAMES[col] ?? ""}`}
+                className={`tap-pop mx-auto flex h-8 w-8 items-center justify-center rounded-md border-2 border-carry-border bg-carry font-display text-base font-extrabold ${
+                  checked && !demo
+                    ? values[key] === expected({ kind: "carry", col })
+                      ? "border-answer-active"
+                      : "border-destructive"
+                    : active === key
+                      ? "ring-2 ring-answer-active/40"
+                      : ""
+                }`}
               >
-                {value}
+                <span className={value ? "animate-carry-in" : ""}>{value}</span>
               </button>
             );
           })}
         </div>
-      </div>
+
+        <span aria-hidden="true" />
+        <div className="grid text-center font-display text-3xl font-extrabold" style={gridStyle}>
+          {leftToRight.map((col) => (
+            <span key={`top-${col}`} className="flex min-h-12 items-center justify-center">
+              {soalan.aDigits[col] ?? ""}
+            </span>
+          ))}
+        </div>
+
+        <span
+          aria-hidden="true"
+          className="flex min-h-12 items-center justify-center font-display text-3xl font-extrabold"
+        >
+          +
+        </span>
+        <div className="grid text-center font-display text-3xl font-extrabold" style={gridStyle}>
+          {leftToRight.map((col) => (
+            <span key={`bottom-${col}`} className="flex min-h-12 items-center justify-center">
+              {soalan.bDigits[col] ?? ""}
+            </span>
+          ))}
+        </div>
+
+        <span aria-hidden="true" />
+        <div className="mt-2 border-t-4 border-foreground/60 pt-3">
+          <div className="grid gap-1" style={gridStyle}>
+            {leftToRight.map((col) => {
+              const key = `answer-${col}`;
+              const value = values[key] ?? "";
+              return (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => onSelect(key)}
+                  aria-label={`Jawapan ${PLACE_NAMES[col] ?? ""}`}
+                  className={`tap-pop flex aspect-square min-w-0 items-center justify-center rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${stateClass(
+                    key,
+                    value,
+                    expected({ kind: "answer", col }),
+                  )}`}
+                >
+                  {value}
+                </button>
+              );
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
