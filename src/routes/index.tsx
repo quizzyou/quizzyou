@@ -32,12 +32,19 @@ function AccessCodePage() {
   const [digits, setDigits] = useState("");
   const digitsRef = useRef("");
   const [state, setState] = useState<"idle" | "wrong" | "opening">("idle");
+  const [checked, setChecked] = useState(false);
 
   useEffect(() => {
     if (window.localStorage.getItem("accessGranted") === "true") {
       void navigate({ to: "/subjek", replace: true });
+      return;
     }
+    setChecked(true);
   }, [navigate]);
+
+  if (!checked) {
+    return <main className="min-h-screen" />;
+  }
 
   const press = (key: string) => {
     if (state === "opening") return;
