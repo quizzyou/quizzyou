@@ -343,16 +343,16 @@ function TolakBoard({
       <div className="ml-7 grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
         {leftToRight.map((col) => <span key={col}>{PLACE_NAMES[col] ?? ""}</span>)}
       </div>
-      <div className="mt-3 grid grid-cols-[1.75rem_1fr] items-end text-center font-display text-3xl font-extrabold">
+      <div className="mt-3 grid grid-cols-[1.75rem_1fr] items-center text-center font-display text-3xl font-extrabold">
         <span aria-hidden="true" />
-        <div className="grid min-h-14 items-end" style={gridStyle}>
+        <div className="grid min-h-14 items-center" style={gridStyle}>
           {leftToRight.map((col) => {
             const change = visibleChange(col);
             const original = soalan.aDigits[col];
             return (
-              <span key={`top-${col}`} className="relative inline-grid min-h-14 place-items-end center">
+              <span key={`top-${col}`} className="relative grid min-h-14 place-items-center">
                 {change && <span className="animate-carry-in absolute top-0 text-base text-destructive-foreground">{change.to}</span>}
-                <span className="relative">
+                <span className="relative flex h-full w-full items-center justify-center">
                   {original}
                   {change && <span className="absolute left-1/2 top-1/2 h-0.5 w-7 -translate-x-1/2 -translate-y-1/2 -rotate-[25deg] bg-destructive" aria-hidden="true" />}
                 </span>
@@ -360,8 +360,8 @@ function TolakBoard({
             );
           })}
         </div>
-        <span aria-hidden="true">−</span>
-        <div className="grid" style={gridStyle}>{leftToRight.map((col) => <span key={`bottom-${col}`}>{soalan.bDigits[col] ?? ""}</span>)}</div>
+        <span aria-hidden="true" className="flex min-h-14 items-center justify-center">−</span>
+        <div className="grid" style={gridStyle}>{leftToRight.map((col) => <span key={`bottom-${col}`} className="flex min-h-14 items-center justify-center">{soalan.bDigits[col] ?? ""}</span>)}</div>
       </div>
       <div className="mt-2 border-t-4 border-foreground/60 pt-3">
         <div className="ml-7 grid gap-2" style={gridStyle}>
@@ -371,7 +371,7 @@ function TolakBoard({
             const state = checked && !demo
               ? correct ? "border-answer-active bg-mint" : "border-destructive bg-destructive text-destructive-foreground"
               : active === col ? "border-answer-active ring-2 ring-answer-active/30 bg-card" : "border-border bg-card";
-            return <button key={col} type="button" onClick={() => onSelect(col)} aria-label={`Jawapan ${PLACE_NAMES[col] ?? ""}`} className={`tap-pop aspect-square min-w-0 rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${state}`}>{value}</button>;
+            return <button key={col} type="button" onClick={() => onSelect(col)} aria-label={`Jawapan ${PLACE_NAMES[col] ?? ""}`} className={`tap-pop flex aspect-square min-w-0 items-center justify-center rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${state}`}>{value}</button>;
           })}
         </div>
       </div>

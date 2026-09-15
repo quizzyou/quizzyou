@@ -512,7 +512,7 @@ function SoalanPapan({
               type="button"
               onClick={() => onSelect(key)}
               aria-label={`Kotak simpan ${PLACE_NAMES[col] ?? ""}`}
-              className={`tap-pop mx-auto grid h-8 w-8 place-items-center rounded-md border-2 border-carry-border bg-carry font-display text-base font-extrabold ${
+              className={`tap-pop mx-auto flex h-8 w-8 items-center justify-center rounded-md border-2 border-carry-border bg-carry font-display text-base font-extrabold ${
                 checked && !demo
                   ? values[key] === expected({ kind: "carry", col })
                     ? "border-answer-active"
@@ -532,13 +532,17 @@ function SoalanPapan({
         <span aria-hidden="true" />
         <div className="grid" style={gridStyle}>
           {leftToRight.map((col) => (
-            <span key={`top-${col}`}>{soalan.aDigits[col] ?? ""}</span>
+            <span key={`top-${col}`} className="flex min-h-12 items-center justify-center">
+              {soalan.aDigits[col] ?? ""}
+            </span>
           ))}
         </div>
-        <span aria-hidden="true">+</span>
+        <span aria-hidden="true" className="flex min-h-12 items-center justify-center">+</span>
         <div className="grid" style={gridStyle}>
           {leftToRight.map((col) => (
-            <span key={`bottom-${col}`}>{soalan.bDigits[col] ?? ""}</span>
+            <span key={`bottom-${col}`} className="flex min-h-12 items-center justify-center">
+              {soalan.bDigits[col] ?? ""}
+            </span>
           ))}
         </div>
       </div>
@@ -554,7 +558,7 @@ function SoalanPapan({
                 type="button"
                 onClick={() => onSelect(key)}
                 aria-label={`Jawapan ${PLACE_NAMES[col] ?? ""}`}
-                className={`tap-pop aspect-square min-w-0 rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${stateClass(
+                className={`tap-pop flex aspect-square min-w-0 items-center justify-center rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${stateClass(
                   key,
                   value,
                   expected({ kind: "answer", col }),
