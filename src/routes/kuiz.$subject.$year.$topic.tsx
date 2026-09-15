@@ -92,21 +92,23 @@ function QuizPage() {
     [info.id, year, topicName],
   );
 
+  const total = questions.length;
+
   const [ready, setReady] = useState(false);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(
-    Array(QUESTIONS_PER_TOPIC).fill(null),
+    Array(total).fill(null),
   );
   const [picked, setPicked] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     const saved = loadProgress(subject, year, topic);
-    if (saved && saved.index < QUESTIONS_PER_TOPIC) {
+    if (saved && saved.index < total) {
       setIndex(saved.index);
       setScore(saved.score);
-      setAnswers(saved.answers ?? Array(QUESTIONS_PER_TOPIC).fill(null));
+      setAnswers(saved.answers ?? Array(total).fill(null));
     }
     setReady(true);
   }, [subject, year, topic]);
