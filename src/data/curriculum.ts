@@ -166,7 +166,6 @@ const topicEmojis: Record<string, string> = {
   // Bahasa Melayu
   Huruf: "🔠",
   "Suku Kata": "🧩",
-  Perkataan: "📝",
   "Frasa dan Ayat Mudah": "💬",
   "Kata Nama Am": "🏷️",
   "Kata Nama": "🏷️",
@@ -190,7 +189,6 @@ const topicEmojis: Record<string, string> = {
   Family: "👨‍👩‍👧",
   "My Classroom": "🏫",
   Reading: "📚",
-  Writing: "✍️",
   "Grammar in Context": "📘",
   "Food & Drinks": "🍜",
   Animals: "🐘",
