@@ -682,6 +682,9 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   if (subject === "bm" && year === "1" && topic === "Huruf") {
     return fixedMCQQuestions(bmYear1Huruf, seed);
   }
+  if (subject === "bm" && year === "1" && topic === "Suku Kata") {
+    return fixedMCQQuestions(bmYear1SukuKata, seed);
+  }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
   return factQuestions(facts, seed, subject === "en" ? "en" : "bm");
