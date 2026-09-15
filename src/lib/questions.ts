@@ -3,6 +3,7 @@ import { enFacts } from "@/data/facts-en";
 import { snFacts } from "@/data/facts-sn";
 import { mtYear1ProblemSolving, mtYear3ProblemSolving } from "@/data/mcqs-mt";
 import { snYear1KemahiranSaintifik } from "@/data/mcqs-sn";
+import { bmYear1Huruf } from "@/data/mcqs-bm";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
 export type Vertical = { a: string; b: string; op: "+" | "-" | "×" | "÷" };
@@ -677,6 +678,9 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   if (subject === "mt") return mathQuestions(topic, year, seed);
   if (subject === "sn" && year === "1" && topic === "Kemahiran Saintifik") {
     return fixedMCQQuestions(snYear1KemahiranSaintifik, seed);
+  }
+  if (subject === "bm" && year === "1" && topic === "Huruf") {
+    return fixedMCQQuestions(bmYear1Huruf, seed);
   }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
