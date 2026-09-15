@@ -350,9 +350,9 @@ function TolakBoard({
             const change = visibleChange(col);
             const original = soalan.aDigits[col];
             return (
-              <span key={`top-${col}`} className="relative grid min-h-14 place-items-center">
-                {change && <span className="animate-carry-in absolute top-0 text-base text-destructive-foreground">{change.to}</span>}
-                <span className="relative flex h-full w-full items-center justify-center">
+              <span key={`top-${col}`} className="relative flex min-h-14 flex-col items-center justify-center gap-1">
+                {change && <span className="animate-carry-in text-base text-destructive-foreground">{change.to}</span>}
+                <span className="relative flex items-center justify-center">
                   {original}
                   {change && <span className="absolute left-1/2 top-1/2 h-0.5 w-7 -translate-x-1/2 -translate-y-1/2 -rotate-[25deg] bg-destructive" aria-hidden="true" />}
                 </span>
