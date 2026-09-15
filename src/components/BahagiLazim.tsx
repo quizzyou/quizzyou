@@ -409,7 +409,9 @@ function BahagiPapan({
   demo?: boolean;
 }) {
   const columnCount = soalan.dividendDigits.length;
-  const gridStyle = { gridTemplateColumns: `repeat(${columnCount}, 2.75rem)` };
+  const columnWidth = "3rem";
+  const operatorWidth = "3rem";
+  const gridStyle = { gridTemplateColumns: `repeat(${columnCount}, ${columnWidth})` };
   // Selepas semakan, tunjukkan semua langkah; sebelum itu ikut digit betul sahaja.
   const visibleSteps = checked ? soalan.steps.length : revealedSteps;
   const currentStep = soalan.steps[Math.min(visibleSteps, soalan.steps.length - 1)];
@@ -430,7 +432,7 @@ function BahagiPapan({
   return (
     <section className={`card-soft mt-4 overflow-hidden px-3 py-5 ${checked && !demo && !boardCorrect ? "animate-shake" : ""}`} aria-label="Bentuk lazim bahagi">
       <div className="mx-auto w-fit">
-        <div className="grid gap-1 pl-12" style={gridStyle} aria-label="Kotak hasil bahagi">
+        <div className="grid gap-0" style={{ ...gridStyle, marginLeft: operatorWidth }} aria-label="Kotak hasil bahagi">
           {soalan.dividendDigits.map((_, column) => {
             const quotientIndex = column - soalan.quotientOffset;
             if (quotientIndex < 0) return <span key={`empty-q-${column}`} className="h-10 w-10" aria-hidden="true" />;
@@ -463,7 +465,7 @@ function BahagiPapan({
           </div>
         </div>
 
-        <div className="ml-12 mt-1 space-y-1" aria-label="Ruang kerja bahagi">
+        <div className="mt-1 space-y-1" style={{ marginLeft: operatorWidth }} aria-label="Ruang kerja bahagi">
           {soalan.steps.map((step, stepIndex) => {
             if (stepIndex >= visibleSteps) return null;
             const productDigits = String(step.product).split("");
@@ -482,7 +484,7 @@ function BahagiPapan({
                   ))}
                 </div>
                 <div className="relative h-1">
-                  <span className="absolute right-0 top-0 h-0.5 rounded-full bg-foreground/60 animate-pop-in" style={{ width: `${Math.max(1, productDigits.length) * 2.75}rem` }} />
+                  <span className="absolute right-0 top-0 h-0.5 rounded-full bg-foreground/60 animate-pop-in" style={{ width: `${Math.max(1, productDigits.length) * 3}rem` }} />
                   <span className="absolute -left-4 -top-5 font-display text-lg font-extrabold">−</span>
                 </div>
                 <div className="grid" style={gridStyle}>
