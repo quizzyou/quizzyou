@@ -39,6 +39,10 @@ import {
   enYear3Grammar,
   enYear3Verbs,
   enYear3Adjectives,
+  enYear3Weather,
+  enYear3Hobbies,
+  enYear3Health,
+  enYear3Comprehension,
 } from "@/data/mcqs-en";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
