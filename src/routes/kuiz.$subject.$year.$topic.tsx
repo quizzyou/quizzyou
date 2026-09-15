@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Confetti } from "@/components/Confetti";
 import { TopicRewards } from "@/components/TopicRewards";
 import { isYear, subjectById, topicFromSlug } from "@/data/curriculum";
-import { getQuestions, QUESTIONS_PER_TOPIC, type Vertical } from "@/lib/questions";
+import { getQuestions, type Vertical } from "@/lib/questions";
 import { clearProgress, loadProgress, saveProgress } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
 import { TambahLazim } from "@/components/TambahLazim";
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
   head: () => ({
     meta: [
       { title: "Kuiz — QUIZZY" },
-      { name: "description", content: "Jawab 40 soalan kuiz KSSR dan kumpul bintang." },
+      { name: "description", content: "Jawab soalan kuiz KSSR dan kumpul bintang." },
       { property: "og:title", content: "Kuiz — QUIZZY" },
       { property: "og:description", content: "Kuiz interaktif topik KSSR dengan skor dan bintang." },
     ],
