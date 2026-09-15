@@ -116,11 +116,15 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
     prompt = item.prompt;
   }
   const product = a * b;
+  const productLen = String(product).length;
+  const aLen = String(a).length;
   const cols = year === "3"
-    ? Math.max(3, String(product).length, String(a).length)
+    ? Math.max(3, productLen, aLen)
     : year === "2"
-      ? Math.max(2, String(product).length, String(a).length)
-      : Math.max(String(product).length, String(a).length);
+      ? a < 10 && b < 10 && productLen === 1
+        ? 1
+        : Math.max(2, productLen, aLen)
+      : Math.max(productLen, aLen);
   const aDigits = digitsOf(a, cols);
   const bDigits = digitsOf(b, cols);
   const answerDigits: number[] = [];
