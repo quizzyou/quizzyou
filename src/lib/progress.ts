@@ -1,3 +1,4 @@
+import { topicFromSlug } from "@/data/curriculum";
 import { getQuestions } from "@/lib/questions";
 
 export type Progress = {
