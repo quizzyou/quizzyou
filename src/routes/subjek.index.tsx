@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Emoji } from "@/components/Emoji";
 import { SoundToggle } from "@/components/SoundToggle";
-import { subjects, slugify, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
+import { subjects, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
 import { listUnfinished, type Unfinished } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
 import { loadBadges, loadProfile, loadStreak, type Profile } from "@/lib/profile";
