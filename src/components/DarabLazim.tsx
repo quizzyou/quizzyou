@@ -119,7 +119,9 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
   const cols = year === "3"
     ? Math.max(3, String(product).length, String(a).length)
     : year === "2"
-      ? Math.max(2, String(product).length, String(a).length)
+      ? a < 10 && b < 10
+        ? Math.max(String(product).length, String(a).length)
+        : Math.max(2, String(product).length, String(a).length)
       : Math.max(String(product).length, String(a).length);
   const aDigits = digitsOf(a, cols);
   const bDigits = digitsOf(b, cols);
