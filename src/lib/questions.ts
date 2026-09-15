@@ -3,7 +3,7 @@ import { enFacts } from "@/data/facts-en";
 import { snFacts } from "@/data/facts-sn";
 import { mtYear1ProblemSolving, mtYear3ProblemSolving } from "@/data/mcqs-mt";
 import { snYear1KemahiranSaintifik } from "@/data/mcqs-sn";
-import { bmYear1Huruf } from "@/data/mcqs-bm";
+import { bmYear1Huruf, bmYear1SukuKata } from "@/data/mcqs-bm";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
 export type Vertical = { a: string; b: string; op: "+" | "-" | "×" | "÷" };
