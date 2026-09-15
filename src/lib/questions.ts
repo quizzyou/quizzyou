@@ -784,6 +784,15 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   if (subject === "sn" && year === "3" && topic === "Tumbuhan Membiak") {
     return fixedMCQQuestions(snYear3TumbuhanMembiak, seed);
   }
+  if (subject === "sn" && year === "3" && topic === "Bahan") {
+    return fixedMCQQuestions(snYear3Bahan, seed);
+  }
+  if (subject === "sn" && year === "3" && topic === "Cuaca") {
+    return fixedMCQQuestions(snYear3Cuaca, seed);
+  }
+  if (subject === "sn" && year === "3" && topic === "Kitaran Air") {
+    return fixedMCQQuestions(snYear3KitaranAir, seed);
+  }
 
   if (subject === "bm" && year === "1" && topic === "Huruf") {
     return fixedMCQQuestions(bmYear1Huruf, seed);
