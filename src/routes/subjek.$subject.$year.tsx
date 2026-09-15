@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { PageHeader } from "@/components/PageHeader";
-import { isYear, slugify, subjectById, topicColors, topicList } from "@/data/curriculum";
+import { Emoji } from "@/components/Emoji";
+import { isYear, slugify, subjectById, topicColors, topicEmoji, topicList } from "@/data/curriculum";
 import { sfx } from "@/lib/audio";
 
 export const Route = createFileRoute("/subjek/$subject/$year")({
