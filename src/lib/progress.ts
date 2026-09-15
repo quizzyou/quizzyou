@@ -1,3 +1,5 @@
+import { getQuestions } from "@/lib/questions";
+
 export type Progress = {
   index: number;
   score: number;
