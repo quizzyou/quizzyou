@@ -746,6 +746,21 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   if (subject === "sn" && year === "1" && topic === "Cahaya dan Gelap") {
     return fixedMCQQuestions(snYear1CahayaGelap, seed);
   }
+  if (subject === "sn" && year === "2" && topic === "Keperluan Asas Haiwan") {
+    return fixedMCQQuestions(snYear2KeperluanHaiwan, seed);
+  }
+  if (subject === "sn" && year === "2" && topic === "Keperluan Asas Tumbuhan") {
+    return fixedMCQQuestions(snYear2KeperluanTumbuhan, seed);
+  }
+  if (subject === "sn" && year === "2" && topic === "Makanan Sihat") {
+    return fixedMCQQuestions(snYear2MakananSihat, seed);
+  }
+  if (subject === "sn" && year === "2" && topic === "Air") {
+    return fixedMCQQuestions(snYear2Air, seed);
+  }
+  if (subject === "sn" && year === "2" && topic === "Bunyi") {
+    return fixedMCQQuestions(snYear2Bunyi, seed);
+  }
 
   if (subject === "bm" && year === "1" && topic === "Huruf") {
     return fixedMCQQuestions(bmYear1Huruf, seed);
