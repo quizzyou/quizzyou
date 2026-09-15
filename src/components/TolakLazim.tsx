@@ -366,12 +366,14 @@ function TolakBoard({
 
   return (
     <section className="card-soft mt-4 px-3 py-5" aria-label="Bentuk lazim tolak">
-      <div className="mx-auto w-fit">
-      <div className="grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
-        {leftToRight.map((col) => <span key={col}>{PLACE_NAMES[col] ?? ""}</span>)}
-      </div>
-      <div className="relative mt-3 text-center font-display text-3xl font-extrabold">
-        <div className="grid min-h-14 items-center" style={gridStyle}>
+      <div className="mx-auto w-fit grid grid-cols-[1.75rem_auto] gap-y-1">
+        <span aria-hidden="true" />
+        <div className="grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
+          {leftToRight.map((col) => <span key={col}>{PLACE_NAMES[col] ?? ""}</span>)}
+        </div>
+
+        <span aria-hidden="true" />
+        <div className="grid min-h-14 items-center text-center font-display text-3xl font-extrabold" style={gridStyle}>
           {leftToRight.map((col) => {
             const change = visibleChange(col);
             const original = soalan.aDigits[col];
@@ -386,21 +388,25 @@ function TolakBoard({
             );
           })}
         </div>
-        <span aria-hidden="true" className="absolute -left-7 bottom-0 flex min-h-14 items-center justify-center">−</span>
-        <div className="grid" style={gridStyle}>{leftToRight.map((col) => <span key={`bottom-${col}`} className="flex min-h-14 items-center justify-center">{soalan.bDigits[col] ?? ""}</span>)}</div>
-      </div>
-      <div className="mt-2 border-t-4 border-foreground/60 pt-3">
-        <div className="grid gap-1" style={gridStyle}>
-          {leftToRight.map((col) => {
-            const value = values[col] ?? "";
-            const correct = value === String(soalan.answerDigits[col] ?? 0);
-            const state = checked && !demo
-              ? correct ? "border-answer-active bg-mint" : "border-destructive bg-destructive text-destructive-foreground"
-              : active === col ? "border-answer-active ring-2 ring-answer-active/30 bg-card" : "border-border bg-card";
-            return <button key={col} type="button" onClick={() => onSelect(col)} aria-label={`Jawapan ${PLACE_NAMES[col] ?? ""}`} className={`tap-pop flex aspect-square min-w-0 items-center justify-center rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${state}`}>{value}</button>;
-          })}
+
+        <span aria-hidden="true" className="flex min-h-14 items-center justify-center font-display text-3xl font-extrabold">−</span>
+        <div className="grid min-h-14 items-center text-center font-display text-3xl font-extrabold" style={gridStyle}>
+          {leftToRight.map((col) => <span key={`bottom-${col}`} className="flex min-h-14 items-center justify-center">{soalan.bDigits[col] ?? ""}</span>)}
         </div>
-      </div>
+
+        <span aria-hidden="true" />
+        <div className="mt-2 border-t-4 border-foreground/60 pt-3">
+          <div className="grid gap-1" style={gridStyle}>
+            {leftToRight.map((col) => {
+              const value = values[col] ?? "";
+              const correct = value === String(soalan.answerDigits[col] ?? 0);
+              const state = checked && !demo
+                ? correct ? "border-answer-active bg-mint" : "border-destructive bg-destructive text-destructive-foreground"
+                : active === col ? "border-answer-active ring-2 ring-answer-active/30 bg-card" : "border-border bg-card";
+              return <button key={col} type="button" onClick={() => onSelect(col)} aria-label={`Jawapan ${PLACE_NAMES[col] ?? ""}`} className={`tap-pop flex aspect-square min-w-0 items-center justify-center rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${state}`}>{value}</button>;
+            })}
+          </div>
+        </div>
       </div>
     </section>
   );
