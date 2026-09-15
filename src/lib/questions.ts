@@ -1,6 +1,7 @@
 import { bmFacts } from "@/data/facts-bm";
 import { enFacts } from "@/data/facts-en";
 import { snFacts } from "@/data/facts-sn";
+import { snYear1KemahiranSaintifik } from "@/data/mcqs-sn";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
 export type Vertical = { a: string; b: string; op: "+" | "-" | "×" | "÷" };
