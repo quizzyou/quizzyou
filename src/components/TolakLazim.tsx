@@ -366,8 +366,8 @@ function TolakBoard({
 
   return (
     <section className="card-soft mt-4 px-3 py-5" aria-label="Bentuk lazim tolak">
-      <div className="ml-7 grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
-        {leftToRight.map((col) => <span key={col}>{PLACE_NAMES[col] ?? ""}</span>)}
+      <div className="grid justify-center gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
+        {leftToRight.map((col) => <span key={col}>{PLACE_NAMES[col] ?? ""}</span>)}</div>
       </div>
       <div className="mt-3 grid grid-cols-[1.75rem_1fr] items-center text-center font-display text-3xl font-extrabold">
         <span aria-hidden="true" />
