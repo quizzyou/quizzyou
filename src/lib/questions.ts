@@ -9,6 +9,11 @@ import {
   snYear1Haiwan,
   snYear1Tumbuhan,
   snYear1CahayaGelap,
+  snYear2KeperluanHaiwan,
+  snYear2KeperluanTumbuhan,
+  snYear2MakananSihat,
+  snYear2Air,
+  snYear2Bunyi,
 } from "@/data/mcqs-sn";
 import {
   bmYear1Huruf,
