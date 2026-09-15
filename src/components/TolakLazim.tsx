@@ -353,7 +353,7 @@ function TolakBoard({
   onSelect: (col: number) => void;
   demo?: boolean;
 }) {
-  const gridStyle = { gridTemplateColumns: `repeat(${soalan.cols}, minmax(0, 1fr))` };
+  const gridStyle = { gridTemplateColumns: `repeat(${soalan.cols}, minmax(2.5rem, 4rem))` };
   const leftToRight = Array.from({ length: soalan.cols }, (_, index) => soalan.cols - 1 - index);
   const visibleChange = (col: number) => {
     const steps = soalan.borrowSteps.filter((step) => revealedBorrows.includes(step.targetCol));
@@ -366,10 +366,10 @@ function TolakBoard({
 
   return (
     <section className="card-soft mt-4 px-3 py-5" aria-label="Bentuk lazim tolak">
-      <div className="ml-7 grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
+      <div className="grid justify-center gap-1 text-center text-[11px] text-muted-foreground sm:text-xs" style={gridStyle}>
         {leftToRight.map((col) => <span key={col}>{PLACE_NAMES[col] ?? ""}</span>)}
       </div>
-      <div className="mt-3 grid grid-cols-[1.75rem_1fr] items-center text-center font-display text-3xl font-extrabold">
+      <div className="mt-3 grid grid-cols-[1.75rem_1fr] items-center justify-items-center text-center font-display text-3xl font-extrabold">
         <span aria-hidden="true" />
         <div className="grid min-h-14 items-center" style={gridStyle}>
           {leftToRight.map((col) => {
@@ -390,7 +390,7 @@ function TolakBoard({
         <div className="grid" style={gridStyle}>{leftToRight.map((col) => <span key={`bottom-${col}`} className="flex min-h-14 items-center justify-center">{soalan.bDigits[col] ?? ""}</span>)}</div>
       </div>
       <div className="mt-2 border-t-4 border-foreground/60 pt-3">
-        <div className="ml-7 grid gap-2" style={gridStyle}>
+        <div className="grid justify-center gap-2" style={gridStyle}>
           {leftToRight.map((col) => {
             const value = values[col] ?? "";
             const correct = value === String(soalan.answerDigits[col] ?? 0);
