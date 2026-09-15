@@ -3,6 +3,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { PageHeader } from "@/components/PageHeader";
 import { Confetti } from "@/components/Confetti";
+import { TopicRewards } from "@/components/TopicRewards";
 import { Emoji } from "@/components/Emoji";
 import { clearProgress, loadProgress, saveProgress } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
@@ -283,6 +284,7 @@ export function BahagiLazim({
     return (
       <main className="mx-auto w-full max-w-md px-5 py-6">
         <Confetti count={50} />
+        <TopicRewards subject={subject} />
         {header}
         <section className="card-soft animate-pop-in p-7 text-center">
           <p className="font-display text-5xl font-extrabold">
