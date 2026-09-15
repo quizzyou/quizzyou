@@ -1,7 +1,7 @@
 import { bmFacts } from "@/data/facts-bm";
 import { enFacts } from "@/data/facts-en";
 import { snFacts } from "@/data/facts-sn";
-import { mtYear1ProblemSolving } from "@/data/mcqs-mt";
+import { mtYear1ProblemSolving, mtYear3ProblemSolving } from "@/data/mcqs-mt";
 import { snYear1KemahiranSaintifik } from "@/data/mcqs-sn";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
@@ -415,6 +415,9 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
 
   if (year === "1" && t === "penyelesaian masalah") {
     return fixedMCQQuestions(mtYear1ProblemSolving, seed);
+  }
+  if (year === "3" && t === "penyelesaian masalah") {
+    return fixedMCQQuestions(mtYear3ProblemSolving, seed);
   }
   if (year === "2" && t === "tambah") return year2ColumnAdditionQuestions();
 
