@@ -82,11 +82,8 @@ function AccessCodePage() {
         <SoundToggle />
       </div>
 
-      <div className="mt-2 text-center">
-        <h1 className="font-title text-5xl font-bold tracking-tight text-title drop-shadow-sm">
-          QUIZZY
-        </h1>
-        <p className="mt-2 text-base text-muted-foreground">Masukkan Kod Akses</p>
+      <div className="mt-4 text-center">
+        <p className="text-base text-muted-foreground">Masukkan Kod Akses</p>
       </div>
 
       <div
