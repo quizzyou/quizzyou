@@ -34,7 +34,7 @@ const BANK: BankItem[] = [
   { dividend: 44, divisor: 4 }, { dividend: 55, divisor: 5 },
   { dividend: 66, divisor: 6 }, { dividend: 77, divisor: 7 },
   { dividend: 88, divisor: 8 }, { dividend: 99, divisor: 9 },
-  { dividend: 42, divisor: 2 }, { dividend: 63, divisor: 3 },
+  { dividend: 45, divisor: 3 }, { dividend: 63, divisor: 3 },
   { dividend: 84, divisor: 4 }, { dividend: 95, divisor: 5 },
   { dividend: 25, divisor: 2 }, { dividend: 34, divisor: 3 },
   { dividend: 46, divisor: 4 }, { dividend: 57, divisor: 5 },
@@ -410,6 +410,9 @@ function BahagiPapan({
 }) {
   const columnCount = soalan.dividendDigits.length;
   const gridStyle = { gridTemplateColumns: `repeat(${columnCount}, 2.75rem)` };
+  const boardCorrect = soalan.quotientDigits.every(
+    (digit, i) => values[`quotient-${i}`] === String(digit),
+  ) && (soalan.remainder === 0 || values["remainder-0"] === String(soalan.remainder));
   const boxState = (box: Box) => {
     const key = boxKey(box);
     if (checked && !demo) return values[key] === expected(box)
@@ -419,7 +422,7 @@ function BahagiPapan({
   };
 
   return (
-    <section className={`card-soft mt-4 overflow-hidden px-3 py-5 ${checked && !demo && !Object.keys(values).every(() => true) ? "animate-shake" : ""}`} aria-label="Bentuk lazim bahagi">
+    <section className={`card-soft mt-4 overflow-hidden px-3 py-5 ${checked && !demo && !boardCorrect ? "animate-shake" : ""}`} aria-label="Bentuk lazim bahagi">
       <div className="mx-auto w-fit">
         <div className="grid gap-1 pl-12" style={gridStyle} aria-label="Kotak hasil bahagi">
           {soalan.dividendDigits.map((_, column) => {
