@@ -57,7 +57,12 @@ export function listUnfinished(): Unfinished[] {
     if (!subject || !year || !topic) continue;
     try {
       const p = JSON.parse(window.localStorage.getItem(k) ?? "") as Progress;
-      if (p.index > 0 && p.index < 40) {
+      const total = getQuestions(
+        subject as Parameters<typeof getQuestions>[0],
+        year as Parameters<typeof getQuestions>[1],
+        topic,
+      ).length || 40;
+      if (p.index > 0 && p.index < total) {
         out.push({ subject, year, topic, index: p.index, updatedAt: p.updatedAt ?? 0 });
       }
     } catch {
