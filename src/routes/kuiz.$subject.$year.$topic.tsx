@@ -50,6 +50,17 @@ function QuizRoute() {
       />
     );
   }
+  if (subject === "mt" && (year === "1" || year === "3") && topic === "darab") {
+    return (
+      <DarabLazim
+        subject={subject}
+        year={year}
+        topic={topic}
+        topicName={topicName}
+        subjectName={info.name}
+      />
+    );
+  }
   return <QuizPage />;
 }
 
