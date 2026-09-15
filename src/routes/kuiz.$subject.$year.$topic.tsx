@@ -8,6 +8,7 @@ import { clearProgress, loadProgress, saveProgress } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
 import { TambahLazim } from "@/components/TambahLazim";
 import { TolakLazim } from "@/components/TolakLazim";
+import { DarabLazim } from "@/components/DarabLazim";
 
 export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
   head: () => ({
