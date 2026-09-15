@@ -6,6 +6,7 @@ import { isYear, subjectById, topicFromSlug } from "@/data/curriculum";
 import { getQuestions, QUESTIONS_PER_TOPIC, type Vertical } from "@/lib/questions";
 import { clearProgress, loadProgress, saveProgress } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
+import { TambahLazim } from "@/components/TambahLazim";
 
 export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
   head: () => ({
