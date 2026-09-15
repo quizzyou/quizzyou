@@ -14,6 +14,11 @@ import {
   snYear2MakananSihat,
   snYear2Air,
   snYear2Bunyi,
+  snYear2Magnet,
+  snYear2Bumi,
+  snYear3Pernafasan,
+  snYear3Gigi,
+  snYear3TumbuhanMembiak,
 } from "@/data/mcqs-sn";
 import {
   bmYear1Huruf,
