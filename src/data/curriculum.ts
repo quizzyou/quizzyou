@@ -199,7 +199,6 @@ const topicEmojis: Record<string, string> = {
   Weather: "🌤️",
   Hobbies: "⚽",
   Health: "🩺",
-  Stories: "📕",
   Comprehension: "🔍",
   // Matematik
   "Nombor hingga 100": "💯",
