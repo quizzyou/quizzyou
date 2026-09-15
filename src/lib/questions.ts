@@ -3,7 +3,16 @@ import { enFacts } from "@/data/facts-en";
 import { snFacts } from "@/data/facts-sn";
 import { mtYear1ProblemSolving, mtYear3ProblemSolving } from "@/data/mcqs-mt";
 import { snYear1KemahiranSaintifik } from "@/data/mcqs-sn";
-import { bmYear1Huruf, bmYear1SukuKata } from "@/data/mcqs-bm";
+import {
+  bmYear1Huruf,
+  bmYear1SukuKata,
+  bmYear1FrasaAyat,
+  bmYear1KataNamaAm,
+  bmYear1KataKerja,
+  bmYear2KataNama,
+  bmYear2KataKerja,
+  bmYear2KataAdjektif,
+} from "@/data/mcqs-bm";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
 export type Vertical = { a: string; b: string; op: "+" | "-" | "×" | "÷" };
@@ -684,6 +693,24 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   }
   if (subject === "bm" && year === "1" && topic === "Suku Kata") {
     return fixedMCQQuestions(bmYear1SukuKata, seed);
+  }
+  if (subject === "bm" && year === "1" && topic === "Frasa dan Ayat Mudah") {
+    return fixedMCQQuestions(bmYear1FrasaAyat, seed);
+  }
+  if (subject === "bm" && year === "1" && topic === "Kata Nama Am") {
+    return fixedMCQQuestions(bmYear1KataNamaAm, seed);
+  }
+  if (subject === "bm" && year === "1" && topic === "Kata Kerja") {
+    return fixedMCQQuestions(bmYear1KataKerja, seed);
+  }
+  if (subject === "bm" && year === "2" && topic === "Kata Nama") {
+    return fixedMCQQuestions(bmYear2KataNama, seed);
+  }
+  if (subject === "bm" && year === "2" && topic === "Kata Kerja") {
+    return fixedMCQQuestions(bmYear2KataKerja, seed);
+  }
+  if (subject === "bm" && year === "2" && topic === "Kata Adjektif") {
+    return fixedMCQQuestions(bmYear2KataAdjektif, seed);
   }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
