@@ -34,7 +34,7 @@ type Soalan = {
   carries: number[];
   /** Tahun 1 tiada kotak simpan */
   showCarry: boolean;
-  prompt?: string;
+  prompt: string | undefined;
 };
 
 const YEAR_3_BANK: { a: number; b: number; prompt?: string }[] = [
