@@ -36,6 +36,9 @@ function SubjectsPage() {
   const [profile, setProfile] = useState<Profile | null>(null);
   const [streak, setStreak] = useState(0);
   const [badgeCount, setBadgeCount] = useState(0);
+  const [editing, setEditing] = useState(false);
+  const [draftName, setDraftName] = useState("");
+  const [draftAvatar, setDraftAvatar] = useState("");
 
   useEffect(() => {
     setResume(listUnfinished());
@@ -43,6 +46,23 @@ function SubjectsPage() {
     setStreak(loadStreak());
     setBadgeCount(loadBadges().length);
   }, []);
+
+  function startEdit() {
+    sfx.click();
+    setDraftName(profile?.name ?? "");
+    setDraftAvatar(profile?.avatar ?? "");
+    setEditing(true);
+  }
+
+  function saveEdit() {
+    const name = draftName.trim();
+    if (!name || !draftAvatar) return;
+    sfx.click();
+    const next = { name, avatar: draftAvatar };
+    saveProfile(next);
+    setProfile(next);
+    setEditing(false);
+  }
 
   return (
     <main className="mx-auto w-full max-w-md px-5 py-6">
