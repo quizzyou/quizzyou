@@ -35,6 +35,10 @@ import {
   enYear2FoodDrinks,
   enYear2Animals,
   enYear2DailyActivities,
+  enYear2Places,
+  enYear3Grammar,
+  enYear3Verbs,
+  enYear3Adjectives,
 } from "@/data/mcqs-en";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
@@ -797,6 +801,18 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   }
   if (subject === "en" && year === "2" && topic === "Daily Activities") {
     return fixedMCQQuestions(enYear2DailyActivities, seed);
+  }
+  if (subject === "en" && year === "2" && topic === "Places") {
+    return fixedMCQQuestions(enYear2Places, seed);
+  }
+  if (subject === "en" && year === "3" && topic === "Grammar in Context") {
+    return fixedMCQQuestions(enYear3Grammar, seed);
+  }
+  if (subject === "en" && year === "3" && topic === "Verbs") {
+    return fixedMCQQuestions(enYear3Verbs, seed);
+  }
+  if (subject === "en" && year === "3" && topic === "Adjectives") {
+    return fixedMCQQuestions(enYear3Adjectives, seed);
   }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
