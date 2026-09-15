@@ -2,7 +2,7 @@ export type MathFixedMCQ = {
   prompt: string;
   choices: string[];
   answer: string;
-  subTopic: "Tambah" | "Tolak" | "Pecahan" | "Wang" | "Masa dan Waktu";
+  subTopic: string;
 };
 
 export const mtYear1ProblemSolving: MathFixedMCQ[] = [
@@ -245,5 +245,248 @@ export const mtYear1ProblemSolving: MathFixedMCQ[] = [
     choices: ["RM5", "RM4", "RM6", "RM3"],
     answer: "RM5",
     subTopic: "Wang",
+  },
+];
+
+export const mtYear3ProblemSolving: MathFixedMCQ[] = [
+  {
+    prompt: "Kilang A mengeluarkan 2 450 buah kotak manakala Kilang B mengeluarkan 1 890 buah kotak. Berapakah jumlah kotak yang dikeluarkan oleh kedua-dua kilang itu?",
+    choices: ["4 340 buah", "4 240 buah", "3 340 buah", "4 330 buah"],
+    answer: "4 340 buah",
+    subTopic: "Tambah Nombor",
+  },
+  {
+    prompt: "Sebuah stadium boleh memuatkan 5 000 orang penonton. Jika terdapat 3 150 orang penonton di dalam stadium, berapakah bilangan tempat duduk yang masih kosong?",
+    choices: ["1 850 buah", "1 950 buah", "2 850 buah", "1 750 buah"],
+    answer: "1 850 buah",
+    subTopic: "Tolak Nombor",
+  },
+  {
+    prompt: "Sebuah kedai buku ada 9 buah kotak pensil. Setiap kotak mengandungi 24 batang pensil. Berapakah jumlah pensil semuanya?",
+    choices: ["216 batang", "186 batang", "206 batang", "226 batang"],
+    answer: "216 batang",
+    subTopic: "Darab Nombor",
+  },
+  {
+    prompt: "Cikgu Aminah mahu mengagihkan 135 biji pemadam secara sama rata kepada 5 buah kelas. Berapakah biji pemadam yang diterima oleh setiap kelas?",
+    choices: ["27 biji", "25 biji", "37 biji", "23 biji"],
+    answer: "27 biji",
+    subTopic: "Bahagi Nombor",
+  },
+  {
+    prompt: "Raju ada RM350. Dia membeli sepasang kasut sukan berharga RM189. Berapakah baki wang Raju?",
+    choices: ["RM161", "RM171", "RM261", "RM151"],
+    answer: "RM161",
+    subTopic: "Wang",
+  },
+  {
+    prompt: "Ibu memotong sebiji kek. Abang makan 2 daripada 8 bahagian kek itu, manakala Adik makan 3 daripada 8 bahagian. Berapakah jumlah pecahan kek yang telah dimakan?",
+    choices: ["5/8", "4/8", "6/8", "3/8"],
+    answer: "5/8",
+    subTopic: "Pecahan",
+  },
+  {
+    prompt: "Siti membeli seutas reben sepanjang 0.75 meter. Dia menggunakannya sepanjang 0.32 meter untuk mengikat hadiah. Berapakah baki panjang reben itu?",
+    choices: ["0.43 meter", "0.33 meter", "0.53 meter", "0.45 meter"],
+    answer: "0.43 meter",
+    subTopic: "Perpuluhan",
+  },
+  {
+    prompt: "Sebuah bas bertolak dari stesen pada pukul 8:15 pagi dan tiba di destinasi 45 minit kemudian. Pukul berapakah bas itu tiba?",
+    choices: ["9:00 pagi", "8:45 pagi", "9:15 pagi", "8:50 pagi"],
+    answer: "9:00 pagi",
+    subTopic: "Masa dan Waktu",
+  },
+  {
+    prompt: "Suresh mempunyai 3 keping wang RM50 dan 4 keping wang RM10. Berapakah jumlah wang Suresh semuanya?",
+    choices: ["RM190", "RM180", "RM150", "RM140"],
+    answer: "RM190",
+    subTopic: "Wang",
+  },
+  {
+    prompt: "Dalam sebuah kebun, terdapat 4 820 batang pokok pisang. Sebanyak 1 250 batang pokok telah ditebang kerana berbuah. Berapakah batang pokok pisang yang tinggal?",
+    choices: ["3 570 batang", "3 670 batang", "2 570 batang", "3 580 batang"],
+    answer: "3 570 batang",
+    subTopic: "Tolak Nombor",
+  },
+  {
+    prompt: "Sebuah kedai runcit memesan 8 kotak susu strawberi. Setiap kotak mengandungi 12 kotak kecil susu. Berapakah jumlah kotak kecil susu strawberi yang dipesan?",
+    choices: ["96 kotak", "86 kotak", "106 kotak", "92 kotak"],
+    answer: "96 kotak",
+    subTopic: "Darab Nombor",
+  },
+  {
+    prompt: "Pakcik Abu memetik 456 biji mangga. Dia mengisinya secara sama banyak ke dalam 6 buah bakul. Berapakah biji mangga di dalam setiap bakul?",
+    choices: ["76 biji", "66 biji", "74 biji", "86 biji"],
+    answer: "76 biji",
+    subTopic: "Bahagi Nombor",
+  },
+  {
+    prompt: "Dalam satu ujian mini Matematik, Aiman menjawab 7 daripada 10 soalan dengan betul. Nyatakan markah Aiman dalam bentuk perpuluhan.",
+    choices: ["0.7", "0.07", "7.0", "0.17"],
+    answer: "0.7",
+    subTopic: "Perpuluhan",
+  },
+  {
+    prompt: "Sebuah kamus berharga RM68.50. Mei Ling membayar dengan sehelai wang RM100. Berapakah wang baki yang diterima oleh Mei Ling?",
+    choices: ["RM31.50", "RM32.50", "RM41.50", "RM21.50"],
+    answer: "RM31.50",
+    subTopic: "Wang",
+  },
+  {
+    prompt: "Ali mengambil masa 1 jam 15 minit untuk mengemas bilik dan 45 minit untuk menyiram bunga. Berapakah jumlah masa yang digunakannya?",
+    choices: ["2 jam 00 minit", "1 jam 50 minit", "2 jam 15 minit", "1 jam 45 minit"],
+    answer: "2 jam 00 minit",
+    subTopic: "Masa dan Waktu",
+  },
+  {
+    prompt: "Sebuah perpustakaan menerima 3 200 buah buku cerita pada bulan lepas dan 2 950 buah buku fiksyen pada bulan ini. Berapakah jumlah buku baharu di perpustakaan itu?",
+    choices: ["6 150 buah", "5 150 buah", "6 250 buah", "6 050 buah"],
+    answer: "6 150 buah",
+    subTopic: "Tambah Nombor",
+  },
+  {
+    prompt: "Sebuah syarikat mempunyai 8 450 keping risalah. Selepas mengedarkan sebahagian risalah, baki risalah yang ada ialah 2 130 keping. Berapakah risalah yang telah diedarkan?",
+    choices: ["6 320 keping", "6 220 keping", "5 320 keping", "6 350 keping"],
+    answer: "6 320 keping",
+    subTopic: "Tolak Nombor",
+  },
+  {
+    prompt: "Seorang penjaja menjual 7 buah kotak burger sehari. Jika setiap kotak mempunyai 15 biji burger, berapakah jumlah burger yang dijualnya sehari?",
+    choices: ["105 biji", "95 biji", "115 biji", "100 biji"],
+    answer: "105 biji",
+    subTopic: "Darab Nombor",
+  },
+  {
+    prompt: "Samil mempunyai sehelai reben sepanjang 3/4 meter. Dia memberikan 1/4 meter reben kepada kawannya. Berapakah baki reben Samil dalam bentuk pecahan termudah?",
+    choices: ["1/2 meter", "2/4 meter", "1/4 meter", "3/4 meter"],
+    answer: "1/2 meter",
+    subTopic: "Pecahan",
+  },
+  {
+    prompt: "Yuki membeli 3 batang pen yang sama dengan jumlah harga RM18. Berapakah harga bagi sebatang pen tersebut?",
+    choices: ["RM6", "RM5", "RM7", "RM4"],
+    answer: "RM6",
+    subTopic: "Wang",
+  },
+  {
+    prompt: "Sebuah kilang roti menghasilkan 5 600 buku roti seminggu. Sebanyak 3 850 buku roti telah dihantar ke kedai. Berapakah baki roti yang masih ada di kilang?",
+    choices: ["1 750 buku", "1 850 buku", "2 750 buku", "1 650 buku"],
+    answer: "1 750 buku",
+    subTopic: "Tolak Nombor",
+  },
+  {
+    prompt: "Ravi menyusun 4 buah baris kerusi di dalam dewan. Setiap baris mempunyai 45 buah kerusi. Berapakah jumlah kerusi semuanya?",
+    choices: ["180 buah", "160 buah", "200 buah", "190 buah"],
+    answer: "180 buah",
+    subTopic: "Darab Nombor",
+  },
+  {
+    prompt: "Sebuah kedai kek membakar 328 biji cawan kek. Cawan kek itu dibungkus ke dalam kotak-kotak kecil yang muat 4 biji setiap satu. Berapakah jumlah kotak yang diperlukan?",
+    choices: ["82 buah", "72 buah", "84 buah", "92 buah"],
+    answer: "82 buah",
+    subTopic: "Bahagi Nombor",
+  },
+  {
+    prompt: "Aina ada 7/10 bahagian pizza. Dia makan 3/10 bahagian. Berapakah baki pecahan pizza Aina dalam bentuk pecahan termudah?",
+    choices: ["2/5", "4/10", "1/2", "3/5"],
+    answer: "2/5",
+    subTopic: "Pecahan",
+  },
+  {
+    prompt: "Zaki memotong seutas tali sepanjang 0.9 meter kepada dua bahagian. Jika panjang bahagian pertama ialah 0.45 meter, berapakah panjang bahagian kedua?",
+    choices: ["0.45 meter", "0.55 meter", "0.35 meter", "0.40 meter"],
+    answer: "0.45 meter",
+    subTopic: "Perpuluhan",
+  },
+  {
+    prompt: "Harga sebuah basikal kanak-kanak ialah RM245.90. Bapa membeli dua buah basikal yang sama untuk adik-beradik. Berapakah jumlah yang bapa perlu bayar?",
+    choices: ["RM491.80", "RM490.80", "RM481.80", "RM500.00"],
+    answer: "RM491.80",
+    subTopic: "Wang",
+  },
+  {
+    prompt: "Siti mula membuat kerja sekolah pada pukul 4:30 petang dan selesai pada pukul 5:15 petang. Berapakah tempoh masa yang diambil oleh Siti?",
+    choices: ["45 minit", "30 minit", "1 jam", "15 minit"],
+    answer: "45 minit",
+    subTopic: "Masa dan Waktu",
+  },
+  {
+    prompt: "Sebuah kedai kain mempunyai segulung kain sepanjang 150 meter. Pekerja kedai memotong kain itu sepanjang 68 meter. Berapakah baki panjang kain itu?",
+    choices: ["82 meter", "92 meter", "72 meter", "88 meter"],
+    answer: "82 meter",
+    subTopic: "Ukuran Panjang",
+  },
+  {
+    prompt: "Ibu membeli 3 kg tepung gandum dan 2 kg 500 g gula pasir. Berapakah jumlah berat barang yang dibeli oleh ibu?",
+    choices: ["5 kg 500 g", "4 kg 500 g", "5 kg 000 g", "6 kg 500 g"],
+    answer: "5 kg 500 g",
+    subTopic: "Jisim",
+  },
+  {
+    prompt: "Sebuah botol mengandungi 1500 ml air mineral. Ali minum 450 ml air daripada botol itu. Berapakah isi padu air mineral yang tinggal?",
+    choices: ["1 050 ml", "1 150 ml", "950 ml", "1 000 ml"],
+    answer: "1 050 ml",
+    subTopic: "Isi Padu Cecair",
+  },
+  {
+    prompt: "Sebuah kotak tisu mempunyai bentuk 3D yang terdiri daripada 6 permukaan rata segi empat tepat, 12 tepi tegak dan 8 bucu. Apakah nama bentuk ini?",
+    choices: ["Kuboid", "Kubus", "Prisma", "Piramid"],
+    answer: "Kuboid",
+    subTopic: "Bentuk",
+  },
+  {
+    prompt: "Dalam sebuah kelas, carta palang menunjukkan 15 orang murid suka warna biru dan 9 orang suka warna hijau. Berapakah beza bilangan murid antara kedua-dua warna?",
+    choices: ["6 orang", "7 orang", "5 orang", "8 orang"],
+    answer: "6 orang",
+    subTopic: "Pengurusan Data",
+  },
+  {
+    prompt: "Sebuah ladang mempunyai 3 420 ekor ayam. Pemilik ladang membeli lagi 1 580 ekor ayam. Berapakah jumlah ayam di ladang itu sekarang?",
+    choices: ["5 000 ekor", "4 900 ekor", "5 100 ekor", "4 000 ekor"],
+    answer: "5 000 ekor",
+    subTopic: "Tambah Nombor",
+  },
+  {
+    prompt: "Seorang posmen perlu menghantar 2 100 keping surat. Dia telah menghantar 1 340 keping surat. Berapakah surat yang belum dihantar?",
+    choices: ["760 keping", "860 keping", "660 keping", "740 keping"],
+    answer: "760 keping",
+    subTopic: "Tolak Nombor",
+  },
+  {
+    prompt: "Sebuah pasar raya menjual buah epal dalam pek. Setiap pek ada 6 biji epal. Jika Lin membeli 12 pek epal, berapakah jumlah buah epal yang dibelinya?",
+    choices: ["72 biji", "62 biji", "82 biji", "68 biji"],
+    answer: "72 biji",
+    subTopic: "Darab Nombor",
+  },
+  {
+    prompt: "Sebanyak 240 batang pensil diagihkan sama banyak ke dalam 8 buah bekas. Berapakah bilangan pensil di dalam setiap bekas?",
+    choices: ["30 batang", "40 batang", "20 batang", "25 batang"],
+    answer: "30 batang",
+    subTopic: "Bahagi Nombor",
+  },
+  {
+    prompt: "Encik Tan mempunyai RM800. Dia membelanjakan RM435 untuk barangan dapur. Berapakah baki wang yang dia ada?",
+    choices: ["RM365", "RM375", "RM465", "RM355"],
+    answer: "RM365",
+    subTopic: "Wang",
+  },
+  {
+    prompt: "Sebuah filem animasi ditayangkan selama 1 jam 40 minit. Tukarkan tempoh masa tayangan filem ini kepada minit sepenuhnya.",
+    choices: ["100 minit", "80 minit", "140 minit", "120 minit"],
+    answer: "100 minit",
+    subTopic: "Masa dan Waktu",
+  },
+  {
+    prompt: "Sebuah tangki air mengandungi 8 liter air. Ayah mengeluarkan 3 liter 250 ml air untuk mencuci kereta. Berapakah baki air di dalam tangki?",
+    choices: ["4 liter 750 ml", "5 liter 750 ml", "4 liter 250 ml", "5 liter 250 ml"],
+    answer: "4 liter 750 ml",
+    subTopic: "Isi Padu Cecair",
+  },
+  {
+    prompt: "Suresh mewarnakan 0.6 daripada sebuah rajah. Nyatakan bahagian yang tidak berwarna dalam bentuk perpuluhan.",
+    choices: ["0.4", "0.04", "0.5", "0.6"],
+    answer: "0.4",
+    subTopic: "Perpuluhan",
   },
 ];
