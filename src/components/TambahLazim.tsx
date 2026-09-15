@@ -479,7 +479,10 @@ function SoalanPapan({
       <div className="ml-7 grid gap-2 py-2" style={gridStyle} aria-label="Kotak simpan">
         {leftToRight.map((col) => {
           const key = `carry-${col}`;
-          if (col === 0 || !needsCarry(col)) {
+          if (col === 0) {
+            return <span key={key} className="mx-auto h-8 w-8" aria-hidden="true" />;
+          }
+          if (!needsCarry(col)) {
             return (
               <span
                 key={key}
