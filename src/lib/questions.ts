@@ -1,6 +1,7 @@
 import { bmFacts } from "@/data/facts-bm";
 import { enFacts } from "@/data/facts-en";
 import { snFacts } from "@/data/facts-sn";
+import { mtYear1ProblemSolving } from "@/data/mcqs-mt";
 import { snYear1KemahiranSaintifik } from "@/data/mcqs-sn";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
@@ -412,6 +413,9 @@ function mathQuestions(topic: string, year: YearId, seed: number): Question[] {
   const out: Question[] = [];
   const max = year === "1" ? 100 : year === "2" ? 1000 : 10000;
 
+  if (year === "1" && t === "penyelesaian masalah") {
+    return fixedMCQQuestions(mtYear1ProblemSolving, seed);
+  }
   if (year === "2" && t === "tambah") return year2ColumnAdditionQuestions();
 
   const addQ = (q: Question) => out.push(q);
