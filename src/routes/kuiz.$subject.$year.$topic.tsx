@@ -7,6 +7,7 @@ import { getQuestions, QUESTIONS_PER_TOPIC, type Vertical } from "@/lib/question
 import { clearProgress, loadProgress, saveProgress } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
 import { TambahLazim } from "@/components/TambahLazim";
+import { TolakLazim } from "@/components/TolakLazim";
 
 export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
   head: () => ({
@@ -30,6 +31,17 @@ function QuizRoute() {
   if (subject === "mt" && topic === "tambah") {
     return (
       <TambahLazim
+        subject={subject}
+        year={year}
+        topic={topic}
+        topicName={topicName}
+        subjectName={info.name}
+      />
+    );
+  }
+  if (subject === "mt" && year === "2" && topic === "tolak") {
+    return (
+      <TolakLazim
         subject={subject}
         year={year}
         topic={topic}
