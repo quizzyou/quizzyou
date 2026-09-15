@@ -413,6 +413,9 @@ export const snYear1KemahiranSaintifik: FixedMCQ[] = [
       "Supaya boleh membawa balik alatan tersebut",
       "Supaya kerja sekolah cepat siap tanpa berfikir",
     ],
+    answer: "Supaya keselamatan terjaga dan data eksperimen tepat",
+    kps: "Manipulatif",
+  },
 ];
 
 export const snYear1BahagianBadan: FixedMCQ[] = [
