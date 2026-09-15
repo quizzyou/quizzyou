@@ -52,7 +52,10 @@ function ProfilePage() {
     <main className="mx-auto w-full max-w-md px-5 py-6">
       <div className="flex items-center justify-between pb-2">
         <span className="h-11 w-11" />
-        <h1 className="font-display text-2xl font-extrabold">Jom Kenalkan Diri! ✨</h1>
+        <h1 className="flex items-center gap-1 font-display text-2xl font-extrabold">
+          Jom Kenalkan Diri!
+          <Emoji emoji="✨" className="inline-block" />
+        </h1>
         <SoundToggle />
       </div>
 

@@ -28,8 +28,8 @@ export function TopicRewards({ subject }: { subject: string }) {
         <span className="animate-pop-in inline-block text-5xl">
           <Emoji emoji={badge.emoji} className="inline-block" />
         </span>
-        <h2 className="mt-3 font-display text-xl font-extrabold">
-          🎉 Tahniah{name ? ` ${name}` : ""}!
+        <h2 className="mt-3 flex items-center justify-center gap-1 font-display text-xl font-extrabold">
+          <Emoji emoji="🎉" className="inline-block" /> Tahniah{name ? ` ${name}` : ""}!
         </h2>
         <p className="mt-1 text-sm text-muted-foreground">
           Anda berjaya membuka badge {badge.name}
