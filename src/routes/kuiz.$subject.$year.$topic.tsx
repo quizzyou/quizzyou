@@ -130,9 +130,9 @@ function QuizPage() {
     window.setTimeout(() => {
       const nextIndex = index + 1;
       setPicked(null);
-      if (nextIndex >= QUESTIONS_PER_TOPIC) {
+      if (nextIndex >= total) {
         saveProgress(subject, year, topic, {
-          index: QUESTIONS_PER_TOPIC,
+          index: total,
           score: nextScore,
           answers: nextAnswers,
         });
@@ -160,7 +160,7 @@ function QuizPage() {
     clearProgress(subject, year, topic);
     setIndex(0);
     setScore(0);
-    setAnswers(Array(QUESTIONS_PER_TOPIC).fill(null));
+    setAnswers(Array(total).fill(null));
     setPicked(null);
     setFinished(false);
   };
@@ -182,7 +182,7 @@ function QuizPage() {
   if (!question) return null;
 
   if (finished) {
-    const percent = Math.round((score / QUESTIONS_PER_TOPIC) * 100);
+    const percent = Math.round((score / total) * 100);
     const stars = percent >= 90 ? 5 : percent >= 75 ? 4 : percent >= 60 ? 3 : percent >= 40 ? 2 : 1;
     const message =
       stars >= 5
@@ -206,7 +206,7 @@ function QuizPage() {
         <section className="card-soft animate-pop-in p-7 text-center">
           <p className="font-display text-5xl font-extrabold">
             {score}
-            <span className="text-2xl text-muted-foreground"> / {QUESTIONS_PER_TOPIC}</span>
+            <span className="text-2xl text-muted-foreground"> / {total}</span>
           </p>
           <p className="mt-1 text-lg font-bold text-muted-foreground">{percent}%</p>
           <p className="mt-3 text-3xl" aria-label={`${stars} bintang`}>
@@ -255,14 +255,14 @@ function QuizPage() {
 
       <div className="mb-1 flex items-center justify-between text-sm font-bold text-muted-foreground">
         <span>
-          {index + 1} / {QUESTIONS_PER_TOPIC}
+          {index + 1} / {total}
         </span>
         <span>Skor: {score}</span>
       </div>
       <div className="h-3 w-full overflow-hidden rounded-full bg-card shadow-soft">
         <div
           className="h-full rounded-full bg-primary transition-all duration-300"
-          style={{ width: `${((index + 1) / QUESTIONS_PER_TOPIC) * 100}%` }}
+          style={{ width: `${((index + 1) / total) * 100}%` }}
         />
       </div>
 
