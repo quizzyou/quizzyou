@@ -14,6 +14,11 @@ import {
   snYear2MakananSihat,
   snYear2Air,
   snYear2Bunyi,
+  snYear2Magnet,
+  snYear2Bumi,
+  snYear3Pernafasan,
+  snYear3Gigi,
+  snYear3TumbuhanMembiak,
 } from "@/data/mcqs-sn";
 import {
   bmYear1Huruf,
@@ -760,6 +765,21 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   }
   if (subject === "sn" && year === "2" && topic === "Bunyi") {
     return fixedMCQQuestions(snYear2Bunyi, seed);
+  }
+  if (subject === "sn" && year === "2" && topic === "Magnet") {
+    return fixedMCQQuestions(snYear2Magnet, seed);
+  }
+  if (subject === "sn" && year === "2" && topic === "Bumi") {
+    return fixedMCQQuestions(snYear2Bumi, seed);
+  }
+  if (subject === "sn" && year === "3" && topic === "Sistem Pernafasan") {
+    return fixedMCQQuestions(snYear3Pernafasan, seed);
+  }
+  if (subject === "sn" && year === "3" && topic === "Gigi") {
+    return fixedMCQQuestions(snYear3Gigi, seed);
+  }
+  if (subject === "sn" && year === "3" && topic === "Tumbuhan Membiak") {
+    return fixedMCQQuestions(snYear3TumbuhanMembiak, seed);
   }
 
   if (subject === "bm" && year === "1" && topic === "Huruf") {
