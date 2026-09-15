@@ -534,7 +534,7 @@ function DarabPapan({
   return (
     <section className="card-soft mt-4 px-3 py-5" aria-label="Bentuk lazim darab">
       <div
-        className="ml-7 grid gap-1 text-center text-[11px] text-muted-foreground sm:text-xs"
+        className="grid justify-center gap-1 text-center text-[11px] text-muted-foreground sm:text-xs"
         style={gridStyle}
       >
         {leftToRight.map((col) => (
@@ -543,7 +543,7 @@ function DarabPapan({
       </div>
 
       {soalan.showCarry && (
-        <div className="ml-7 grid gap-2 py-2" style={gridStyle} aria-label="Kotak simpan">
+        <div className="grid justify-center gap-2 py-2" style={gridStyle} aria-label="Kotak simpan">
           {leftToRight.map((col) => {
             const key = `carry-${col}`;
             const required = needsCarry(col);
@@ -574,7 +574,7 @@ function DarabPapan({
         </div>
       )}
 
-      <div className="grid grid-cols-[1.75rem_1fr] items-center text-center font-display text-3xl font-extrabold">
+      <div className="grid grid-cols-[1.75rem_1fr] items-center justify-items-center text-center font-display text-3xl font-extrabold">
         <span aria-hidden="true" />
         <div className="grid" style={gridStyle}>
           {leftToRight.map((col) => (
@@ -596,7 +596,7 @@ function DarabPapan({
       </div>
 
       <div className="mt-2 border-t-4 border-foreground/60 pt-3">
-        <div className="ml-7 grid gap-2" style={gridStyle}>
+        <div className="grid justify-center gap-2" style={gridStyle}>
           {leftToRight.map((col) => {
             const key = `answer-${col}`;
             if (col >= String(soalan.product).length) {
