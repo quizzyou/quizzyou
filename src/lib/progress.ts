@@ -59,11 +59,11 @@ export function listUnfinished(): Unfinished[] {
     if (!subject || !year || !topic) continue;
     try {
       const p = JSON.parse(window.localStorage.getItem(k) ?? "") as Progress;
-      const total = getQuestions(
-        subject as Parameters<typeof getQuestions>[0],
-        year as Parameters<typeof getQuestions>[1],
-        topic,
-      ).length || 40;
+      const s = subject as Parameters<typeof getQuestions>[0];
+      const y = year as Parameters<typeof getQuestions>[1];
+      const topicName = topicFromSlug(s, y, topic) ?? topic;
+      const total = getQuestions(s, y, topicName).length;
+      if (total === 0) continue;
       if (p.index > 0 && p.index < total) {
         out.push({ subject, year, topic, index: p.index, updatedAt: p.updatedAt ?? 0 });
       }
