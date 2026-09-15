@@ -1,6 +1,7 @@
 import { bmFacts } from "@/data/facts-bm";
 import { enFacts } from "@/data/facts-en";
 import { snFacts } from "@/data/facts-sn";
+import { snYear1KemahiranSaintifik } from "@/data/mcqs-sn";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
 export type Vertical = { a: string; b: string; op: "+" | "-" | "×" | "÷" };
@@ -190,6 +191,26 @@ function maskAnswer(answer: string): string {
   return [...answer]
     .map((c, i) => (i === 0 || i === answer.length - 1 || c === " " ? c : "_"))
     .join(" ");
+}
+
+function fixedMCQQuestions(
+  items: { prompt: string; choices: string[]; answer: string }[],
+  seed: number,
+): Question[] {
+  const rand = rng(seed);
+  const out = items.map((item) => {
+    const choices = shuffle(item.choices, rand);
+    const answer = choices.indexOf(item.answer);
+    return { id: 0, prompt: item.prompt, choices, answer };
+  });
+  const seen = new Set<string>();
+  const unique = out.filter((q) => {
+    const key = `${q.prompt}|${q.choices[q.answer] ?? ""}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  return unique.slice(0, QUESTIONS_PER_TOPIC).map((q, i) => ({ ...q, id: i + 1 }));
 }
 
 function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Question[] {
@@ -647,6 +668,9 @@ const factBanks: Record<string, Record<YearId, Record<string, string[]>>> = {
 export function getQuestions(subject: SubjectId, year: YearId, topic: string): Question[] {
   const seed = hash(`${subject}|${year}|${topic}`);
   if (subject === "mt") return mathQuestions(topic, year, seed);
+  if (subject === "sn" && year === "1" && topic === "Kemahiran Saintifik") {
+    return fixedMCQQuestions(snYear1KemahiranSaintifik, seed);
+  }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
   return factQuestions(facts, seed, subject === "en" ? "en" : "bm");
