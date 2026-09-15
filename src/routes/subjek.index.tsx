@@ -91,7 +91,7 @@ function SubjectsPage() {
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-display font-bold">{topic}</span>
                     <span className="block truncate text-xs text-muted-foreground">
-                      {subject.name} · Tahun {r.year} · Soalan {r.index + 1}/{getQuestions(subject.id, r.year, topic).length || 40}
+                      {subject.name} · Tahun {r.year} · Soalan {r.index + 1}/{getQuestions(subject.id, r.year as Parameters<typeof getQuestions>[1], topic).length || 40}
                     </span>
                   </span>
                   <span className="shrink-0 text-lg">▶</span>
