@@ -27,7 +27,7 @@ function QuizRoute() {
   const topicName = topicFromSlug(info.id, year, topic);
   if (!topicName) throw notFound();
 
-  if (subject === "mt" && year === "2" && topic === "tambah") {
+  if (subject === "mt" && topic === "tambah") {
     return (
       <TambahLazim
         subject={subject}
