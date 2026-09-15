@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/audio";
 import { Confetti } from "@/components/Confetti";
 import { SoundToggle } from "@/components/SoundToggle";
+import { loadProfile } from "@/lib/profile";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,7 +36,7 @@ function AccessCodePage() {
 
   useEffect(() => {
     if (window.localStorage.getItem("accessGranted") === "true") {
-      void navigate({ to: "/subjek", replace: true });
+      void navigate({ to: loadProfile() ? "/subjek" : "/profil", replace: true });
       return;
     }
     setChecked(true);
@@ -69,7 +70,10 @@ function AccessCodePage() {
         sfx.unlock();
         setState("opening");
         window.localStorage.setItem("accessGranted", "true");
-        window.setTimeout(() => void navigate({ to: "/subjek", replace: true }), 2200);
+        window.setTimeout(
+          () => void navigate({ to: loadProfile() ? "/subjek" : "/profil", replace: true }),
+          1200,
+        );
       } else {
         sfx.wrong();
         setState("wrong");

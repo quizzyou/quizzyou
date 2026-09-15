@@ -2,6 +2,7 @@ import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-ro
 import { useEffect, useMemo, useState } from "react";
 import { PageHeader } from "@/components/PageHeader";
 import { Confetti } from "@/components/Confetti";
+import { TopicRewards } from "@/components/TopicRewards";
 import { isYear, subjectById, topicFromSlug } from "@/data/curriculum";
 import { getQuestions, QUESTIONS_PER_TOPIC, type Vertical } from "@/lib/questions";
 import { clearProgress, loadProgress, saveProgress } from "@/lib/progress";
@@ -193,6 +194,7 @@ function QuizPage() {
     return (
       <main className="mx-auto w-full max-w-md px-5 py-6">
         <Confetti count={50} />
+        <TopicRewards subject={subject} />
         <PageHeader
           title="Keputusan"
           subtitle={topicName}

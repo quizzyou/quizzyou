@@ -1,10 +1,11 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Emoji } from "@/components/Emoji";
-import { PageHeader } from "@/components/PageHeader";
+import { SoundToggle } from "@/components/SoundToggle";
 import { subjects, slugify, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
 import { listUnfinished, type Unfinished } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
+import { loadBadges, loadProfile, loadStreak, type Profile } from "@/lib/profile";
 
 export const Route = createFileRoute("/subjek/")({
   head: () => ({
@@ -23,17 +24,49 @@ export const Route = createFileRoute("/subjek/")({
 
 function SubjectsPage() {
   const [resume, setResume] = useState<Unfinished[]>([]);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [streak, setStreak] = useState(0);
+  const [badgeCount, setBadgeCount] = useState(0);
 
   useEffect(() => {
     setResume(listUnfinished());
+    setProfile(loadProfile());
+    setStreak(loadStreak());
+    setBadgeCount(loadBadges().length);
   }, []);
 
   return (
     <main className="mx-auto w-full max-w-md px-5 py-6">
-      <PageHeader title="Pilih Subjek" subtitle="Kuiz KSSR Tahap 1" />
+      <div className="flex justify-end pb-2">
+        <SoundToggle />
+      </div>
+
+      <section className="animate-pop-in rounded-3xl bg-sky p-4 shadow-soft">
+        <div className="flex items-center gap-3">
+          <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-card text-3xl">
+            <Emoji emoji={profile?.avatar ?? "🐣"} className="inline-block" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="flex items-center gap-1 truncate font-display text-lg font-extrabold">
+              Hai, {profile?.name ?? "Murid"}!
+              <Emoji emoji="👋" className="inline-block" />
+            </p>
+            <p className="truncate text-xs text-foreground/70">Jom sambung belajar hari ini!</p>
+          </div>
+        </div>
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <p className="flex items-center justify-center gap-1 rounded-2xl bg-card px-3 py-2 font-display text-sm font-bold">
+            <Emoji emoji="🔥" className="inline-block" /> {streak} hari
+          </p>
+          <p className="flex items-center justify-center gap-1 rounded-2xl bg-card px-3 py-2 font-display text-sm font-bold">
+            <Emoji emoji="🏅" className="inline-block" /> {badgeCount} badge
+          </p>
+        </div>
+      </section>
+
 
       {resume.length > 0 && (
-        <section className="mb-5">
+        <section className="mt-5">
           <h2 className="mb-2 font-display text-lg font-bold">Sambung Kuiz</h2>
           <div className="space-y-2">
             {resume.map((r) => {
@@ -67,6 +100,8 @@ function SubjectsPage() {
           </div>
         </section>
       )}
+
+      <h2 className="mb-3 mt-6 text-center font-display text-2xl font-extrabold">Pilih Subjek</h2>
 
       <div className="grid gap-4">
         {subjects.map((subject) => (
