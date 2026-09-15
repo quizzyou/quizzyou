@@ -141,8 +141,11 @@ export function BahagiLazim({
     ? String(soalan.quotientDigits[box.index] ?? 0)
     : String(soalan.remainder);
   const filled = order.every((box) => Boolean(values[boxKey(box)]));
+  // Dedahkan langkah kerja hanya apabila digit hasil bahagi yang dimasukkan BETUL,
+  // mengikut urutan dari kiri. Digit salah tidak mendedahkan langkah.
   const revealedSteps = soalan.quotientDigits.reduce(
-    (count, _, i) => values[`quotient-${i}`] ? count + 1 : count,
+    (count, digit, i) =>
+      count === i && values[`quotient-${i}`] === String(digit) ? count + 1 : count,
     0,
   );
 
