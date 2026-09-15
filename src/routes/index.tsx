@@ -35,7 +35,7 @@ function AccessCodePage() {
 
   useEffect(() => {
     if (window.localStorage.getItem("accessGranted") === "true") {
-      void navigate({ to: "/subjek", replace: true });
+      void navigate({ to: loadProfile() ? "/subjek" : "/profil", replace: true });
       return;
     }
     setChecked(true);
