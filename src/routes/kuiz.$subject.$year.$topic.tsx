@@ -9,6 +9,7 @@ import { sfx } from "@/lib/audio";
 import { TambahLazim } from "@/components/TambahLazim";
 import { TolakLazim } from "@/components/TolakLazim";
 import { DarabLazim } from "@/components/DarabLazim";
+import { BahagiLazim } from "@/components/BahagiLazim";
 
 export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
   head: () => ({
@@ -54,6 +55,17 @@ function QuizRoute() {
   if (subject === "mt" && (year === "2" || year === "3") && topic === "darab") {
     return (
       <DarabLazim
+        subject={subject}
+        year={year}
+        topic={topic}
+        topicName={topicName}
+        subjectName={info.name}
+      />
+    );
+  }
+  if (subject === "mt" && year === "3" && topic === "bahagi") {
+    return (
+      <BahagiLazim
         subject={subject}
         year={year}
         topic={topic}
