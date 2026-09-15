@@ -43,13 +43,28 @@ function digitsOf(n: number, cols: number): (number | null)[] {
   });
 }
 
-export function buildSoalan(index: number): Soalan {
-  const rand = rng(9187 + index * 7919);
+export function buildSoalan(index: number, year: string = "2"): Soalan {
+  const rand = rng(9187 + index * 7919 + Number(year) * 131);
   const pick = (min: number, max: number) => min + Math.floor(rand() * (max - min + 1));
-  const size = () => (rand() < 0.45 ? pick(12, 99) : pick(105, 899));
-  let a = size();
-  let b = size();
-  if (a + b > 9999) b = pick(12, 99);
+  let a: number;
+  let b: number;
+  if (year === "1") {
+    // Tahun 1: tambah dalam lingkungan 100
+    a = pick(5, 89);
+    b = pick(2, 99 - a);
+    if (b < 2) b = 2;
+  } else if (year === "3") {
+    // Tahun 3: nombor 3-4 digit
+    const size = () => (rand() < 0.4 ? pick(105, 899) : pick(1005, 6999));
+    a = size();
+    b = size();
+    if (a + b > 9999) b = pick(105, 899);
+  } else {
+    const size = () => (rand() < 0.45 ? pick(12, 99) : pick(105, 899));
+    a = size();
+    b = size();
+    if (a + b > 9999) b = pick(12, 99);
+  }
   const sum = a + b;
   const cols = Math.max(String(sum).length, String(a).length, String(b).length);
   const aDigits = digitsOf(a, cols);
