@@ -4,6 +4,7 @@ import { Emoji } from "@/components/Emoji";
 import { SoundToggle } from "@/components/SoundToggle";
 import { subjects, topicFromSlug, isYear, type SubjectId } from "@/data/curriculum";
 import { listUnfinished, type Unfinished } from "@/lib/progress";
+import { getQuestions } from "@/lib/questions";
 import { sfx } from "@/lib/audio";
 import { loadBadges, loadProfile, loadStreak, type Profile } from "@/lib/profile";
 
@@ -90,7 +91,7 @@ function SubjectsPage() {
                   <span className="min-w-0 flex-1">
                     <span className="block truncate font-display font-bold">{topic}</span>
                     <span className="block truncate text-xs text-muted-foreground">
-                      {subject.name} · Tahun {r.year} · Soalan {r.index + 1}/40
+                      {subject.name} · Tahun {r.year} · Soalan {r.index + 1}/{getQuestions(subject.id, r.year, topic).length || 40}
                     </span>
                   </span>
                   <span className="shrink-0 text-lg">▶</span>
