@@ -41,22 +41,25 @@ function SubjectsPage() {
         <SoundToggle />
       </div>
 
-      <section className="animate-pop-in flex items-center gap-3 rounded-3xl bg-sky p-4 shadow-soft">
-        <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-card text-3xl">
-          <Emoji emoji={profile?.avatar ?? "🐣"} className="inline-block" />
-        </span>
-        <div className="min-w-0 flex-1">
-          <p className="truncate font-display text-lg font-extrabold">
-            Hai, {profile?.name ?? "Murid"}! 👋
-          </p>
-          <p className="truncate text-xs text-foreground/70">Jom sambung belajar hari ini!</p>
+      <section className="animate-pop-in rounded-3xl bg-sky p-4 shadow-soft">
+        <div className="flex items-center gap-3">
+          <span className="grid h-14 w-14 shrink-0 place-items-center rounded-2xl bg-card text-3xl">
+            <Emoji emoji={profile?.avatar ?? "🐣"} className="inline-block" />
+          </span>
+          <div className="min-w-0 flex-1">
+            <p className="flex items-center gap-1 truncate font-display text-lg font-extrabold">
+              Hai, {profile?.name ?? "Murid"}!
+              <Emoji emoji="👋" className="inline-block" />
+            </p>
+            <p className="truncate text-xs text-foreground/70">Jom sambung belajar hari ini!</p>
+          </div>
         </div>
-        <div className="shrink-0 space-y-1 text-right">
-          <p className="rounded-2xl bg-card px-3 py-1 font-display text-sm font-bold">
-            🔥 {streak} hari
+        <div className="mt-3 grid grid-cols-2 gap-2">
+          <p className="flex items-center justify-center gap-1 rounded-2xl bg-card px-3 py-2 font-display text-sm font-bold">
+            <Emoji emoji="🔥" className="inline-block" /> {streak} hari
           </p>
-          <p className="rounded-2xl bg-card px-3 py-1 font-display text-sm font-bold">
-            🏅 {badgeCount}
+          <p className="flex items-center justify-center gap-1 rounded-2xl bg-card px-3 py-2 font-display text-sm font-bold">
+            <Emoji emoji="🏅" className="inline-block" /> {badgeCount} badge
           </p>
         </div>
       </section>
