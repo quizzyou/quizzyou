@@ -32,10 +32,32 @@ type Soalan = {
   answerDigits: number[];
   /** carry masuk ke lajur ini (index 0 = Sa, selalu 0) */
   carries: number[];
-  /** Tahun 1 tiada kotak simpan */
+  /** Kotak simpan hanya digunakan untuk latihan Tahun 3 */
   showCarry: boolean;
   prompt: string | undefined;
 };
+
+const YEAR_2_BANK: { a: number; b: number; prompt?: string }[] = [
+  { a: 2, b: 2 }, { a: 3, b: 2 }, { a: 4, b: 2 }, { a: 5, b: 2 },
+  { a: 3, b: 3 }, { a: 4, b: 3 }, { a: 5, b: 3 }, { a: 4, b: 4 },
+  { a: 5, b: 5 }, { a: 10, b: 2 },
+  { a: 11, b: 2 }, { a: 12, b: 2 }, { a: 13, b: 3 }, { a: 14, b: 2 },
+  { a: 15, b: 3 }, { a: 16, b: 2 }, { a: 17, b: 4 }, { a: 18, b: 3 },
+  { a: 19, b: 5 }, { a: 20, b: 4 },
+  { a: 21, b: 3 }, { a: 22, b: 4 }, { a: 23, b: 5 }, { a: 24, b: 3 },
+  { a: 25, b: 4 }, { a: 28, b: 5 }, { a: 32, b: 3 }, { a: 36, b: 2 },
+  { a: 42, b: 5 }, { a: 47, b: 4 },
+  { a: 12, b: 3, prompt: "Siti menyusun 3 bakul. Setiap bakul mempunyai 12 biji epal. Berapakah jumlah epal?" },
+  { a: 15, b: 4, prompt: "Ali mempunyai 4 rak. Setiap rak mengandungi 15 buah buku. Berapakah jumlah buku?" },
+  { a: 18, b: 2, prompt: "Cikgu Aina menyediakan 2 kotak. Setiap kotak ada 18 batang pensel. Berapakah jumlah pensel?" },
+  { a: 21, b: 3, prompt: "Mei Ling membeli 3 pek minuman. Setiap pek mempunyai 21 kotak minuman. Berapakah jumlahnya?" },
+  { a: 24, b: 4, prompt: "Harga sebuah buku ialah RM24. Berapakah harga 4 buah buku?" },
+  { a: 27, b: 5, prompt: "Kumar mengisi 5 bakul dengan 27 biji epal dalam setiap bakul. Berapakah jumlah epal?" },
+  { a: 31, b: 2, prompt: "Dua kelas menerima 31 buah buku setiap kelas. Berapakah jumlah buku?" },
+  { a: 34, b: 3, prompt: "Tiga kumpulan menerima 34 batang pensel setiap kumpulan. Berapakah jumlah pensel?" },
+  { a: 38, b: 4, prompt: "Empat meja mempunyai 38 kotak minuman setiap meja. Berapakah jumlahnya?" },
+  { a: 45, b: 5, prompt: "Lima orang murid menyimpan RM45 setiap seorang. Berapakah jumlah wang mereka?" },
+];
 
 const YEAR_3_BANK: { a: number; b: number; prompt?: string }[] = [
   { a: 123, b: 2 }, { a: 211, b: 3 }, { a: 312, b: 2 }, { a: 412, b: 2 },
@@ -72,7 +94,7 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
   const pick = (min: number, max: number) => min + Math.floor(rand() * (max - min + 1));
   let a: number;
   let b: number;
-  const showCarry = year !== "1";
+  const showCarry = year === "3";
   let prompt: string | undefined;
   if (year === "1") {
     // Tahun 1: sifir 2, 3, 4, 5 — satu digit darab satu digit
@@ -80,8 +102,11 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
     b = sifir[pick(0, sifir.length - 1)] ?? 2;
     a = pick(2, 9);
   } else if (year === "2") {
-    a = pick(11, 99);
-    b = pick(2, 5);
+    const item = YEAR_2_BANK[index % YEAR_2_BANK.length] ?? YEAR_2_BANK[0];
+    if (!item) return buildSoalanDarab(0, "1");
+    a = item.a;
+    b = item.b;
+    prompt = item.prompt;
   } else {
     // Tahun 3: bank tersusun daripada mudah kepada sukar, 1 digit pengganda sahaja.
     const item = YEAR_3_BANK[index % YEAR_3_BANK.length] ?? YEAR_3_BANK[0];
@@ -91,7 +116,11 @@ export function buildSoalanDarab(index: number, year: string = "3"): Soalan {
     prompt = item.prompt;
   }
   const product = a * b;
-  const cols = year === "3" ? Math.max(3, String(product).length, String(a).length) : Math.max(String(product).length, String(a).length);
+  const cols = year === "3"
+    ? Math.max(3, String(product).length, String(a).length)
+    : year === "2"
+      ? Math.max(2, String(product).length, String(a).length)
+      : Math.max(String(product).length, String(a).length);
   const aDigits = digitsOf(a, cols);
   const bDigits = digitsOf(b, cols);
   const answerDigits: number[] = [];
