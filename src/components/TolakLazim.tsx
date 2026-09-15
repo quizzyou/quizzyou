@@ -348,7 +348,7 @@ function TolakBoard({
         <div className="grid min-h-14 items-end" style={gridStyle}>
           {leftToRight.map((col) => {
             const change = visibleChange(col);
-            const original = change?.from ?? soalan.aDigits[col];
+            const original = soalan.aDigits[col];
             return (
               <span key={`top-${col}`} className="relative inline-grid min-h-14 place-items-end center">
                 {change && <span className="animate-carry-in absolute top-0 text-base text-destructive-foreground">{change.to}</span>}
