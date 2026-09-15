@@ -1,4 +1,5 @@
 import { Link } from "@tanstack/react-router";
+import { ChevronLeft } from "lucide-react";
 import { SoundToggle } from "./SoundToggle";
 import { sfx } from "@/lib/audio";
 
@@ -26,10 +27,10 @@ export function PageHeader({ title, subtitle, backTo, backParams }: Props) {
           to={backTo}
           params={backParams ?? {}}
           onClick={() => sfx.tap()}
-          className="tap-pop flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-card text-xl leading-none shadow-soft"
+          className="tap-pop grid h-11 w-11 shrink-0 place-items-center rounded-full bg-card text-foreground shadow-soft"
           aria-label="Kembali"
         >
-          ←
+          <ChevronLeft className="h-6 w-6" />
         </BackLink>
       ) : (
         <span className="h-11 w-11" />
