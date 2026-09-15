@@ -24,7 +24,14 @@ import {
   bmYear3Peribahasa,
   bmYear3Pemahaman,
 } from "@/data/mcqs-bm";
-import { enYear1Alphabet, enYear1Phonics } from "@/data/mcqs-en";
+import {
+  enYear1Alphabet,
+  enYear1Phonics,
+  enYear1Numbers,
+  enYear1Colours,
+  enYear1Family,
+  enYear1Classroom,
+} from "@/data/mcqs-en";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
 export type Vertical = { a: string; b: string; op: "+" | "-" | "×" | "÷" };
@@ -762,6 +769,18 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   }
   if (subject === "en" && year === "1" && topic === "Phonics") {
     return fixedMCQQuestions(enYear1Phonics, seed);
+  }
+  if (subject === "en" && year === "1" && topic === "Numbers") {
+    return fixedMCQQuestions(enYear1Numbers, seed);
+  }
+  if (subject === "en" && year === "1" && topic === "Colours") {
+    return fixedMCQQuestions(enYear1Colours, seed);
+  }
+  if (subject === "en" && year === "1" && topic === "Family") {
+    return fixedMCQQuestions(enYear1Family, seed);
+  }
+  if (subject === "en" && year === "1" && topic === "My Classroom") {
+    return fixedMCQQuestions(enYear1Classroom, seed);
   }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
