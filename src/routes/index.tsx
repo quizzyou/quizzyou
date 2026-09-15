@@ -2,7 +2,6 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/audio";
 import { Confetti } from "@/components/Confetti";
-import { Emoji } from "@/components/Emoji";
 import { SoundToggle } from "@/components/SoundToggle";
 
 export const Route = createFileRoute("/")({
