@@ -17,6 +17,10 @@ import {
   bmYear2AyatTanya,
   bmYear2AyatPerintah,
   bmYear2Pemahaman,
+  bmYear3KataGantiNama,
+  bmYear3KataArah,
+  bmYear3KataSeru,
+  bmYear3SimpulanBahasa,
 } from "@/data/mcqs-bm";
 import type { SubjectId, YearId } from "@/data/curriculum";
 
@@ -731,6 +735,18 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   }
   if (subject === "bm" && year === "2" && topic === "Pemahaman") {
     return fixedMCQQuestions(bmYear2Pemahaman, seed);
+  }
+  if (subject === "bm" && year === "3" && topic === "Kata Ganti Nama") {
+    return fixedMCQQuestions(bmYear3KataGantiNama, seed);
+  }
+  if (subject === "bm" && year === "3" && topic === "Kata Arah") {
+    return fixedMCQQuestions(bmYear3KataArah, seed);
+  }
+  if (subject === "bm" && year === "3" && topic === "Kata Seru") {
+    return fixedMCQQuestions(bmYear3KataSeru, seed);
+  }
+  if (subject === "bm" && year === "3" && topic === "Simpulan Bahasa") {
+    return fixedMCQQuestions(bmYear3SimpulanBahasa, seed);
   }
   const facts = factBanks[subject]?.[year]?.[topic];
   if (!facts) return [];
