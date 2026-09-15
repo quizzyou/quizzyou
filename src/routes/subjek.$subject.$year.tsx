@@ -37,12 +37,9 @@ function TopicPage() {
             to="/kuiz/$subject/$year/$topic"
             params={{ subject, year, topic: slugify(topic) }}
             onClick={() => sfx.click()}
-            className={`tap-pop animate-pop-in flex items-center justify-between gap-3 rounded-3xl ${topicColors[i % topicColors.length]} px-5 py-5 shadow-soft`}
+            className={`tap-pop animate-pop-in flex items-center justify-center rounded-3xl ${topicColors[i % topicColors.length]} px-5 py-5 shadow-soft`}
           >
-            <span className="min-w-0 font-display text-lg font-extrabold">{topic}</span>
-            <span className="shrink-0 rounded-full bg-card px-3 py-1 text-xs font-bold">
-              40 soalan
-            </span>
+            <span className="text-center font-display text-lg font-extrabold">{topic}</span>
           </Link>
         ))}
       </div>
