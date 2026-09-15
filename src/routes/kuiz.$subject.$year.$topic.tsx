@@ -4,7 +4,7 @@ import { PageHeader } from "@/components/PageHeader";
 import { Confetti } from "@/components/Confetti";
 import { TopicRewards } from "@/components/TopicRewards";
 import { isYear, subjectById, topicFromSlug } from "@/data/curriculum";
-import { getQuestions, QUESTIONS_PER_TOPIC, type Vertical } from "@/lib/questions";
+import { getQuestions, type Vertical } from "@/lib/questions";
 import { clearProgress, loadProgress, saveProgress } from "@/lib/progress";
 import { sfx } from "@/lib/audio";
 import { TambahLazim } from "@/components/TambahLazim";
@@ -16,7 +16,7 @@ export const Route = createFileRoute("/kuiz/$subject/$year/$topic")({
   head: () => ({
     meta: [
       { title: "Kuiz — QUIZZY" },
-      { name: "description", content: "Jawab 40 soalan kuiz KSSR dan kumpul bintang." },
+      { name: "description", content: "Jawab soalan kuiz KSSR dan kumpul bintang." },
       { property: "og:title", content: "Kuiz — QUIZZY" },
       { property: "og:description", content: "Kuiz interaktif topik KSSR dengan skor dan bintang." },
     ],
@@ -92,21 +92,23 @@ function QuizPage() {
     [info.id, year, topicName],
   );
 
+  const total = questions.length;
+
   const [ready, setReady] = useState(false);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [answers, setAnswers] = useState<(number | null)[]>(
-    Array(QUESTIONS_PER_TOPIC).fill(null),
+    Array(total).fill(null),
   );
   const [picked, setPicked] = useState<number | null>(null);
   const [finished, setFinished] = useState(false);
 
   useEffect(() => {
     const saved = loadProgress(subject, year, topic);
-    if (saved && saved.index < QUESTIONS_PER_TOPIC) {
+    if (saved && saved.index < total) {
       setIndex(saved.index);
       setScore(saved.score);
-      setAnswers(saved.answers ?? Array(QUESTIONS_PER_TOPIC).fill(null));
+      setAnswers(saved.answers ?? Array(total).fill(null));
     }
     setReady(true);
   }, [subject, year, topic]);
@@ -128,9 +130,9 @@ function QuizPage() {
     window.setTimeout(() => {
       const nextIndex = index + 1;
       setPicked(null);
-      if (nextIndex >= QUESTIONS_PER_TOPIC) {
+      if (nextIndex >= total) {
         saveProgress(subject, year, topic, {
-          index: QUESTIONS_PER_TOPIC,
+          index: total,
           score: nextScore,
           answers: nextAnswers,
         });
@@ -158,7 +160,7 @@ function QuizPage() {
     clearProgress(subject, year, topic);
     setIndex(0);
     setScore(0);
-    setAnswers(Array(QUESTIONS_PER_TOPIC).fill(null));
+    setAnswers(Array(total).fill(null));
     setPicked(null);
     setFinished(false);
   };
@@ -180,7 +182,7 @@ function QuizPage() {
   if (!question) return null;
 
   if (finished) {
-    const percent = Math.round((score / QUESTIONS_PER_TOPIC) * 100);
+    const percent = Math.round((score / total) * 100);
     const stars = percent >= 90 ? 5 : percent >= 75 ? 4 : percent >= 60 ? 3 : percent >= 40 ? 2 : 1;
     const message =
       stars >= 5
@@ -204,7 +206,7 @@ function QuizPage() {
         <section className="card-soft animate-pop-in p-7 text-center">
           <p className="font-display text-5xl font-extrabold">
             {score}
-            <span className="text-2xl text-muted-foreground"> / {QUESTIONS_PER_TOPIC}</span>
+            <span className="text-2xl text-muted-foreground"> / {total}</span>
           </p>
           <p className="mt-1 text-lg font-bold text-muted-foreground">{percent}%</p>
           <p className="mt-3 text-3xl" aria-label={`${stars} bintang`}>
@@ -253,14 +255,14 @@ function QuizPage() {
 
       <div className="mb-1 flex items-center justify-between text-sm font-bold text-muted-foreground">
         <span>
-          {index + 1} / {QUESTIONS_PER_TOPIC}
+          {index + 1} / {total}
         </span>
         <span>Skor: {score}</span>
       </div>
       <div className="h-3 w-full overflow-hidden rounded-full bg-card shadow-soft">
         <div
           className="h-full rounded-full bg-primary transition-all duration-300"
-          style={{ width: `${((index + 1) / QUESTIONS_PER_TOPIC) * 100}%` }}
+          style={{ width: `${((index + 1) / total) * 100}%` }}
         />
       </div>
 
