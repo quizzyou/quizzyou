@@ -62,9 +62,13 @@ export function buildSoalanTolak(index: number, year = "2"): SoalanTolak {
   let context: string | undefined;
   if (year === "1") {
     const rand = rng(4409 + index * 3571);
-    a = 20 + Math.floor(rand() * 80); // 20–99
-    b = 2 + Math.floor(rand() * (a - 3)); // 2 .. a-1
-    if (b >= a) b = a - 1;
+    const puluhA = 1 + Math.floor(rand() * 9); // 1–9
+    const saA = Math.floor(rand() * 10); // 0–9
+    const puluhB = Math.floor(rand() * (puluhA + 1)); // 0..puluhA
+    const saB = Math.floor(rand() * (saA + 1)); // 0..saA
+    a = puluhA * 10 + saA;
+    b = puluhB * 10 + saB;
+    if (b === 0) b = 10; // sentiasa tanpa pinjam kerana puluhA >= 1
   } else if (year === "3") {
     const rand = rng(6617 + index * 4933);
     a = 105 + Math.floor(rand() * 8895); // 105–8999
