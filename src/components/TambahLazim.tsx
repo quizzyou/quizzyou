@@ -558,7 +558,7 @@ function SoalanPapan({
                 type="button"
                 onClick={() => onSelect(key)}
                 aria-label={`Jawapan ${PLACE_NAMES[col] ?? ""}`}
-                className={`tap-pop aspect-square min-w-0 rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${stateClass(
+                className={`tap-pop flex aspect-square min-w-0 items-center justify-center rounded-xl border-2 font-display text-2xl font-extrabold shadow-soft ${stateClass(
                   key,
                   value,
                   expected({ kind: "answer", col }),
