@@ -2,7 +2,6 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { sfx } from "@/lib/audio";
 import { Confetti } from "@/components/Confetti";
-import { Emoji } from "@/components/Emoji";
 import { SoundToggle } from "@/components/SoundToggle";
 
 export const Route = createFileRoute("/")({
@@ -84,22 +83,16 @@ function AccessCodePage() {
   };
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col px-5 py-6">
-      <div className="flex justify-end">
+    <main className="mx-auto flex min-h-screen w-full max-w-md flex-col items-center justify-center px-5 py-6">
+      <div className="absolute right-5 top-6">
         <SoundToggle />
       </div>
 
-      <div className="mt-4 text-center">
+      <div className="text-center">
         <p className="text-base text-muted-foreground">Masukkan Kod Akses</p>
       </div>
 
-      <div
-        className={`relative mx-auto mt-6 w-full max-w-xs ${state === "wrong" ? "animate-shake" : ""}`}
-      >
-        <DoorFrame open={state === "opening"} />
-      </div>
-
-      <div className="mt-6 flex justify-center gap-3">
+      <div className={`mt-8 flex justify-center gap-3 ${state === "wrong" ? "animate-shake" : ""}`}>
         {Array.from({ length: 6 }, (_, i) => (
           <span
             key={i}
@@ -110,7 +103,7 @@ function AccessCodePage() {
         ))}
       </div>
 
-      <div className="mt-7 grid grid-cols-3 gap-3">
+      <div className="mt-8 grid w-full max-w-xs grid-cols-3 gap-3">
         {KEYS.map((key) => (
           <button
             key={key}
@@ -129,49 +122,5 @@ function AccessCodePage() {
 
       {state === "opening" && <Confetti count={30} />}
     </main>
-  );
-}
-
-function DoorFrame({ open }: { open: boolean }) {
-  return (
-    <div className="relative mx-auto aspect-[3/4] w-56 overflow-hidden rounded-t-[5rem] border-4 border-wood-dark bg-muted shadow-soft">
-      <div className="absolute inset-0 grid place-items-center bg-lemon">
-        <span className="font-display text-3xl font-extrabold text-foreground">
-          <Emoji emoji="🎒" className="inline-block" />{" "}
-          <Emoji emoji="✏️" className="inline-block" />{" "}
-          <Emoji emoji="📚" className="inline-block" />
-        </span>
-      </div>
-      <div
-        className="absolute inset-0 rounded-t-[4.5rem] border-4 border-wood-dark bg-gradient-to-b from-wood via-wood to-wood-dark/80 shadow-[inset_0_-8px_16px_rgba(0,0,0,0.12)] transition-transform duration-[1800ms] will-change-transform transform-gpu"
-        style={{
-          transformOrigin: "left center",
-          transform: open ? "perspective(800px) rotateY(-95deg)" : "perspective(800px) rotateY(0deg)",
-          transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
-        }}
-      >
-        <div className="absolute inset-3 rounded-t-[3.5rem] border-2 border-wood-dark/30" />
-        <div className="absolute right-3 top-1/2 h-3 w-3 rounded-full bg-lemon shadow-sm" />
-      </div>
-      {open && (
-        <>
-          <span className="animate-sparkle absolute left-6 top-10 text-2xl">
-            <Emoji emoji="✨" className="inline-block" />
-          </span>
-          <span
-            className="animate-sparkle absolute right-8 top-24 text-xl"
-            style={{ animationDelay: "0.3s" }}
-          >
-            <Emoji emoji="✨" className="inline-block" />
-          </span>
-          <span
-            className="animate-sparkle absolute bottom-12 left-1/2 text-2xl"
-            style={{ animationDelay: "0.6s" }}
-          >
-            <Emoji emoji="✨" className="inline-block" />
-          </span>
-        </>
-      )}
-    </div>
   );
 }
