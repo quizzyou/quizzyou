@@ -128,7 +128,7 @@ function AccessCodePage() {
 
 function DoorFrame({ open }: { open: boolean }) {
   return (
-    <div className="relative mx-auto aspect-[3/4] w-56 overflow-hidden rounded-t-[5rem] bg-muted shadow-soft">
+    <div className="relative mx-auto aspect-[3/4] w-56 overflow-hidden rounded-t-[5rem] border-4 border-wood-dark bg-muted shadow-soft">
       <div className="absolute inset-0 grid place-items-center bg-lemon">
         <span className="font-display text-3xl font-extrabold text-foreground">
           <Emoji emoji="🎒" className="inline-block" />{" "}
@@ -136,23 +136,17 @@ function DoorFrame({ open }: { open: boolean }) {
           <Emoji emoji="📚" className="inline-block" />
         </span>
       </div>
-      {["left", "right"].map((side) => (
-        <div
-          key={side}
-          className="absolute top-0 h-full w-1/2 rounded-t-[4rem] border-4 border-wood-dark bg-gradient-to-b from-wood via-wood to-wood-dark/80 shadow-[inset_0_-8px_16px_rgba(0,0,0,0.12)] transition-transform duration-[1800ms] will-change-transform transform-gpu"
-          style={{
-            [side]: 0,
-            transformOrigin: side === "left" ? "left center" : "right center",
-            transform: open ? `perspective(700px) rotateY(${side === "left" ? "-" : ""}82deg)` : "perspective(700px) rotateY(0deg)",
-            transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
-          }}
-        >
-          <div className="absolute inset-3 rounded-t-[3rem] border-2 border-wood-dark/30" />
-          <div
-            className={`absolute top-1/2 h-3 w-3 rounded-full bg-lemon shadow-sm ${side === "left" ? "right-2" : "left-2"}`}
-          />
-        </div>
-      ))}
+      <div
+        className="absolute inset-0 rounded-t-[4.5rem] border-4 border-wood-dark bg-gradient-to-b from-wood via-wood to-wood-dark/80 shadow-[inset_0_-8px_16px_rgba(0,0,0,0.12)] transition-transform duration-[1800ms] will-change-transform transform-gpu"
+        style={{
+          transformOrigin: "left center",
+          transform: open ? "perspective(800px) rotateY(-95deg)" : "perspective(800px) rotateY(0deg)",
+          transitionTimingFunction: "cubic-bezier(0.22, 0.61, 0.36, 1)",
+        }}
+      >
+        <div className="absolute inset-3 rounded-t-[3.5rem] border-2 border-wood-dark/30" />
+        <div className="absolute right-3 top-1/2 h-3 w-3 rounded-full bg-lemon shadow-sm" />
+      </div>
       {open && (
         <>
           <span className="animate-sparkle absolute left-6 top-10 text-2xl">
