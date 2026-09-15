@@ -193,6 +193,26 @@ function maskAnswer(answer: string): string {
     .join(" ");
 }
 
+function fixedMCQQuestions(
+  items: { prompt: string; choices: string[]; answer: string }[],
+  seed: number,
+): Question[] {
+  const rand = rng(seed);
+  const out = items.map((item) => {
+    const choices = shuffle(item.choices, rand);
+    const answer = choices.indexOf(item.answer);
+    return { id: 0, prompt: item.prompt, choices, answer };
+  });
+  const seen = new Set<string>();
+  const unique = out.filter((q) => {
+    const key = `${q.prompt}|${q.choices[q.answer] ?? ""}`;
+    if (seen.has(key)) return false;
+    seen.add(key);
+    return true;
+  });
+  return unique.slice(0, QUESTIONS_PER_TOPIC).map((q, i) => ({ ...q, id: i + 1 }));
+}
+
 function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Question[] {
   const rand = rng(seed);
   const pairs = facts.map((line) => {
