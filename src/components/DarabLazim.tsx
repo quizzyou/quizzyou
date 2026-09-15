@@ -38,15 +38,15 @@ type Soalan = {
 };
 
 const YEAR_3_BANK: { a: number; b: number; prompt?: string }[] = [
-  { a: 101, b: 2 }, { a: 102, b: 2 }, { a: 110, b: 3 }, { a: 111, b: 3 },
-  { a: 120, b: 2 }, { a: 121, b: 2 }, { a: 201, b: 2 }, { a: 211, b: 3 },
-  { a: 212, b: 3 }, { a: 301, b: 2 },
-  { a: 126, b: 2 }, { a: 152, b: 4 }, { a: 191, b: 7 }, { a: 204, b: 8 },
-  { a: 206, b: 5 }, { a: 249, b: 2 }, { a: 262, b: 3 }, { a: 316, b: 4 },
-  { a: 372, b: 2 }, { a: 401, b: 6 },
-  { a: 122, b: 8 }, { a: 124, b: 5 }, { a: 135, b: 9 }, { a: 163, b: 8 },
-  { a: 176, b: 9 }, { a: 217, b: 9 }, { a: 232, b: 7 }, { a: 247, b: 6 },
-  { a: 346, b: 7 }, { a: 589, b: 8 },
+  { a: 123, b: 2 }, { a: 211, b: 3 }, { a: 312, b: 2 }, { a: 412, b: 2 },
+  { a: 203, b: 3 }, { a: 321, b: 2 }, { a: 402, b: 2 }, { a: 221, b: 4 },
+  { a: 132, b: 3 }, { a: 311, b: 3 },
+  { a: 148, b: 2 }, { a: 263, b: 3 }, { a: 374, b: 2 }, { a: 486, b: 2 },
+  { a: 527, b: 3 }, { a: 638, b: 2 }, { a: 749, b: 2 }, { a: 854, b: 3 },
+  { a: 965, b: 2 }, { a: 576, b: 4 },
+  { a: 189, b: 5 }, { a: 278, b: 6 }, { a: 367, b: 7 }, { a: 456, b: 8 },
+  { a: 545, b: 9 }, { a: 634, b: 7 }, { a: 723, b: 8 }, { a: 812, b: 9 },
+  { a: 907, b: 6 }, { a: 986, b: 9 },
   { a: 124, b: 3, prompt: "Siti membeli 3 kotak pensel. Setiap kotak ada 124 batang pensel. Berapakah jumlah pensel?" },
   { a: 132, b: 4, prompt: "Ali menyusun 4 rak buku. Setiap rak mempunyai 132 buah buku. Berapakah jumlah buku?" },
   { a: 145, b: 6, prompt: "Mei Ling memasukkan 145 biji oren ke dalam setiap 6 bakul. Berapakah jumlah oren?" },
@@ -513,24 +513,23 @@ function DarabPapan({
         <div className="ml-7 grid gap-2 py-2" style={gridStyle} aria-label="Kotak simpan">
           {leftToRight.map((col) => {
             const key = `carry-${col}`;
-            if (col === 0) {
+            const required = needsCarry(col);
+            if (col === 0 || !required) {
               return <span key={key} className="mx-auto h-8 w-8" aria-hidden="true" />;
             }
-            const required = needsCarry(col);
             const value = values[key] ?? "";
             return (
               <button
                 key={key}
                 type="button"
-                onClick={() => required && onSelect(key)}
-                disabled={!required}
+                onClick={() => onSelect(key)}
                 aria-label={`Kotak simpan ${PLACE_NAMES[col] ?? ""}`}
                 className={`tap-pop mx-auto flex h-8 w-8 items-center justify-center rounded-md border-2 border-carry-border bg-carry font-display text-base font-extrabold ${
-                  required && checked && !demo
+                  checked && !demo
                     ? values[key] === expected({ kind: "carry", col })
                       ? "border-answer-active"
                       : "border-destructive"
-                    : required && active === key
+                    : active === key
                       ? "ring-2 ring-answer-active/40"
                       : ""
                 }`}
