@@ -2,7 +2,14 @@ import { bmFacts } from "@/data/facts-bm";
 import { enFacts } from "@/data/facts-en";
 import { snFacts } from "@/data/facts-sn";
 import { mtYear1ProblemSolving, mtYear3ProblemSolving } from "@/data/mcqs-mt";
-import { snYear1KemahiranSaintifik } from "@/data/mcqs-sn";
+import {
+  snYear1KemahiranSaintifik,
+  snYear1BahagianBadan,
+  snYear1DeriaManusia,
+  snYear1Haiwan,
+  snYear1Tumbuhan,
+  snYear1CahayaGelap,
+} from "@/data/mcqs-sn";
 import {
   bmYear1Huruf,
   bmYear1SukuKata,
@@ -719,6 +726,22 @@ export function getQuestions(subject: SubjectId, year: YearId, topic: string): Q
   if (subject === "sn" && year === "1" && topic === "Kemahiran Saintifik") {
     return fixedMCQQuestions(snYear1KemahiranSaintifik, seed);
   }
+  if (subject === "sn" && year === "1" && topic === "Bahagian Badan Manusia") {
+    return fixedMCQQuestions(snYear1BahagianBadan, seed);
+  }
+  if (subject === "sn" && year === "1" && topic === "Deria Manusia") {
+    return fixedMCQQuestions(snYear1DeriaManusia, seed);
+  }
+  if (subject === "sn" && year === "1" && topic === "Haiwan") {
+    return fixedMCQQuestions(snYear1Haiwan, seed);
+  }
+  if (subject === "sn" && year === "1" && topic === "Tumbuhan") {
+    return fixedMCQQuestions(snYear1Tumbuhan, seed);
+  }
+  if (subject === "sn" && year === "1" && topic === "Cahaya dan Gelap") {
+    return fixedMCQQuestions(snYear1CahayaGelap, seed);
+  }
+
   if (subject === "bm" && year === "1" && topic === "Huruf") {
     return fixedMCQQuestions(bmYear1Huruf, seed);
   }
