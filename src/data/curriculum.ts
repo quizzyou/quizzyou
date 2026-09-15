@@ -57,7 +57,6 @@ export const topics: Record<SubjectId, Record<YearId, string[]>> = {
       "Colours",
       "Family",
       "My Classroom",
-      "Reading",
     ],
     "2": [
       "Grammar in Context",
@@ -65,7 +64,6 @@ export const topics: Record<SubjectId, Record<YearId, string[]>> = {
       "Animals",
       "Daily Activities",
       "Places",
-      "Reading",
     ],
     "3": [
       "Grammar in Context",
@@ -188,7 +186,6 @@ const topicEmojis: Record<string, string> = {
   Colours: "🎨",
   Family: "👨‍👩‍👧",
   "My Classroom": "🏫",
-  Reading: "📚",
   "Grammar in Context": "📘",
   "Food & Drinks": "🍜",
   Animals: "🐘",
