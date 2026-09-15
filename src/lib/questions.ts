@@ -50,16 +50,119 @@ function shuffle<T>(items: T[], rand: () => number): T[] {
   return arr;
 }
 
+function normaliseChoice(value: string): string {
+  return value.trim().toLocaleLowerCase();
+}
+
+const relatedAnswerGroups = [
+  ["gigi kacip", "gigi geraham", "gigi taring", "gigi bongsu"],
+  ["mata", "telinga", "hidung", "lidah", "kulit"],
+  ["penglihatan", "pendengaran", "bau", "rasa", "sentuh"],
+  ["akar", "batang", "daun", "bunga", "buah", "biji benih"],
+  ["herbivor", "karnivor", "omnivor"],
+  ["penyejatan", "kondensasi", "presipitasi", "transpirasi"],
+  ["peparu", "jantung", "hidung", "trakea", "diafragma", "insang"],
+  ["kaca", "kertas", "kain", "logam", "getah", "plastik", "kayu", "kapas"],
+  ["termometer", "tolok hujan", "vane angin", "kompas"],
+  ["segi tiga", "segi empat sama", "segi empat tepat", "bulatan"],
+  ["sfera", "silinder", "kuboid", "kubus", "kon", "piramid"],
+  ["kata nama", "kata kerja", "kata adjektif", "kata sendi nama", "kata hubung"],
+  ["noktah", "koma", "tanda soal", "tanda seru"],
+  ["mother", "father", "brother", "sister", "grandmother", "grandfather", "uncle", "aunt", "cousin"],
+  ["breakfast", "lunch", "dinner"],
+  ["library", "market", "school", "clinic", "hospital", "post office", "bank", "cinema", "canteen"],
+  ["sun", "rain", "wind", "thunder", "lightning", "clouds", "rainbow", "fog"],
+  ["reading", "drawing", "singing", "swimming", "gardening", "cooking", "cycling", "dancing"],
+];
+
+function relatedAnswers(answer: string): string[] {
+  const normalised = normaliseChoice(answer);
+  const group = relatedAnswerGroups.find((items) =>
+    items.some((item) => normaliseChoice(item) === normalised),
+  );
+  return group ?? [];
+}
+
+const promptStopWords = new Set([
+  "yang", "ialah", "untuk", "apakah", "berapa", "dengan", "dalam", "daripada", "kepada",
+  "which", "what", "where", "when", "does", "with", "from", "your", "the", "is", "are", "a",
+]);
+
+function promptTokens(prompt: string): Set<string> {
+  return new Set(
+    prompt
+      .toLocaleLowerCase()
+      .replace(/[^a-z0-9\p{L}]+/gu, " ")
+      .split(" ")
+      .filter((word) => word.length > 2 && !promptStopWords.has(word)),
+  );
+}
+
+function answerKind(answer: string): string {
+  if (/^rm\s?\d/i.test(answer)) return "money";
+  if (/^\d+(?:[.:/]\d+)?(?:\s|$)/.test(answer)) return "number";
+  if (/^[a-z]$/i.test(answer)) return "letter";
+  if (/^[!?.,]$/.test(answer)) return "punctuation";
+  return answer.includes(" ") ? "phrase" : "word";
+}
+
+function rankFactDistractors(
+  correctPair: { q: string; a: string },
+  pairs: { q: string; a: string }[],
+  rand: () => number,
+): string[] {
+  const correct = normaliseChoice(correctPair.a);
+  const targetTokens = promptTokens(correctPair.q);
+  const targetKind = answerKind(correctPair.a);
+  const explicitRelated = relatedAnswers(correctPair.a);
+  const tieBreakers = new Map<string, number>();
+
+  return [...pairs, ...explicitRelated.map((a) => ({ q: correctPair.q, a }))]
+    .filter((candidate) => normaliseChoice(candidate.a) !== correct)
+    .filter((candidate, index, all) =>
+      all.findIndex((item) => normaliseChoice(item.a) === normaliseChoice(candidate.a)) === index,
+    )
+    .map((candidate) => {
+      const key = normaliseChoice(candidate.a);
+      if (!tieBreakers.has(key)) tieBreakers.set(key, rand());
+      const candidateTokens = promptTokens(candidate.q);
+      let sharedPromptWords = 0;
+      targetTokens.forEach((word) => {
+        if (candidateTokens.has(word)) sharedPromptWords += 1;
+      });
+      const inRelatedGroup = explicitRelated.some((item) => normaliseChoice(item) === key);
+      const sameKind = answerKind(candidate.a) === targetKind;
+      const lengthGap = Math.abs(candidate.a.length - correctPair.a.length);
+      return {
+        answer: candidate.a,
+        score: (inRelatedGroup ? 100 : 0) + sharedPromptWords * 12 + (sameKind ? 5 : 0) - Math.min(lengthGap, 8),
+        tie: tieBreakers.get(key) ?? 0,
+      };
+    })
+    .sort((a, b) => b.score - a.score || a.tie - b.tie)
+    .map((candidate) => candidate.answer);
+}
+
 function buildChoices(
   correct: string,
   pool: string[],
   rand: () => number,
 ): { choices: string[]; answer: number } {
-  const uniquePool = shuffle(
-    [...new Set(pool.filter((p) => p && p !== correct))],
-    rand,
+  const uniquePool = pool.filter(
+    (candidate, index) =>
+      candidate &&
+      normaliseChoice(candidate) !== normaliseChoice(correct) &&
+      pool.findIndex((item) => normaliseChoice(item) === normaliseChoice(candidate)) === index,
   ).slice(0, 3);
-  while (uniquePool.length < 3) uniquePool.push(`${correct}${"*".repeat(uniquePool.length + 1)}`);
+  const fallback = relatedAnswerGroups.flat().filter(
+    (candidate) =>
+      normaliseChoice(candidate) !== normaliseChoice(correct) &&
+      !uniquePool.some((item) => normaliseChoice(item) === normaliseChoice(candidate)),
+  );
+  while (uniquePool.length < 3 && fallback.length > 0) {
+    const candidate = fallback.shift();
+    if (candidate) uniquePool.push(candidate);
+  }
   const choices = shuffle([correct, ...uniquePool], rand);
   return { choices, answer: choices.indexOf(correct) };
 }
@@ -95,7 +198,6 @@ function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Questi
     const [q, a] = line.split("|");
     return { q: (q ?? "").trim(), a: (a ?? "").trim() };
   });
-  const pool = pairs.map((p) => p.a);
   const out: Question[] = [];
 
   const label = {
@@ -104,7 +206,7 @@ function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Questi
   };
 
   for (const pair of pairs) {
-    const built = buildChoices(pair.a, pool, rand);
+    const built = buildChoices(pair.a, rankFactDistractors(pair, pairs, rand), rand);
     out.push({ id: 0, prompt: pair.q, ...built });
   }
 
@@ -119,7 +221,7 @@ function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Questi
         ...built,
       });
     } else {
-      const built = buildChoices(pair.a, pool, rand);
+      const built = buildChoices(pair.a, rankFactDistractors(pair, pairs, rand), rand);
       out.push({
         id: 0,
         prompt: `${pair.q} (${label.hint}: ${maskAnswer(word)})`,
@@ -131,7 +233,7 @@ function factQuestions(facts: string[], seed: number, lang: "bm" | "en"): Questi
   const revise = lang === "bm" ? "Ulang kaji" : "Revision";
   const startsWith = lang === "bm" ? "jawapan bermula dengan" : "the answer starts with";
   for (const pair of pairs) {
-    const built = buildChoices(pair.a, pool, rand);
+    const built = buildChoices(pair.a, rankFactDistractors(pair, pairs, rand), rand);
     out.push({
       id: 0,
       prompt: `${revise}: ${pair.q} (${startsWith} '${pair.a.charAt(0)}')`,
